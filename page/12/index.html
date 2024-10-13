@@ -217,6 +217,74 @@
 
 
   
+    <article id="post-JS脚本" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/jackasher36/Blog.git/2024/04/07/JS%E8%84%9A%E6%9C%AC/">JS脚本</a>
+    </h1>
+  
+
+        
+        <a href="/jackasher36/Blog.git/2024/04/07/JS%E8%84%9A%E6%9C%AC/" class="archive-article-date">
+  	<time datetime="2024-04-06T17:53:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="JS脚本"><a href="#JS脚本" class="headerlink" title="JS脚本"></a>JS脚本</h1><p>这是展开b站的所有评论</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">var</span> <span class="variable">btn</span> <span class="operator">=</span> document.getElementsByClassName(<span class="string">&quot;view-more-btn&quot;</span>)</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">var</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; btn.length; i ++)&#123;</span><br><span class="line">            btn[i].click()</span><br><span class="line">        &#125;</span><br><span class="line"><span class="comment">//可以展开哔哩哔哩的所有评论</span></span><br></pre></td></tr></table></figure>
+
+<p>这是模拟向下滑动加载出所有的评论</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义滚动到底部的函数</span></span><br><span class="line">function <span class="title function_">scrollToBottom</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 获取文档的高度</span></span><br><span class="line">    <span class="type">var</span> <span class="variable">documentHeight</span> <span class="operator">=</span> document.documentElement.scrollHeight;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取当前视口的高度</span></span><br><span class="line">    <span class="type">var</span> <span class="variable">viewportHeight</span> <span class="operator">=</span> window.innerHeight;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 计算需要滚动的距离</span></span><br><span class="line">    <span class="type">var</span> <span class="variable">scrollDistance</span> <span class="operator">=</span> documentHeight - viewportHeight;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 模拟滚动到页面底部</span></span><br><span class="line">    window.scrollTo(<span class="number">0</span>, scrollDistance);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 在滚动到底部后检查是否加载了新的评论</span></span><br><span class="line">    setTimeout(checkNewComments, <span class="number">1000</span>); <span class="comment">// 在滚动到底部后延迟1秒检查新评论</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 检查页面中是否加载了新的评论</span></span><br><span class="line">function <span class="title function_">checkNewComments</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 获取最后一个评论元素（假设最后一个评论元素的选择器为 .comment）</span></span><br><span class="line">    <span class="type">var</span> <span class="variable">lastComment</span> <span class="operator">=</span> document.querySelector(<span class="string">&#x27;.comment:last-child&#x27;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果最后一个评论元素存在，说明加载了新的评论，继续执行滚动操作</span></span><br><span class="line">    <span class="keyword">if</span> (lastComment) &#123;</span><br><span class="line">        scrollToBottom(); <span class="comment">// 继续执行滚动操作</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        clearInterval(scrollInterval); <span class="comment">// 如果最后一个评论元素不存在，停止执行滚动操作</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置定时器，每隔一段时间执行一次滚动操作</span></span><br><span class="line"><span class="type">var</span> <span class="variable">scrollInterval</span> <span class="operator">=</span> setInterval(scrollToBottom, <span class="number">2000</span>); <span class="comment">// 每隔2秒执行一次滚动操作</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/jackasher36/Blog.git/2024/04/07/JS%E8%84%9A%E6%9C%AC/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-JS爬哔哩哔哩全部评论" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -266,74 +334,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/jackasher36/Blog.git/2024/04/07/JS%E7%88%AC%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E5%85%A8%E9%83%A8%E8%AF%84%E8%AE%BA/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-JS脚本" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/jackasher36/Blog.git/2024/04/07/JS%E8%84%9A%E6%9C%AC/">JS脚本</a>
-    </h1>
-  
-
-        
-        <a href="/jackasher36/Blog.git/2024/04/07/JS%E8%84%9A%E6%9C%AC/" class="archive-article-date">
-  	<time datetime="2024-04-06T17:53:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="JS脚本"><a href="#JS脚本" class="headerlink" title="JS脚本"></a>JS脚本</h1><p>这是展开b站的所有评论</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">var</span> <span class="variable">btn</span> <span class="operator">=</span> document.getElementsByClassName(<span class="string">&quot;view-more-btn&quot;</span>)</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">var</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; btn.length; i ++)&#123;</span><br><span class="line">            btn[i].click()</span><br><span class="line">        &#125;</span><br><span class="line"><span class="comment">//可以展开哔哩哔哩的所有评论</span></span><br></pre></td></tr></table></figure>
-
-<p>这是模拟向下滑动加载出所有的评论</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义滚动到底部的函数</span></span><br><span class="line">function <span class="title function_">scrollToBottom</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 获取文档的高度</span></span><br><span class="line">    <span class="type">var</span> <span class="variable">documentHeight</span> <span class="operator">=</span> document.documentElement.scrollHeight;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取当前视口的高度</span></span><br><span class="line">    <span class="type">var</span> <span class="variable">viewportHeight</span> <span class="operator">=</span> window.innerHeight;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 计算需要滚动的距离</span></span><br><span class="line">    <span class="type">var</span> <span class="variable">scrollDistance</span> <span class="operator">=</span> documentHeight - viewportHeight;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 模拟滚动到页面底部</span></span><br><span class="line">    window.scrollTo(<span class="number">0</span>, scrollDistance);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 在滚动到底部后检查是否加载了新的评论</span></span><br><span class="line">    setTimeout(checkNewComments, <span class="number">1000</span>); <span class="comment">// 在滚动到底部后延迟1秒检查新评论</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 检查页面中是否加载了新的评论</span></span><br><span class="line">function <span class="title function_">checkNewComments</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 获取最后一个评论元素（假设最后一个评论元素的选择器为 .comment）</span></span><br><span class="line">    <span class="type">var</span> <span class="variable">lastComment</span> <span class="operator">=</span> document.querySelector(<span class="string">&#x27;.comment:last-child&#x27;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果最后一个评论元素存在，说明加载了新的评论，继续执行滚动操作</span></span><br><span class="line">    <span class="keyword">if</span> (lastComment) &#123;</span><br><span class="line">        scrollToBottom(); <span class="comment">// 继续执行滚动操作</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        clearInterval(scrollInterval); <span class="comment">// 如果最后一个评论元素不存在，停止执行滚动操作</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置定时器，每隔一段时间执行一次滚动操作</span></span><br><span class="line"><span class="type">var</span> <span class="variable">scrollInterval</span> <span class="operator">=</span> setInterval(scrollToBottom, <span class="number">2000</span>); <span class="comment">// 每隔2秒执行一次滚动操作</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/jackasher36/Blog.git/2024/04/07/JS%E8%84%9A%E6%9C%AC/">展开全文 >></a>
         </p>
       
 
@@ -712,6 +712,82 @@ response.setContext(&quot;text/html;charset=utf-8&quot;);
 
 
   
+    <article id="post-Servlet注解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/jackasher36/Blog.git/2024/04/07/Servlet%E6%B3%A8%E8%A7%A3/">Servlet注解</a>
+    </h1>
+  
+
+        
+        <a href="/jackasher36/Blog.git/2024/04/07/Servlet%E6%B3%A8%E8%A7%A3/" class="archive-article-date">
+  	<time datetime="2024-04-06T17:53:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Servlet注解"><a href="#Servlet注解" class="headerlink" title="Servlet注解"></a>Servlet注解</h1><ul>
+<li>注解格式  @_注解名称(name &#x3D; value)</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@WebServlet(name = &quot;hello&quot;, urlpatterns = &#123;&quot;/hello&quot;&#125;, loadOnStartup = 1, initParams = &#123;@WebInitParam(name = &quot;driver&quot;, value = &quot;&quot;), @WebInitParam(name = &quot;driver&quot;, value = &quot;&quot;) )</span>;</span><br><span class="line">                                                                                       </span><br><span class="line">简单配置即可</span><br><span class="line">  <span class="meta">@WebServlet(name = &quot;list&quot;, urlpatterns&#123;&quot;/hello&quot;&#125;)</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>有个更简单的</p>
+</li>
+<li><pre><code class="java">@WebServlet(&quot;/hello&quot;);
+</code></pre>
+</li>
+<li><h1 id="但本质其实都是web-xml"><a href="#但本质其实都是web-xml" class="headerlink" title="但本质其实都是web.xml"></a>但本质其实都是web.xml</h1></li>
+<li><p>但本质其实都是web.xml</p>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/jackasher36/Blog.git/2024/04/07/Servlet%E6%B3%A8%E8%A7%A3/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Session" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -843,82 +919,6 @@ timeout=20
       
         <p class="article-more-link">
           <a class="article-more-a" href="/jackasher36/Blog.git/2024/04/07/Session/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Servlet注解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/jackasher36/Blog.git/2024/04/07/Servlet%E6%B3%A8%E8%A7%A3/">Servlet注解</a>
-    </h1>
-  
-
-        
-        <a href="/jackasher36/Blog.git/2024/04/07/Servlet%E6%B3%A8%E8%A7%A3/" class="archive-article-date">
-  	<time datetime="2024-04-06T17:53:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Servlet注解"><a href="#Servlet注解" class="headerlink" title="Servlet注解"></a>Servlet注解</h1><ul>
-<li>注解格式  @_注解名称(name &#x3D; value)</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@WebServlet(name = &quot;hello&quot;, urlpatterns = &#123;&quot;/hello&quot;&#125;, loadOnStartup = 1, initParams = &#123;@WebInitParam(name = &quot;driver&quot;, value = &quot;&quot;), @WebInitParam(name = &quot;driver&quot;, value = &quot;&quot;) )</span>;</span><br><span class="line">                                                                                       </span><br><span class="line">简单配置即可</span><br><span class="line">  <span class="meta">@WebServlet(name = &quot;list&quot;, urlpatterns&#123;&quot;/hello&quot;&#125;)</span>;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>有个更简单的</p>
-</li>
-<li><pre><code class="java">@WebServlet(&quot;/hello&quot;);
-</code></pre>
-</li>
-<li><h1 id="但本质其实都是web-xml"><a href="#但本质其实都是web-xml" class="headerlink" title="但本质其实都是web.xml"></a>但本质其实都是web.xml</h1></li>
-<li><p>但本质其实都是web.xml</p>
-</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/jackasher36/Blog.git/2024/04/07/Servlet%E6%B3%A8%E8%A7%A3/">展开全文 >></a>
         </p>
       
 
