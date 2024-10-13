@@ -712,82 +712,6 @@ response.setContext(&quot;text/html;charset=utf-8&quot;);
 
 
   
-    <article id="post-Servlet注解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/jackasher36/Blog.git/2024/04/07/Servlet%E6%B3%A8%E8%A7%A3/">Servlet注解</a>
-    </h1>
-  
-
-        
-        <a href="/jackasher36/Blog.git/2024/04/07/Servlet%E6%B3%A8%E8%A7%A3/" class="archive-article-date">
-  	<time datetime="2024-04-06T17:53:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Servlet注解"><a href="#Servlet注解" class="headerlink" title="Servlet注解"></a>Servlet注解</h1><ul>
-<li>注解格式  @_注解名称(name &#x3D; value)</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@WebServlet(name = &quot;hello&quot;, urlpatterns = &#123;&quot;/hello&quot;&#125;, loadOnStartup = 1, initParams = &#123;@WebInitParam(name = &quot;driver&quot;, value = &quot;&quot;), @WebInitParam(name = &quot;driver&quot;, value = &quot;&quot;) )</span>;</span><br><span class="line">                                                                                       </span><br><span class="line">简单配置即可</span><br><span class="line">  <span class="meta">@WebServlet(name = &quot;list&quot;, urlpatterns&#123;&quot;/hello&quot;&#125;)</span>;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>有个更简单的</p>
-</li>
-<li><pre><code class="java">@WebServlet(&quot;/hello&quot;);
-</code></pre>
-</li>
-<li><h1 id="但本质其实都是web-xml"><a href="#但本质其实都是web-xml" class="headerlink" title="但本质其实都是web.xml"></a>但本质其实都是web.xml</h1></li>
-<li><p>但本质其实都是web.xml</p>
-</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/jackasher36/Blog.git/2024/04/07/Servlet%E6%B3%A8%E8%A7%A3/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-Session" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -919,6 +843,82 @@ timeout=20
       
         <p class="article-more-link">
           <a class="article-more-a" href="/jackasher36/Blog.git/2024/04/07/Session/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Servlet注解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/jackasher36/Blog.git/2024/04/07/Servlet%E6%B3%A8%E8%A7%A3/">Servlet注解</a>
+    </h1>
+  
+
+        
+        <a href="/jackasher36/Blog.git/2024/04/07/Servlet%E6%B3%A8%E8%A7%A3/" class="archive-article-date">
+  	<time datetime="2024-04-06T17:53:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Servlet注解"><a href="#Servlet注解" class="headerlink" title="Servlet注解"></a>Servlet注解</h1><ul>
+<li>注解格式  @_注解名称(name &#x3D; value)</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@WebServlet(name = &quot;hello&quot;, urlpatterns = &#123;&quot;/hello&quot;&#125;, loadOnStartup = 1, initParams = &#123;@WebInitParam(name = &quot;driver&quot;, value = &quot;&quot;), @WebInitParam(name = &quot;driver&quot;, value = &quot;&quot;) )</span>;</span><br><span class="line">                                                                                       </span><br><span class="line">简单配置即可</span><br><span class="line">  <span class="meta">@WebServlet(name = &quot;list&quot;, urlpatterns&#123;&quot;/hello&quot;&#125;)</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>有个更简单的</p>
+</li>
+<li><pre><code class="java">@WebServlet(&quot;/hello&quot;);
+</code></pre>
+</li>
+<li><h1 id="但本质其实都是web-xml"><a href="#但本质其实都是web-xml" class="headerlink" title="但本质其实都是web.xml"></a>但本质其实都是web.xml</h1></li>
+<li><p>但本质其实都是web.xml</p>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/jackasher36/Blog.git/2024/04/07/Servlet%E6%B3%A8%E8%A7%A3/">展开全文 >></a>
         </p>
       
 
