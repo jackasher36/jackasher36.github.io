@@ -146,6 +146,956 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Linux命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/09/28/Linux%E5%91%BD%E4%BB%A4/">Linux命令</a>
+    </h1>
+  
+
+        
+        <a href="/2024/09/28/Linux%E5%91%BD%E4%BB%A4/" class="archive-article-date">
+  	<time datetime="2024-09-28T15:46:01.684Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-09-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-09-28 Saturday 23:46:01<br>Author: Jackasher</p>
+<h1 id="Linux命令"><a href="#Linux命令" class="headerlink" title="Linux命令"></a>Linux命令</h1><h2 id="防火墙命令"><a href="#防火墙命令" class="headerlink" title="防火墙命令"></a>防火墙命令</h2><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo firewall-<span class="built_in">cmd</span> --list-all</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://p.ipic.vip/hh4ku7.png" alt="image-20240924033031611"></p>
+<h2 id="防火墙增加端口"><a href="#防火墙增加端口" class="headerlink" title="防火墙增加端口"></a>防火墙增加端口</h2><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo firewall-<span class="built_in">cmd</span> --add-port=<span class="number">5672</span>/tcp --permanent</span><br><span class="line">sudo firewall-<span class="built_in">cmd</span> --reload</span><br></pre></td></tr></table></figure>
+
+<h2 id="RabbitMq安装"><a href="#RabbitMq安装" class="headerlink" title="RabbitMq安装"></a>RabbitMq安装</h2><p>直接yum下载rabbitmq-server,然后配置环境变量后,启动,打开15672端口,打开插件</p>
+<p><img src="https://p.ipic.vip/bn95xi.png" alt="image-20240924034229189"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/09/28/Linux%E5%91%BD%E4%BB%A4/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-软件自动化测试" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/09/23/%E8%BD%AF%E4%BB%B6%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/">软件自动化测试</a>
+    </h1>
+  
+
+        
+        <a href="/2024/09/23/%E8%BD%AF%E4%BB%B6%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/" class="archive-article-date">
+  	<time datetime="2024-09-23T12:23:01.216Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-09-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-09-23 Monday 20:23:01<br>Author: Jackasher</p>
+<h1 id="软件自动化测试"><a href="#软件自动化测试" class="headerlink" title="软件自动化测试"></a>软件自动化测试</h1><p>本来不想做了,结果最后成功了,版本一直是对的,只是chrome有跨域问题</p>
+<p>![image-20240920003914754](&#x2F;Users&#x2F;leojackasher&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20240920003914754.png)</p>
+<p>尽管如此还是有报错,但是这不影响运行 !!!!!!!!!!!只要接着往下写,就可以运行</p>
+<p><img src="https://p.ipic.vip/ymdkvn.png" alt="image-20240920003945544"></p>
+<p>下面是源码,注意打开新窗口是要切换到新窗口选取元素,同时今天知道了浏览器可以获取Xpath和Selector,还有JS路径,太方便了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.example;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.openqa.selenium.By;</span><br><span class="line"><span class="keyword">import</span> org.openqa.selenium.WebDriver;</span><br><span class="line"><span class="keyword">import</span> org.openqa.selenium.WebElement;</span><br><span class="line"><span class="keyword">import</span> org.openqa.selenium.chrome.ChromeDriver;</span><br><span class="line"><span class="keyword">import</span> org.openqa.selenium.chrome.ChromeOptions;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Set;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span>: BaiduSearch</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: LiShuai</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@create</span>: 2021-07-12 15:14</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BaiduSearch</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 访问的目标地址</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">URL</span> <span class="operator">=</span> <span class="string">&quot;https://shop.aircheng.com/&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">test</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 设置 ChromeDriver 路径</span></span><br><span class="line">        System.setProperty(<span class="string">&quot;webdriver.chrome.driver&quot;</span>, <span class="string">&quot;/Users/leojackasher/Download/Compressed/chromedriver-mac-arm64 3/chromedriver&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">ChromeOptions</span> <span class="variable">options</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ChromeOptions</span>();</span><br><span class="line">        options.addArguments(<span class="string">&quot;--remote-allow-origins=*&quot;</span>);</span><br><span class="line">        options.setBinary(<span class="string">&quot;/Users/leojackasher/Download/Compressed/chrome-mac-arm64 2/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 定义驱动对象为 ChromeDriver</span></span><br><span class="line">        <span class="type">WebDriver</span> <span class="variable">driver</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ChromeDriver</span>(options);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 打开目标网站</span></span><br><span class="line">        driver.get(URL);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 隐式等待，确保页面元素加载完成</span></span><br><span class="line">        driver.manage().timeouts().implicitlyWait(<span class="number">10</span>, TimeUnit.SECONDS);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 找到并点击第一个元素</span></span><br><span class="line">        <span class="type">WebElement</span> <span class="variable">firstElement</span> <span class="operator">=</span> driver.findElement(By.xpath(<span class="string">&quot;/html/body/header/div[2]/div/div/div[1]/ul/li[1]/div[1]/a[1]&quot;</span>));</span><br><span class="line">        firstElement.click();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 等待几秒钟以确保页面加载</span></span><br><span class="line">        Thread.sleep(<span class="number">2000</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 找到并点击第二个元素</span></span><br><span class="line">        <span class="type">WebElement</span> <span class="variable">secondElement</span> <span class="operator">=</span> driver.findElement(By.xpath(<span class="string">&quot;/html/body/div[3]/div/section[2]/section/section/ul/li[1]/a&quot;</span>));</span><br><span class="line">        secondElement.click();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 等待几秒钟以确保页面加载</span></span><br><span class="line">        Thread.sleep(<span class="number">2000</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 记录当前窗口句柄</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">originalWindow</span> <span class="operator">=</span> driver.getWindowHandle();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取所有窗口句柄</span></span><br><span class="line">        Set&lt;String&gt; handles = driver.getWindowHandles();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 找到并切换到新窗口</span></span><br><span class="line">        <span class="keyword">for</span> (String handle : handles) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!handle.equals(originalWindow)) &#123;</span><br><span class="line">                driver.switchTo().window(handle);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 在新窗口中找到并点击第三个元素</span></span><br><span class="line">        <span class="type">WebElement</span> <span class="variable">thirdElement</span> <span class="operator">=</span> driver.findElement(By.xpath(<span class="string">&quot;/html/body/div[3]/div/section[2]/section[2]/div[2]/div[1]/span&quot;</span>));</span><br><span class="line">        thirdElement.click();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 等待几秒钟以确保操作完成</span></span><br><span class="line">        Thread.sleep(<span class="number">2000</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 关闭新窗口</span></span><br><span class="line">        driver.close();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 切换回原窗口</span></span><br><span class="line">        driver.switchTo().window(originalWindow);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 继续在原窗口中执行操作</span></span><br><span class="line">        <span class="comment">// 可以在这里添加更多的操作代码</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 关闭驱动</span></span><br><span class="line">        driver.quit();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">        test();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/09/23/%E8%BD%AF%E4%BB%B6%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-查看进程命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/09/23/%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E5%91%BD%E4%BB%A4/">查看进程命令</a>
+    </h1>
+  
+
+        
+        <a href="/2024/09/23/%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E5%91%BD%E4%BB%A4/" class="archive-article-date">
+  	<time datetime="2024-09-23T12:23:01.203Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-09-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-09-23 Monday 20:23:01<br>Author: Jackasher</p>
+<h1 id="查看进程命令"><a href="#查看进程命令" class="headerlink" title="查看进程命令"></a>查看进程命令</h1><h3 id="1-ps-命令"><a href="#1-ps-命令" class="headerlink" title="1. ps 命令"></a>1. <code>ps</code> 命令</h3><p><code>ps</code> 可以显示当前正在运行的进程。结合 <code>grep</code> 可以找到指定进程的相关信息。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux | grep &lt;进程名或PID&gt;</span><br></pre></td></tr></table></figure>
+
+<p>例如，要查找名为 <code>chrome</code> 的进程：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux | grep chrome</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-top-命令"><a href="#2-top-命令" class="headerlink" title="2. top 命令"></a>2. <code>top</code> 命令</h3><p><code>top</code> 是一个实时显示系统运行状态和进程信息的工具。打开后，按 <code>o</code> 然后输入进程名，可以筛选出指定的进程。要退出 <code>top</code>，按 <code>q</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">top</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-htop-命令"><a href="#3-htop-命令" class="headerlink" title="3. htop 命令"></a>3. <code>htop</code> 命令</h3><p><code>htop</code> 是 <code>top</code> 的增强版工具，但默认不在macOS中，需要安装。安装方法：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install htop</span><br></pre></td></tr></table></figure>
+
+<p>安装后，运行 <code>htop</code>，可以更直观地查看和筛选进程。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">htop</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-lsof-命令"><a href="#4-lsof-命令" class="headerlink" title="4. lsof 命令"></a>4. <code>lsof</code> 命令</h3><p><code>lsof</code> 显示进程打开的文件列表，可以通过进程名或PID来过滤进程。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsof -c &lt;进程名&gt;</span><br></pre></td></tr></table></figure>
+
+<p>例如，要查看 <code>chrome</code> 进程相关的文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsof -c chrome</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-pgrep-命令"><a href="#5-pgrep-命令" class="headerlink" title="5. pgrep 命令"></a>5. <code>pgrep</code> 命令</h3><p><code>pgrep</code> 用来查找正在运行的进程的PID。你可以通过进程名来查找对应的PID：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pgrep &lt;进程名&gt;</span><br></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pgrep chrome</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/09/23/%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E5%91%BD%E4%BB%A4/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-设计模式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/09/23/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+    </h1>
+  
+
+        
+        <a href="/2024/09/23/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="archive-article-date">
+  	<time datetime="2024-09-23T12:22:01.859Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-09-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-09-23 Monday 20:22:01<br>Author: Jackasher</p>
+<h1 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h1><h2 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h2><p>单例模式是一种设计模式，确保一个类只有一个实例，并提供全局访问点。它在许多应用场景中都非常有用。以下是一些常见的单例应用场景：</p>
+<h3 id="1-配置管理"><a href="#1-配置管理" class="headerlink" title="1. 配置管理"></a>1. <strong>配置管理</strong></h3><ul>
+<li>在应用程序中，通常需要读取和管理配置文件。使用单例模式可以确保整个应用只加载一次配置，避免多次读取带来的开销。</li>
+<li><strong>示例</strong>：使用单例类 <code>ConfigManager</code> 读取 <code>config.properties</code> 文件，确保整个应用程序只有一个配置实例。还有SqlsessionFactoryBuilder也是如此,</li>
+</ul>
+<h3 id="2-日志管理"><a href="#2-日志管理" class="headerlink" title="2. 日志管理"></a>2. <strong>日志管理</strong></h3><ul>
+<li>日志管理器通常实现为单例，以确保所有日志记录都通过同一个实例进行，避免多个实例写入日志文件导致的混乱。</li>
+<li><strong>示例</strong>：使用单例类 <code>Logger</code> 记录日志，确保所有日志输出通过同一实例。</li>
+</ul>
+<h3 id="3-数据库连接池"><a href="#3-数据库连接池" class="headerlink" title="3. 数据库连接池"></a>3. <strong>数据库连接池</strong></h3><ul>
+<li>数据库连接池可以使用单例模式来管理连接资源，确保只有一个连接池实例来处理所有的数据库连接请求，提高性能和资源利用率。</li>
+<li><strong>示例</strong>：使用单例类 <code>ConnectionPool</code> 管理数据库连接，确保连接的复用。</li>
+</ul>
+<h3 id="4-线程池"><a href="#4-线程池" class="headerlink" title="4. 线程池"></a>4. <strong>线程池</strong></h3><ul>
+<li>线程池管理也可以使用单例模式，确保应用程序中只有一个线程池实例，这样可以有效控制线程的使用和资源分配。</li>
+<li><strong>示例</strong>：使用单例类 <code>ConnectionPool</code> 管理数据库连接，确保连接的复用。</li>
+</ul>
+<h3 id="5-全局状态管理"><a href="#5-全局状态管理" class="headerlink" title="5. 全局状态管理"></a>5. <strong>全局状态管理</strong></h3><ul>
+<li>例如，在游戏或应用中，单例可以用来管理全局状态（如游戏配置、用户设置等），确保状态的一致性。</li>
+<li><strong>示例</strong>：使用单例类 <code>GameSettings</code> 管理游戏的全局设置。</li>
+</ul>
+<h3 id="6-事件调度器"><a href="#6-事件调度器" class="headerlink" title="6. 事件调度器"></a>6. <strong>事件调度器</strong></h3><ul>
+<li>在事件驱动的应用程序中，事件调度器可以实现为单例，确保所有事件都通过同一个实例进行处理和分发。</li>
+<li><strong>示例</strong>：使用单例类 <code>GameSettings</code> 管理游戏的全局设置。还有SpringMVC的DispatchServlet</li>
+</ul>
+<h3 id="7-API-客户端"><a href="#7-API-客户端" class="headerlink" title="7. API 客户端"></a>7. <strong>API 客户端</strong></h3><ul>
+<li>对于外部服务的 API 客户端（如 RESTful API），可以使用单例模式来管理请求，确保只有一个实例负责与外部服务通信。Servlet就是单例的,所有servlet共享一个ServeletContext</li>
+</ul>
+<h3 id="8-缓存管理"><a href="#8-缓存管理" class="headerlink" title="8. 缓存管理"></a>8. <strong>缓存管理</strong></h3><ul>
+<li>缓存系统可以实现为单例，确保所有数据都通过同一个缓存实例进行存储和检索，以提高效率。</li>
+</ul>
+<h3 id="示例代码（Java）："><a href="#示例代码（Java）：" class="headerlink" title="示例代码（Java）："></a>示例代码（Java）：</h3><p>以下是一个简单的 Java 单例模式实现示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">java</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">复制代码</span><br><span class="line">public class Configuration &#123;</span><br><span class="line">    private static Configuration instance;</span><br><span class="line"></span><br><span class="line">    private Configuration() &#123;</span><br><span class="line">        // 私有构造函数，防止外部实例化</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static synchronized Configuration getInstance() &#123;</span><br><span class="line">        if (instance == null) &#123;</span><br><span class="line">            instance = new Configuration();</span><br><span class="line">        &#125;</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 配置方法</span><br><span class="line">    public void loadConfig() &#123;</span><br><span class="line">        // 加载配置逻辑</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>单例模式在许多需要确保全局唯一性和一致性的场景中都能发挥重要作用。通过合理使用单例模式，可以有效提高应用的性能、资源利用率和代码可维护性。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/09/23/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Vue图片显示失败" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/09/23/Vue%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA%E5%A4%B1%E8%B4%A5/">Vue图片显示失败</a>
+    </h1>
+  
+
+        
+        <a href="/2024/09/23/Vue%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA%E5%A4%B1%E8%B4%A5/" class="archive-article-date">
+  	<time datetime="2024-09-23T12:22:01.827Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-09-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-09-23 Monday 20:22:01<br>Author: Jackasher</p>
+<h1 id="Vue图片显示失败"><a href="#Vue图片显示失败" class="headerlink" title="Vue图片显示失败"></a>Vue图片显示失败</h1><p>首先要知道该问题,首先要知道显示图片的位置在哪里,以及怎样实现上传图片的, 下面这段负责展现列表页面</p>
+<p><img src="https://p.ipic.vip/uxilg3.png" alt="image-20240725001733485"></p>
+<p>可以看到图片信息依赖于<code>scope</code>,但是并看不出什么东西,也不知道scope是什么</p>
+<p><img src="https://p.ipic.vip/tjfgso.png" alt="image-20240725002435574"></p>
+<p>接着查看上传模块,打开修改用户的模块查看,发现这里是上传图片,上传地址是&#x2F;user&#x2F;img上传图片后,上传成功后才能执行执行<code>handleUpdateAvatarSuccess</code>和<code>saveUser</code>函数,</p>
+<p><img src="https://p.ipic.vip/jdlq4e.png" alt="image-20240725002735560"></p>
+<p>在后端查看&#x2F;user&#x2F;img的处理逻辑,其实就是把文件保存在电脑后又返回文件地址</p>
+<p><img src="https://p.ipic.vip/1z1yt8.png" alt="image-20240725003721376"></p>
+<p>接着进入到<code>handlerAvatarSucess</code>函数查看,其实就是把前面后端的返回值赋给res,也就是文件路径,</p>
+<p>this是当前对象,也就是调用该函数的组件vc,为vc的属性赋值</p>
+<p><img src="https://p.ipic.vip/yelcql.png"></p>
+<p>进入到<code>saveUser</code>查看</p>
+<p><img src="https://p.ipic.vip/1ushqi.png" alt="image-20240725002842490"></p>
+<p>发现添加信息时的信息向&#x2F;user&#x2F;add发送,继续来看后端如何处理该请求</p>
+<p><img src="https://p.ipic.vip/rftoke.png" alt="image-20240725002955202"></p>
+<p>可以看到调用了addUser方法,此时这个User对象会被放入数据库,包括刚才的url地址,以上大致就是上传图片的逻辑,</p>
+<h2 id="接着来到最重要的展示图片的方法-向服务器发-user-page的请求获取页面"><a href="#接着来到最重要的展示图片的方法-向服务器发-user-page的请求获取页面" class="headerlink" title="接着来到最重要的展示图片的方法,向服务器发&#x2F;user&#x2F;page的请求获取页面"></a><strong>接着来到最重要的展示图片的方法</strong>,向服务器发&#x2F;user&#x2F;page的请求获取页面</h2><p><img src="https://p.ipic.vip/hrv15b.png" alt="image-20240725004634192"></p>
+<p>而这是响应回来的数据</p>
+<p><img src="https://p.ipic.vip/izyllr.png" alt="image-20240725004818581"></p>
+<p>然后我们看看后端如何处理&#x2F;user&#x2F;page的请求</p>
+<p><img src="https://p.ipic.vip/us8qbf.png" alt="image-20240725004928694"></p>
+<p>注意到这个row了吗?正是前面展示image的scope.row,由此得知,这个row里面的数据一定就是关键</p>
+<p><img src="https://p.ipic.vip/6w3882.png" alt="image-20240725005015802"></p>
+<p>我们回到前端查看,是如何接受这个row的,是通过userlist来接受</p>
+<p><img src="https://p.ipic.vip/thfj9t.png" alt="image-20240725005147259"></p>
+<h3 id="然后通过输出userlist-终于发现了问题所在-这个userlist是用户数组-但唯独少了图片url的信息"><a href="#然后通过输出userlist-终于发现了问题所在-这个userlist是用户数组-但唯独少了图片url的信息" class="headerlink" title="然后通过输出userlist,终于发现了问题所在,这个userlist是用户数组,但唯独少了图片url的信息"></a>然后通过输出userlist,终于发现了问题所在,这个userlist是用户数组,但唯独少了图片url的信息</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">userlist<span class="punctuation">:</span><span class="punctuation">&#123;</span><span class="attr">&quot;total&quot;</span><span class="punctuation">:</span><span class="number">33</span><span class="punctuation">,</span><span class="attr">&quot;rows&quot;</span><span class="punctuation">:</span><span class="punctuation">[</span><span class="punctuation">&#123;</span><span class="attr">&quot;address&quot;</span><span class="punctuation">:</span><span class="string">&quot;3345&quot;</span><span class="punctuation">,</span><span class="attr">&quot;age&quot;</span><span class="punctuation">:</span><span class="number">21</span><span class="punctuation">,</span><span class="attr">&quot;createBy&quot;</span><span class="punctuation">:</span><span class="string">&quot;admin&quot;</span><span class="punctuation">,</span><span class="attr">&quot;createTime&quot;</span><span class="punctuation">:</span><span class="string">&quot;2024-07-15T15:15:35&quot;</span><span class="punctuation">,</span><span class="attr">&quot;id&quot;</span><span class="punctuation">:</span><span class="number">1</span><span class="punctuation">,</span><span class="attr">&quot;password&quot;</span><span class="punctuation">:</span><span class="string">&quot;123456&quot;</span><span class="punctuation">,</span><span class="attr">&quot;sex&quot;</span><span class="punctuation">:</span><span class="string">&quot;男&quot;</span><span class="punctuation">,</span><span class="attr">&quot;username&quot;</span><span class="punctuation">:</span><span class="string">&quot;admin&quot;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span><span class="punctuation">&#123;</span><span class="attr">&quot;address&quot;</span><span class="punctuation">:</span><span class="string">&quot;34&quot;</span><span class="punctuation">,</span><span class="attr">&quot;age&quot;</span><span class="punctuation">:</span><span class="number">22</span><span class="punctuation">,</span><span class="attr">&quot;createBy&quot;</span><span class="punctuation">:</span><span class="string">&quot;杜&quot;</span><span class="punctuation">,</span><span class="attr">&quot;createTime&quot;</span><span class="punctuation">:</span><span class="string">&quot;2024-07-21T09:16:04&quot;</span><span class="punctuation">,</span><span class="attr">&quot;id&quot;</span><span class="punctuation">:</span><span class="number">2</span><span class="punctuation">,</span><span class="attr">&quot;password&quot;</span><span class="punctuation">:</span><span class="string">&quot;234567&quot;</span><span class="punctuation">,</span><span class="attr">&quot;sex&quot;</span><span class="punctuation">:</span><span class="string">&quot;男&quot;</span><span class="punctuation">,</span><span class="attr">&quot;username&quot;</span><span class="punctuation">:</span><span class="string">&quot;李建林&quot;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span><span class="punctuation">&#123;</span><span class="attr">&quot;address&quot;</span><span class="punctuation">:</span><span class="string">&quot;345&quot;</span><span class="punctuation">,</span><span class="attr">&quot;age&quot;</span><span class="punctuation">:</span><span class="number">22</span><span class="punctuation">,</span><span class="attr">&quot;createBy&quot;</span><span class="punctuation">:</span><span class="string">&quot;杜&quot;</span><span class="punctuation">,</span><span class="attr">&quot;createTime&quot;</span><span class="punctuation">:</span><span class="string">&quot;2024-07-21T09:16:36&quot;</span><span class="punctuation">,</span><span class="attr">&quot;id&quot;</span><span class="punctuation">:</span><span class="number">3</span><span class="punctuation">,</span><span class="attr">&quot;password&quot;</span><span class="punctuation">:</span><span class="string">&quot;345678&quot;</span><span class="punctuation">,</span><span class="attr">&quot;sex&quot;</span><span class="punctuation">:</span><span class="string">&quot;男&quot;</span><span class="punctuation">,</span><span class="attr">&quot;username&quot;</span><span class="punctuation">:</span><span class="string">&quot;李皓宇&quot;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span><span class="punctuation">&#123;</span><span class="attr">&quot;address&quot;</span><span class="punctuation">:</span><span class="string">&quot;345&quot;</span><span class="punctuation">,</span><span class="attr">&quot;age&quot;</span><span class="punctuation">:</span><span class="number">22</span><span class="punctuation">,</span><span class="attr">&quot;createBy&quot;</span><span class="punctuation">:</span><span class="string">&quot;杜&quot;</span><span class="punctuation">,</span><span class="attr">&quot;createTime&quot;</span><span class="punctuation">:</span><span class="string">&quot;2024-07-21T09:17:01&quot;</span><span class="punctuation">,</span><span class="attr">&quot;id&quot;</span><span class="punctuation">:</span><span class="number">4</span><span class="punctuation">,</span><span class="attr">&quot;password&quot;</span><span class="punctuation">:</span><span class="string">&quot;456789&quot;</span><span class="punctuation">,</span><span class="attr">&quot;sex&quot;</span><span class="punctuation">:</span><span class="string">&quot;男&quot;</span><span class="punctuation">,</span><span class="attr">&quot;username&quot;</span><span class="punctuation">:</span><span class="string">&quot;吴扬&quot;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span><span class="punctuation">&#123;</span><span class="attr">&quot;address&quot;</span><span class="punctuation">:</span><span class="string">&quot;345&quot;</span><span class="punctuation">,</span><span class="attr">&quot;age&quot;</span><span class="punctuation">:</span><span class="number">22</span><span class="punctuation">,</span><span class="attr">&quot;createBy&quot;</span><span class="punctuation">:</span><span class="string">&quot;杜&quot;</span><span class="punctuation">,</span><span class="attr">&quot;createTime&quot;</span><span class="punctuation">:</span><span class="string">&quot;2024-07-21T09:17:20&quot;</span><span class="punctuation">,</span><span class="attr">&quot;id&quot;</span><span class="punctuation">:</span><span class="number">5</span><span class="punctuation">,</span><span class="attr">&quot;password&quot;</span><span class="punctuation">:</span><span class="string">&quot;567890&quot;</span><span class="punctuation">,</span><span class="attr">&quot;sex&quot;</span><span class="punctuation">:</span><span class="string">&quot;男&quot;</span><span class="punctuation">,</span><span class="attr">&quot;username&quot;</span><span class="punctuation">:</span><span class="string">&quot;吴震&quot;</span><span class="punctuation">&#125;</span><span class="punctuation">]</span><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>可以正常查询到数据库的信息但是没有返回URL字段,一定是查询数据库环节有问题,前面提到后端通过<code>pageUser.getRecords()</code>似乎就获取到了数据库信息,并封装在了row里面,<strong>怎么怎么做到的 ?怎么查询的 ?sql语句是什么 ?</strong></p>
+<p><img src="https://p.ipic.vip/3knixt.png" alt="image-20240725005821654"></p>
+<p>经过摸索,<code>pageUser.getRecords()</code>是mybatis-plus的插件方法,而mybatis可以自动为你生成sql语句,也就是<code>select * from user</code> ,这也意味着所有的mapper.xml都不用看了,mybatis不会使用这些语句,可是为什么<code>select * from user</code> 唯独没有返回img_url字段? 理应获取所有字段呀?</p>
+<p>有没有思考过,通过mybatis框架返回的数据,都会使用类来接受,这也是配置type属性的原因</p>
+<p><img src="https://p.ipic.vip/fq8upo.png" alt="image-20240725010532042"></p>
+<p>那这个类如何才能接受到mybatis返回的数据 ?,有两种,通过set方法或者构造器</p>
+<ul>
+<li>user.setName(“name”)</li>
+<li>new user(“name”)</li>
+</ul>
+<p>可是数据库的字段名是<code>img_url</code>,mybatis怎么会知道你的set方法名字是什么?如何通过set方法为user类赋值 ?只能够靠默认规则,即将_去掉,第二个字母大写,即setImgUrl,可是User里面的字段是img_url</p>
+<p><img src="https://p.ipic.vip/0pztbs.png" alt="image-20240725012643565"></p>
+<p> 对应的set方法是setImg_url,而mybatis试图调用setImgUrl,所以无法将图片地址赋值给user类,因此查出来的图片地址就为null,</p>
+<p><img src="https://p.ipic.vip/fhacmq.png" alt="image-20240725012719253"></p>
+<p>最后只要把字段名改成imgUrl就解决问题</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/09/23/Vue%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA%E5%A4%B1%E8%B4%A5/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Spring理解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/09/23/Spring%E7%90%86%E8%A7%A3/">Spring理解</a>
+    </h1>
+  
+
+        
+        <a href="/2024/09/23/Spring%E7%90%86%E8%A7%A3/" class="archive-article-date">
+  	<time datetime="2024-09-23T12:22:01.810Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-09-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-09-23 Monday 20:22:01<br>Author: Jackasher</p>
+<h1 id="Spring理解"><a href="#Spring理解" class="headerlink" title="Spring理解"></a>Spring理解</h1><p>我想起刚开始学习MVC的痛苦了, 刚开始的时候,还是Thymeleaf视图解析, 需要有页面跳转,配置一堆东西,根本看不懂,什么过滤器,视图解析,静态资源处理,组件扫描,还有表单隐藏作用域</p>
+<p>过滤器和拦截器是不同的,可以采用普通的Filter注册到Spring,也可以用MVC提供的拦截器,这种拦截器过滤器, 都需要指定,默认容器不会执行, 视图解析不需要了,静态资源默认在static下了,组件扫描在Mvc的配置类上,自动配置了表单作用域的处理类</p>
+<p>通常web容器需要一个web.xml文件,但是,Servlet3提出了注解配置,采用类来配置,这个类就是ServletContainerInitializer,Spring通过实现这个接口来取消了web.xml配置,</p>
+<p><img src="https://p.ipic.vip/r3ihri.png" alt="image-20240919144136265"></p>
+<h3 id="依靠这种方法-我们就知道SpringMVC如何简化配置了"><a href="#依靠这种方法-我们就知道SpringMVC如何简化配置了" class="headerlink" title="依靠这种方法,我们就知道SpringMVC如何简化配置了"></a><strong>依靠这种方法,我们就知道<code>SpringMVC</code>如何简化配置了</strong></h3><p><img src="https://p.ipic.vip/s9eqe5.png" alt="image-20240919144512932"></p>
+<p>**<code>WebAppInitializer</code>**就负责配置Spring,MVC,Mybatis,最初是在web.xml里面指定mvc的配置文件位置,现在是在AbstractAnnotationConfigDispatcherServletInitializer子类里面指定mvc路径,该子类代替了web.xml,是Servlet层的接口,Spring提供,而WebMvcConfigurer是Spring里面配置拦截器的,脱离Servlet的接口</p>
+<p><img src="https://p.ipic.vip/s8c9sb.png" alt="image-20240919145646625"></p>
+<h3 id="这段DOCTYPE的声明只是为了idea可以有语法提示-不写也没有问题"><a href="#这段DOCTYPE的声明只是为了idea可以有语法提示-不写也没有问题" class="headerlink" title="这段DOCTYPE的声明只是为了idea可以有语法提示,不写也没有问题"></a>这段DOCTYPE的声明只是为了idea可以有语法提示,不写也没有问题</h3><p><img src="https://p.ipic.vip/6jxino.png" alt="image-20240919150721457"></p>
+<h2 id="AOP"><a href="#AOP" class="headerlink" title="AOP"></a>AOP</h2><p>静态代理就是和原始类实现同一个接口,然后把原始类作为属性注入后,在方法里调用原始类的方法,Spring中的AOP调用时,已经是代理对象了,AOP的核心其实就是,什么方法执行什么切面</p>
+<p><img src="https://p.ipic.vip/0kck7c.png" alt="image-20240920150551912"></p>
+<p>切面的定义需要实现<code>MethodBeforeAdvice</code>或者<code>MethodIntercepter</code></p>
+<p>在 Spring AOP 中，<code>MethodInvocation</code> 是 <code>org.aopalliance.intercept.MethodInvocation</code> 接口的一个实现类，用于封装一个<strong>方法调用</strong>，并且提供对该方法调用过程的控制。它在 Spring AOP 的动态代理机制中起到了核心作用，特别是当你定义了切面（Aspect）时，Spring 使用它来处理方法的拦截、增强以及最终的调用。</p>
+<h3 id="MethodInvocation-包装了以下内容："><a href="#MethodInvocation-包装了以下内容：" class="headerlink" title="MethodInvocation 包装了以下内容："></a><code>MethodInvocation</code> 包装了以下内容：</h3><ol>
+<li><strong>被代理对象（Target Object）</strong>：<ul>
+<li><code>MethodInvocation</code> 中包含了目标对象（即正在被代理的原始对象）。当一个方法被代理时，这个对象就是被拦截的目标对象。</li>
+</ul>
+</li>
+<li><strong>被调用的方法（Method）</strong>：<ul>
+<li><code>MethodInvocation</code> 包装了目标对象上的那个具体的 <code>Method</code> 实例，它代表了要执行的业务逻辑方法。你可以通过 <code>getMethod()</code> 方法获取该被调用的方法。</li>
+</ul>
+</li>
+<li><strong>方法的参数（Arguments）</strong>：<ul>
+<li>被调用的方法的参数也被封装在 <code>MethodInvocation</code> 中，使用 <code>getArguments()</code> 方法可以获取到传递给目标方法的参数列表。</li>
+</ul>
+</li>
+<li><strong>拦截器链（Interceptor Chain）</strong>：<ul>
+<li><code>MethodInvocation</code> 还包装了执行增强逻辑的拦截器链（Advice Chain）。这些拦截器按照顺序执行，最后才执行目标方法本身。拦截器通常包含前置通知（Before Advice）、后置通知（After Advice）等增强逻辑。</li>
+</ul>
+</li>
+<li><strong>代理对象（Proxy Object）</strong>：<ul>
+<li><code>MethodInvocation</code> 中可以包含代理对象本身，这是由 Spring AOP 生成的动态代理，它负责管理代理过程中的方法调用和增强处理。</li>
+</ul>
+</li>
+</ol>
+<h3 id="执行过程"><a href="#执行过程" class="headerlink" title="执行过程"></a>执行过程</h3><p>当代理对象的方法被调用时，<code>MethodInvocation</code> 会依次调用拦截器链中的增强逻辑，最终通过 <code>proceed()</code> 方法执行目标方法。这个 <code>proceed()</code> 方法实际上会继续调用下一个拦截器或最终的目标方法。</p>
+<h3 id="核心方法"><a href="#核心方法" class="headerlink" title="核心方法"></a>核心方法</h3><ol>
+<li><strong><code>proceed()</code></strong>:<ul>
+<li>负责向下执行拦截器链，最终调用被包装的目标方法。</li>
+</ul>
+</li>
+<li><strong><code>getMethod()</code></strong>:<ul>
+<li>获取当前调用的方法实例。</li>
+</ul>
+</li>
+<li><strong><code>getArguments()</code></strong>:<ul>
+<li>获取方法调用的参数。</li>
+</ul>
+</li>
+<li><strong><code>getThis()</code></strong>:<ul>
+<li>返回被代理的对象。</li>
+</ul>
+</li>
+</ol>
+<p>通过 <code>MethodInvocation</code>，Spring AOP 可以灵活地在方法调用之前、之后甚至替代方法本身来执行增强逻辑。这种设计使得切面（Aspect）可以无缝地和业务逻辑解耦，同时又不影响业务方法的执行。</p>
+<h2 id="Aop的切点表达式"><a href="#Aop的切点表达式" class="headerlink" title="Aop的切点表达式"></a><code>Aop</code>的切点表达式</h2><p><code>* *(**)</code>分别为修饰符,方法名,和参数,一个*只可以处理一个包,如果要表示后代包,需要*..,同时还有对方法切入的arg和对类切入的within</p>
+<p><img src="https://p.ipic.vip/8a9fa3.png" alt="image-20240920152620280"></p>
+<p><img src="https://p.ipic.vip/lo30zg.png" alt="image-20240920153414819"></p>
+<p>还可以采用注解方式,自定义一个注解,然后注册这个注解,该注解注解的方法就会成为切面,这个切入点函数还可以使用逻辑运算符,and 和 or, Aop依靠postProcessAfterInitialiazation来做代理,</p>
+<p><img src="https://p.ipic.vip/iwwaao.png" alt="image-20240920154216076"></p>
+<p>只要可以理解AOP是对什么方法执行什么额外功能,就明白注解怎么完成切面, 定义一个切面类,指定额外功能和切点就可以,默认是不会扫描aspect注解,所以才需要在配置文件配置</p>
+<p><img src="https://p.ipic.vip/jbb5mh.png" alt="image-20240920160029186"></p>
+<h2 id="Mybatis的整合"><a href="#Mybatis的整合" class="headerlink" title="Mybatis的整合"></a>Mybatis的整合</h2><p>Mybatis中就是在这样完成代理的,AOP和Mybatis,都是利用PostProcess,利用JDK的动态代理,  前面提到FactoryBean用来创造复杂类,可以看到他实现了以下的接口来创建SqlsessionFactory,不过我疑惑的,它并没有写配置文件,或者标注解纳入Spring容器呢</p>
+<p><img src="https://p.ipic.vip/tdpbnw.png" alt="image-20240920171748469"></p>
+<p><img src="https://p.ipic.vip/4v3ln7.png" alt="image-20240920172041153"></p>
+<p>查询后咋们知道了,是使用类来完成注册进容器的,接下来的问题就是,如何被扫描到的呢</p>
+<p>![image-20240920172517313](&#x2F;Users&#x2F;leojackasher&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20240920172517313.png)</p>
+<p>Spring对Mybatis做的事情到底是什么,我们到底想要Mybatis做的是什么,核心是mapper,mapper的方法,也就是说,Spring直接为我们提供Mapper,要什么,直接Spring容器里面取,这就是Spring做的事情,编程的核心就是数据的表达与传递,Mybatis核心的数据就是,数据源,Mapper包位置, 实体类别名,原本我们需要创建Sqlsession,需要配置文件的信息,现在这个信息交给了sqlSessionfactoryBean来生成SqlsessionFactory,而在注解开发中,不需要在主程序获取,而是直接依赖注入,这就是Spring对Mybatis的整合</p>
+<p><img src="https://p.ipic.vip/b6bdte.png" alt="image-20240920174630509"></p>
+<h2 id="Spring的注解"><a href="#Spring的注解" class="headerlink" title="Spring的注解"></a>Spring的注解</h2><p>前面提到bean的生命周期,实现InitializingBean接口,然后将其注册到Spring的容器里面,就可以在定义Bean的初始化和销毁的时候的操作,现在我们只需要在定义的类方法打上注解就可以,@PostConstruct,@PreDestory,这两个注解是javaee的标准,只是Spring兼容了</p>
+<p><img src="https://p.ipic.vip/7eajkl.png" alt="image-20240921163326949"></p>
+<h3 id="PropertySource注解"><a href="#PropertySource注解" class="headerlink" title="@PropertySource注解"></a>@PropertySource注解</h3><p>这个注解用来指定配置文件地址</p>
+<h2 id="AOP实操"><a href="#AOP实操" class="headerlink" title="AOP实操"></a>AOP实操</h2><p>本来说的是要在主类添加切面注解,但是好像只要加了Aspect可以被扫描到就可以了</p>
+<p><img src="https://p.ipic.vip/vxabbp.png" alt="image-20240922002710044"></p>
+<p>为什么不需要注册AOP驱动,因为SPringBoot帮我们做了,在AspectAutoConfiguration里面配置了</p>
+<p><img src="https://p.ipic.vip/vn8em5.png" alt="image-20240922004846439"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/09/23/Spring%E7%90%86%E8%A7%A3/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-SpringBoot理解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/09/23/SpringBoot%E7%90%86%E8%A7%A3/">SpringBoot理解</a>
+    </h1>
+  
+
+        
+        <a href="/2024/09/23/SpringBoot%E7%90%86%E8%A7%A3/" class="archive-article-date">
+  	<time datetime="2024-09-23T12:22:01.781Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-09-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-09-23 Monday 20:22:01<br>Author: Jackasher</p>
+<h1 id="SpringBoot理解"><a href="#SpringBoot理解" class="headerlink" title="SpringBoot理解"></a>SpringBoot理解</h1><p>@Configuration代表以前的配置文件,Bean注解代表Bean标签,@Import是导入类,直接把类导入到容器里面,</p>
+<p>@ConfigurationProperties, 让该组件与配置文件绑定,以prefix的前缀属性值会绑定在属性里面,</p>
+<p><img src="https://p.ipic.vip/yffr73.png" alt="image-20240919155711845"></p>
+<h2 id="SpringBoot如何自动装配"><a href="#SpringBoot如何自动装配" class="headerlink" title="SpringBoot如何自动装配"></a>SpringBoot如何自动装配</h2><ol>
+<li>导入Starter</li>
+<li>xxxAutoConfiguration生效</li>
+<li>组件</li>
+<li>xxxproperties</li>
+<li>配置文件</li>
+</ol>
+<h2 id="要将自己的框架整合进-Spring-Boot-中，可以按照以下步骤进行："><a href="#要将自己的框架整合进-Spring-Boot-中，可以按照以下步骤进行：" class="headerlink" title="要将自己的框架整合进 Spring Boot 中，可以按照以下步骤进行："></a>要将自己的框架整合进 Spring Boot 中，可以按照以下步骤进行：</h2><h3 id="1-创建-Spring-Boot-Starter"><a href="#1-创建-Spring-Boot-Starter" class="headerlink" title="1. 创建 Spring Boot Starter"></a>1. <strong>创建 Spring Boot Starter</strong></h3><p>为了让 Spring Boot 自动加载你的框架，最好的方式是创建一个<strong>Spring Boot Starter</strong>，即自定义的 Spring Boot 自动配置模块。步骤如下：</p>
+<h4 id="1-1-定义自动配置类"><a href="#1-1-定义自动配置类" class="headerlink" title="1.1 定义自动配置类"></a>1.1 <strong>定义自动配置类</strong></h4><p>在你的框架中，创建一个自动配置类，使用 <code>@Configuration</code> 注解，这样 Spring Boot 会自动配置你的框架组件。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">复制代码</span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyFrameworkAutoConfiguration</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> MyFrameworkComponent <span class="title function_">myFrameworkComponent</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">MyFrameworkComponent</span>();  <span class="comment">// 假设这是你的框架核心组件</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-2-创建-spring-factories-文件"><a href="#1-2-创建-spring-factories-文件" class="headerlink" title="1.2 创建 spring.factories 文件"></a>1.2 <strong>创建 <code>spring.factories</code> 文件</strong></h4><p>在 <code>src/main/resources/META-INF/spring</code> 目录下创建一个 org.springframework.boot.autoconfigure.AutoConfiguration.imports 文件。这个文件用于告诉 Spring Boot 在启动时加载你的自动配置类。</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="attr">org.springframework.boot.autoconfigure.EnableAutoConfiguration</span>=<span class="string">\</span></span><br><span class="line"><span class="string">com.example.myframework.MyFrameworkAutoConfiguration</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="1-3-确保你的依赖是可自动加载的"><a href="#1-3-确保你的依赖是可自动加载的" class="headerlink" title="1.3 确保你的依赖是可自动加载的"></a>1.3 <strong>确保你的依赖是可自动加载的</strong></h4><p>将你的框架打包为一个可以依赖的 jar 文件，并在 Spring Boot 项目中添加该依赖。Spring Boot 会自动扫描并加载 org.springframework.boot.autoconfigure.AutoConfiguration.imports 文件中的配置。</p>
+<h3 id="2-整合-Conditional-注解（可选）"><a href="#2-整合-Conditional-注解（可选）" class="headerlink" title="2. 整合 @Conditional 注解（可选）"></a>2. <strong>整合 <code>@Conditional</code> 注解（可选）</strong></h3><p>为了让你的框架更加灵活，可以通过 <code>@Conditional</code> 注解来控制配置是否生效，例如在某个配置项启用时才加载某些 Bean。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ConditionalOnProperty(name = &quot;myframework.enabled&quot;, havingValue = &quot;true&quot;, matchIfMissing = true)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyFrameworkAutoConfiguration</span> &#123;</span><br><span class="line">    <span class="comment">// 框架的配置</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-提供默认配置（可选）"><a href="#3-提供默认配置（可选）" class="headerlink" title="3. 提供默认配置（可选）"></a>3. <strong>提供默认配置（可选）</strong></h3><p>如果你的框架有一些默认配置，可以通过在 <code>application.properties</code> 或 <code>application.yml</code> 文件中提供默认值。</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="attr">myframework.enabled</span>=<span class="string">true</span></span><br><span class="line"><span class="attr">myframework.someProperty</span>=<span class="string">defaultValue</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-在-Spring-Boot-应用中引入你的框架"><a href="#4-在-Spring-Boot-应用中引入你的框架" class="headerlink" title="4. 在 Spring Boot 应用中引入你的框架"></a>4. <strong>在 Spring Boot 应用中引入你的框架</strong></h3><p>发布或将你的框架打包成 Maven&#x2F;Gradle 可引入的依赖，添加到 Spring Boot 项目中即可。例如：</p>
+<p><strong>Maven:</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.example<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>myframework-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>所以SpringBoot是通过读取 <code>src/main/resources/META-INF/</code> 目录下 <code>org.springframework.boot.autoconfigure.AutoConfiguration.imports</code> 文件,来纳入Spring的,</p>
+<h2 id="外部配置文件"><a href="#外部配置文件" class="headerlink" title="外部配置文件"></a>外部配置文件</h2><p>如果想要更改项目不需要重新编译,只需要引入外部配置文件,<code>/config</code>,<code>./</code>,以及运行时指定配置文件地址</p>
+<p><img src="https://p.ipic.vip/w2hlu6.png" alt="image-20240922190023203"></p>
+<h2 id="总结手写starter"><a href="#总结手写starter" class="headerlink" title="总结手写starter"></a>总结手写starter</h2><p>首先打开一个SpringBoot项目,然后删改主程序,然后定义自己的程序,最后在一个AutoConfiguration类里面引入所有的组件和配置类,配置类上的注解<code>@ConfigurationProperties(prefix = &quot;jack&quot;)</code>,用于绑定spring配置文件,jack开头的属性会被注入到属性里面</p>
+<p><img src="https://p.ipic.vip/8cn7e5.png" alt="image-20240922210104442"></p>
+<p><img src="https://p.ipic.vip/ruhfmw.png" alt="image-20240922210129756"></p>
+<p>昨天晚上弄了很久都没有搞好,反思一下,一直在程序里显示没有Jack类型的bean,只有手动导入后,才可以使用, 明明很明显的问题就是spring并没有将其注册到容器,我都没有怀疑是META-INF里面的文件出问题,因为不理解Spring的源码才会这样</p>
+<h2 id="Swagger文档"><a href="#Swagger文档" class="headerlink" title="Swagger文档"></a>Swagger文档</h2><p>之前一直很疑惑前后端的接口怎么做,谁来写,写起来不是很复杂吗,原来市面上有自动生成文档的库,而且原理不难,扫描Controller的注解就可以,我的SpringBoot是配了&#x2F;warehouse路径的,所以要访问127.0.0.1&#x2F;warehouse&#x2F;swageer-ui.html,并且要在拦截器放行所有请求,具体怎么放行,我也不知道,我只直接把拦截器给取消了</p>
+<p><img src="https://p.ipic.vip/nv4urn.png" alt="image-20240923134903649"></p>
+<p><img src="https://p.ipic.vip/nek61b.png" alt="image-20240923135101005"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/09/23/SpringBoot%E7%90%86%E8%A7%A3/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Redis Start" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/09/23/Redis%20Start/">Redis Start</a>
+    </h1>
+  
+
+        
+        <a href="/2024/09/23/Redis%20Start/" class="archive-article-date">
+  	<time datetime="2024-09-23T12:22:01.747Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-09-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-09-23 Monday 20:22:01<br>Author: Jackasher</p>
+<h1 id="Redis-Start"><a href="#Redis-Start" class="headerlink" title="Redis Start"></a>Redis Start</h1><p>Redis可以把数据存在内存中,不需要IO操作,可以操作频繁读写的数据,这是redis的一些应用,目前只用过手机验证码的过期设置</p>
+<p><img src="https://p.ipic.vip/epuf90.png" alt="image-20240923140146122"></p>
+<h2 id="远程连接"><a href="#远程连接" class="headerlink" title="远程连接"></a>远程连接</h2><p>redis默认无法远程访问,需要开放权限</p>
+<p><img src="https://p.ipic.vip/fes67a.png" alt="image-20240923191841437"></p>
+<h3 id="防火墙开放端口"><a href="#防火墙开放端口" class="headerlink" title="防火墙开放端口"></a>防火墙开放端口</h3><p>**使用 <code>firewalld</code>**（CentOS&#x2F;RHEL 7+）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo firewall-cmd --permanent --add-port=6379/tcp</span><br><span class="line">sudo firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+
+<p>最后阿里云也要开放安全组,然后使用命令连接</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -h <span class="number">8</span>.<span class="number">137</span>.<span class="number">145</span>.<span class="number">18</span> -p <span class="number">6379</span></span><br></pre></td></tr></table></figure>
+
+<p>最后完成后重启服务</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restart redis</span><br></pre></td></tr></table></figure>
+
+<h2 id="RPM包管理"><a href="#RPM包管理" class="headerlink" title="RPM包管理"></a>RPM包管理</h2><p>前面在找不到redis配置文件时,时,使用rpm可以告诉我们软件包的信息</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ql redis</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://p.ipic.vip/s33feh.png" alt="image-20240923193246071"></p>
+<h2 id="基础操作"><a href="#基础操作" class="headerlink" title="基础操作"></a>基础操作</h2><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">select</span><br><span class="line"></span><br><span class="line">//key操作</span><br><span class="line">keys *</span><br><span class="line">exists &lt;key&gt;</span><br><span class="line"><span class="built_in">type</span> &lt;key&gt;</span><br><span class="line"><span class="built_in">del</span> &lt;key&gt;</span><br><span class="line">expire &lt;key&gt;</span><br><span class="line">ttl &lt;key&gt;</span><br><span class="line"></span><br><span class="line">//数据库操作</span><br><span class="line">dbsize</span><br><span class="line">flushdb</span><br><span class="line">dlushall</span><br></pre></td></tr></table></figure>
+
+<h2 id="String数据结构操作"><a href="#String数据结构操作" class="headerlink" title="String数据结构操作"></a>String数据结构操作</h2><p>String是线程安全的,最大为512MB</p>
+<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">get &lt;key&gt;</span><br><span class="line"><span class="built_in">set</span> &lt;key&gt; &lt;value&gt;</span><br><span class="line">mget k1 k2 k3</span><br><span class="line">mset k1 v1 k2 v2</span><br><span class="line">msernx k1 v1 k2 v2</span><br><span class="line"></span><br><span class="line"><span class="built_in">append</span> &lt;key&gt; &lt;abc&gt;</span><br><span class="line">strlen key</span><br><span class="line">setnx &lt;key&gt; &lt;value&gt;</span><br><span class="line">setex k1 &lt;expiretime&gt; v1</span><br><span class="line"></span><br><span class="line">//原子操作</span><br><span class="line">incr key </span><br><span class="line">decr key</span><br></pre></td></tr></table></figure>
+
+<h2 id="List数据结构"><a href="#List数据结构" class="headerlink" title="List数据结构"></a>List数据结构</h2><p>List底层是一个双向链表,通过索引取中间值会比较慢, k1代表链表</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//这种数据结构会变成 v3 v2 v1</span><br><span class="line">lpush k1 v1 v2 v3</span><br><span class="line">lrange k1 <span class="number">0</span> -<span class="number">1</span></span><br><span class="line"></span><br><span class="line">//这种数据结果会变成v1 v2 v3</span><br><span class="line">rpush k1 v1 v2 v3</span><br><span class="line">lrange k1 <span class="number">0</span> -<span class="number">1</span></span><br><span class="line"></span><br><span class="line">lpop</span><br><span class="line">rpop</span><br><span class="line"></span><br><span class="line">//把k1的右边取出来,插到k2左边</span><br><span class="line">rpoplpush k1 k2</span><br><span class="line"></span><br><span class="line">lindex k1 &lt;index&gt;</span><br><span class="line">linsert k1 before &lt;v1&gt; &lt;newValue&gt;</span><br><span class="line">lrem k1 &lt;num&gt; v1 </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Set数据结构"><a href="#Set数据结构" class="headerlink" title="Set数据结构"></a>Set数据结构</h2><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">sadd k1 v1 v2 v3</span><br><span class="line">smembers</span><br><span class="line">sismember</span><br><span class="line"></span><br><span class="line">//返回集合元素个数</span><br><span class="line">scard k1</span><br><span class="line">srem k1 v1 v2</span><br><span class="line"></span><br><span class="line">//随机吐出一个值</span><br><span class="line">spopo k1</span><br><span class="line"></span><br><span class="line">//随机取出n个值,不会删除</span><br><span class="line">srandmember k1 &lt;num&gt;</span><br><span class="line"></span><br><span class="line">smove k1 k2 v1</span><br><span class="line"></span><br><span class="line">//取交集</span><br><span class="line">sinter</span><br><span class="line"></span><br><span class="line">//取并集</span><br><span class="line">sunion</span><br><span class="line"></span><br><span class="line">//取差集</span><br><span class="line">sdiff</span><br></pre></td></tr></table></figure>
+
+<h2 id="Hash数据结构操作"><a href="#Hash数据结构操作" class="headerlink" title="Hash数据结构操作"></a>Hash数据结构操作</h2><p>hash有点像key里面放Map</p>
+<p><img src="https://p.ipic.vip/v2o6mq.png" alt="image-20240923151445956"></p>
+<h3 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">hset user:<span class="number">1001</span> k1 v1 k2 v2</span><br><span class="line">hget user:<span class="number">1001</span> k1</span><br><span class="line">hget user:<span class="number">1001</span> k2</span><br><span class="line"></span><br><span class="line">//判断k1里面有没有k1</span><br><span class="line">hexists k1 v1</span><br><span class="line"></span><br><span class="line">hkeys</span><br><span class="line">hvals</span><br><span class="line">hincrby k1 v1 &lt;increment&gt;</span><br><span class="line"></span><br><span class="line">hsetnx</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Zset数据结构"><a href="#Zset数据结构" class="headerlink" title="Zset数据结构"></a>Zset数据结构</h2>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/09/23/Redis%20Start/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Vue模块" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -352,722 +1302,9 @@
 
 
   
-    <article id="post-RPC编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/09/19/RPC%E7%BC%96%E7%A8%8B/">RPC编程</a>
-    </h1>
-  
-
-        
-        <a href="/2024/09/19/RPC%E7%BC%96%E7%A8%8B/" class="archive-article-date">
-  	<time datetime="2024-09-19T04:49:01.932Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-09-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-09-19 Thursday 12:49:01<br>Author: Jackasher</p>
-<h1 id="RPC编程"><a href="#RPC编程" class="headerlink" title="RPC编程"></a>RPC编程</h1><h1 id="单体架构"><a href="#单体架构" class="headerlink" title="单体架构"></a>单体架构</h1><p>其实我做的325论坛就是一个单体架构,而且是前后端不分离的模版,在后台渲染数据后展现视图,所有板块打成一个jar包,在单体架构的扩展就是水平 架构,我们可以打成三个jar包,在不同的服务器运行,但是公用一个数据库</p>
-<h2 id="垂直架构"><a href="#垂直架构" class="headerlink" title="垂直架构"></a>垂直架构</h2><p>垂直架构就是将不同的子系统放在不同的进程中,相互独立,可以通过http调用进入另一个模块,缺点是无法复用模块,相关的数据库操作,监控,日志等代码都需要重新写</p>
-<h2 id="RPC"><a href="#RPC" class="headerlink" title="RPC"></a>RPC</h2><p>所有有了rpc的出现,通过网络通信可以实现一个进程对另一个进程的某个类,方法调用</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/09/19/RPC%E7%BC%96%E7%A8%8B/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Float横向布局" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/09/19/Float%E6%A8%AA%E5%90%91%E5%B8%83%E5%B1%80/">Float横向布局</a>
-    </h1>
-  
-
-        
-        <a href="/2024/09/19/Float%E6%A8%AA%E5%90%91%E5%B8%83%E5%B1%80/" class="archive-article-date">
-  	<time datetime="2024-09-19T04:49:01.889Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-09-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-09-19 Thursday 12:49:01<br>Author: Jackasher</p>
-<h1 id="Float横向布局"><a href="#Float横向布局" class="headerlink" title="Float横向布局"></a>Float横向布局</h1><p>试着利用float完成页面的布局,这样就可以开始完成基本的页面了</p>
-<p><img src="https://p.ipic.vip/5ebbxt.png" alt="image-20240730103847752"></p>
-<p>浮动的解决基本就是clear,然后垂直居中显示可以用line-height</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.header</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin</span>: auto;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">display</span>: flex;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">float</span>: left;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">height</span>: <span class="number">80px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin-bottom</span>: <span class="number">10px</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.logo</span>,</span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.banner1</span>,</span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.banner2</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">display</span>: flex;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">justify-content</span>: center;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">align-items</span>: center;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.logo</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">border</span>: <span class="number">1px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: grey;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">210px</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.banner1</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: grey;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">border</span>: <span class="number">1px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">560px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin-left</span>: <span class="number">10px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin-right</span>: <span class="number">10px</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.banner2</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: grey;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">border</span>: <span class="number">1px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">210px</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.menu</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: grey;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">clear</span>: both;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin-bottom</span>: <span class="number">10px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">1000px</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* .main &#123;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            margin-right: 10px;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        &#125; */</span></span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.list-height-370</span>&#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">height</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">370px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">border</span>: <span class="number">1px</span> solid black;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">float</span>: left;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin</span>: <span class="number">10px</span>;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.left-sider</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">790px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">float</span>: left;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.right-sider</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin</span>: <span class="number">10px</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-tag">body</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin</span>: <span class="number">10px</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.clearfloat</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">clear</span>: both;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.list-height-180</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">height</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">180px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">border</span>: <span class="number">1px</span> solid black;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">float</span>: left;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin</span>: <span class="number">7px</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.list-height-130</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">height</span>: <span class="number">125px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">border</span>: <span class="number">1px</span> solid black;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">float</span>: left;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin</span>: <span class="number">10px</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.footer</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">height</span>: <span class="number">60px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">1000px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">border</span>: <span class="number">1px</span> solid black;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">clear</span>: both;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: grey;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">line-height</span>: <span class="number">60px</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;header&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;logo&quot;</span>&gt;</span>logo<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;banner1&quot;</span>&gt;</span>banner1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;banner2&quot;</span>&gt;</span>banner2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;menu&quot;</span>&gt;</span>菜单<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;main&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;left-sider&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;list-height-370&quot;</span>&gt;</span>栏目一<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;list-height-370&quot;</span>&gt;</span>栏目二<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;clearfloat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;list-height-180&quot;</span>&gt;</span>栏目三<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;list-height-180&quot;</span>&gt;</span>栏目四<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;list-height-180&quot;</span>&gt;</span>栏目五<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;list-height-180&quot;</span>&gt;</span>栏目六<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;right-sider&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;list-height-130&quot;</span>&gt;</span>栏目七<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;list-height-130&quot;</span>&gt;</span>栏目八<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;list-height-130&quot;</span>&gt;</span>栏目九<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;footer&quot;</span>&gt;</span>页脚<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/09/19/Float%E6%A8%AA%E5%90%91%E5%B8%83%E5%B1%80/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Css Diner" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/09/19/Css%20Diner/">Css Diner</a>
-    </h1>
-  
-
-        
-        <a href="/2024/09/19/Css%20Diner/" class="archive-article-date">
-  	<time datetime="2024-09-19T04:49:01.874Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-09-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-09-19 Thursday 12:49:01<br>Author: Jackasher</p>
-<h1 id="Css-Diner"><a href="#Css-Diner" class="headerlink" title="Css Diner"></a>Css Diner</h1><p><img src="https://p.ipic.vip/e2bbg7.png" alt="image-20240727105311918"></p>
-<p><a target="_blank" rel="noopener" href="https://flukeout.github.io/%E6%84%9F%E5%85%B4%E8%B6%A3%E5%8F%AF%E4%BB%A5%E5%8E%BB%E7%9C%8B%E7%9C%8B,%E7%BB%83%E4%B9%A0css%E6%8C%BA%E6%9C%89%E6%84%8F%E6%80%9D%E7%9A%84">https://flukeout.github.io/感兴趣可以去看看,练习css挺有意思的</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/09/19/Css%20Diner/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Electron构建桌面应用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/07/23/Electron%E6%9E%84%E5%BB%BA%E6%A1%8C%E9%9D%A2%E5%BA%94%E7%94%A8/">Electron构建桌面应用</a>
-    </h1>
-  
-
-        
-        <a href="/2024/07/23/Electron%E6%9E%84%E5%BB%BA%E6%A1%8C%E9%9D%A2%E5%BA%94%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2024-07-23T08:18:01.067Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-07-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-07-23 Tuesday 16:18:01<br>Author: Jackasher</p>
-<h1 id="Electron构建桌面应用"><a href="#Electron构建桌面应用" class="headerlink" title="Electron构建桌面应用"></a>Electron构建桌面应用</h1><p>Electron的是npm下载的JS包,采用ES6导入,核心是app和BrowserWindow,<strong>app.on</strong>开启进程,然后new Browserwindow代表创建窗口</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;app,<span class="title class_">BrowserWindow</span>,ipcMain&#125; = <span class="built_in">require</span>(<span class="string">&quot;electron&quot;</span>)</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">writeFile</span>(<span class="params">event,data</span>)&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Hi&quot;</span>,event,data);</span><br><span class="line">    fs.<span class="title function_">writeFileSync</span>(<span class="string">&quot;/Users/leojackasher/Documents/Word/electron.txt&quot;</span>,data)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">readFile</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> fs.<span class="title function_">readFileSync</span>(<span class="string">&#x27;/Users/leojackasher/Documents/Word/electron.txt&#x27;</span>).<span class="title function_">toString</span>()</span><br><span class="line">&#125;</span><br><span class="line">app.<span class="title function_">on</span>(<span class="string">&#x27;ready&#x27;</span>,<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> win = <span class="keyword">new</span> <span class="title class_">BrowserWindow</span>(&#123;</span><br><span class="line">        <span class="attr">width</span>: <span class="number">800</span>,</span><br><span class="line">        <span class="attr">height</span>: <span class="number">600</span>,</span><br><span class="line">        <span class="attr">webPreferences</span>: &#123;</span><br><span class="line">            <span class="attr">preload</span>:path.<span class="title function_">resolve</span>(__dirname,<span class="string">&#x27;./preload.js&#x27;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    ipcMain.<span class="title function_">on</span>(<span class="string">&#x27;file-save&#x27;</span>,writeFile)</span><br><span class="line">    ipcMain.<span class="title function_">handle</span>(<span class="string">&#x27;file-read&#x27;</span>,readFile)</span><br><span class="line">    win.<span class="title function_">loadFile</span>(<span class="string">&#x27;./pages/index.html&#x27;</span>)</span><br><span class="line">    <span class="comment">// win.loadURL(&quot;http://www.jackasher.com&quot;)</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h2 id="代码解释"><a href="#代码解释" class="headerlink" title="代码解释"></a>代码解释</h2><p>用于注册预加载脚本,实现让nodejs和Chrome之间的通信,</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">webPreferences</span>: &#123;</span><br><span class="line">            <span class="attr">preload</span>:path.<span class="title function_">resolve</span>(__dirname,<span class="string">&#x27;./preload.js&#x27;</span>)</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
-
-<p>用于接受来自预加载脚本的数据,而该数据来源于渲染端</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ipcMain.<span class="title function_">on</span>(<span class="string">&#x27;file-save&#x27;</span>,writeFile)</span><br><span class="line">    ipcMain.<span class="title function_">handle</span>(<span class="string">&#x27;file-read&#x27;</span>,readFile)</span><br></pre></td></tr></table></figure>
-
-<h2 id="预加载脚本"><a href="#预加载脚本" class="headerlink" title="预加载脚本"></a>预加载脚本</h2><p>主要实现通信,contextBridge可以将属性注册到Window,渲染端可以拿到该数据,ipcRenderer用于接受渲染端数据,将调动主进程的程序</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;contextBridge,ipcRenderer&#125; = <span class="built_in">require</span>(<span class="string">&#x27;electron&#x27;</span>)</span><br><span class="line"></span><br><span class="line">contextBridge.<span class="title function_">exposeInMainWorld</span>(<span class="string">&#x27;myApi&#x27;</span>,&#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;jack&#x27;</span>,</span><br><span class="line">    <span class="attr">saveFile</span>: <span class="keyword">function</span>(<span class="params">data</span>)&#123;</span><br><span class="line">        ipcRenderer.<span class="title function_">send</span>(<span class="string">&#x27;file-save&#x27;</span>,data)</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">readFile</span>: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> ipcRenderer.<span class="title function_">invoke</span>(<span class="string">&#x27;file-read&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>win打包配置文件</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;electron&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;A desktop application&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;main&quot;</span><span class="punctuation">:</span> <span class="string">&quot;index.js&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;start2&quot;</span><span class="punctuation">:</span> <span class="string">&quot;nodemon --exec electron .&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;start&quot;</span><span class="punctuation">:</span> <span class="string">&quot;electron .&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;test&quot;</span><span class="punctuation">:</span> <span class="string">&quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;build&quot;</span><span class="punctuation">:</span> <span class="string">&quot;electron-builder --win --x64&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;build&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;productName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Jtest&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;appId&quot;</span><span class="punctuation">:</span> <span class="string">&quot;com.jackasher.app&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;copyright&quot;</span><span class="punctuation">:</span> <span class="string">&quot;© 2024 Jackasher&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;directories&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;output&quot;</span><span class="punctuation">:</span> <span class="string">&quot;build&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;win&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;target&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;target&quot;</span><span class="punctuation">:</span> <span class="string">&quot;nsis&quot;</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;arch&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">            <span class="string">&quot;x64&quot;</span></span><br><span class="line">          <span class="punctuation">]</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;icon&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./jack.ico&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;asar&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;nsis&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;oneClick&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;allowToChangeInstallationDirectory&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;createDesktopShortcut&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;keywords&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;author&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Jackasher&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;license&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ISC&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;devDependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;electron&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^31.2.1&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;electron-builder&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^24.13.3&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;nodemon&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^3.0.0&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;path&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^0.12.7&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/07/23/Electron%E6%9E%84%E5%BB%BA%E6%A1%8C%E9%9D%A2%E5%BA%94%E7%94%A8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-图片测试" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/07/23/%E5%9B%BE%E7%89%87%E6%B5%8B%E8%AF%95/">图片测试</a>
-    </h1>
-  
-
-        
-        <a href="/2024/07/23/%E5%9B%BE%E7%89%87%E6%B5%8B%E8%AF%95/" class="archive-article-date">
-  	<time datetime="2024-07-23T03:58:01.985Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-07-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-07-23 Tuesday 11:58:01<br>Author: Jackasher</p>
-<h1 id="图片测试"><a href="#图片测试" class="headerlink" title="图片测试"></a>图片测试</h1><p><img src="/Users/leojackasher/Pictures/jack.png" alt="jack"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/07/23/%E5%9B%BE%E7%89%87%E6%B5%8B%E8%AF%95/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-JS模块化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/07/23/JS%E6%A8%A1%E5%9D%97%E5%8C%96/">JS模块化</a>
-    </h1>
-  
-
-        
-        <a href="/2024/07/23/JS%E6%A8%A1%E5%9D%97%E5%8C%96/" class="archive-article-date">
-  	<time datetime="2024-07-23T03:58:01.908Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-07-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-07-23 Tuesday 11:58:01<br>Author: Jackasher</p>
-<h1 id="JS模块化"><a href="#JS模块化" class="headerlink" title="JS模块化"></a>JS模块化</h1><p>在一个文件导出属性时有两张,一种是exports,一种是module.exports,指向的是一个对象,但module.exports才是真正导出的那个,如果exports指向其他对象就会失效</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/07/23/JS%E6%A8%A1%E5%9D%97%E5%8C%96/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Promise原理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/07/21/Promise%E5%8E%9F%E7%90%86/">Promise原理</a>
-    </h1>
-  
-
-        
-        <a href="/2024/07/21/Promise%E5%8E%9F%E7%90%86/" class="archive-article-date">
-  	<time datetime="2024-07-21T06:49:01.526Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-07-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-07-21 Sunday 14:49:01<br>Author: Jackasher</p>
-<h1 id="Promise原理"><a href="#Promise原理" class="headerlink" title="Promise原理"></a>Promise原理</h1><h2 id="首先来看栈的情况"><a href="#首先来看栈的情况" class="headerlink" title="首先来看栈的情况"></a>首先来看栈的情况</h2><p><img src="https://p.ipic.vip/ggas3f.png" alt="image-20240721105605491"></p>
-<h3 id="这里容易误解的是栈和队列不在内存-都是在内存的-JS中有两个队列-一个是宏队列-一个是微队列-先从微队列取完-才能执行宏任务队列"><a href="#这里容易误解的是栈和队列不在内存-都是在内存的-JS中有两个队列-一个是宏队列-一个是微队列-先从微队列取完-才能执行宏任务队列" class="headerlink" title="这里容易误解的是栈和队列不在内存,都是在内存的 ,JS中有两个队列,一个是宏队列,一个是微队列 , 先从微队列取完,才能执行宏任务队列"></a><strong>这里容易误解的是栈和队列不在内存,都是在内存的 ,JS中有两个队列,一个是宏队列,一个是微队列 , 先从微队列取完,才能执行宏任务队列</strong></h3><hr>
-<p><img src="https://p.ipic.vip/uqc36s.png" alt="image-20240721110941281"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/07/21/Promise%E5%8E%9F%E7%90%86/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Promise" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/07/21/Promise/">Promise</a>
-    </h1>
-  
-
-        
-        <a href="/2024/07/21/Promise/" class="archive-article-date">
-  	<time datetime="2024-07-21T06:49:01.516Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-07-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-07-21 Sunday 14:49:01<br>Author: Jackasher</p>
-<h1 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h1><h2 id="Promise的存在意义"><a href="#Promise的存在意义" class="headerlink" title="Promise的存在意义"></a>Promise的存在意义</h2><p>就是来解决回掉地狱的问题,通过Resolve()来存取数据,then会在Promise状态为fullfill的时候执行,异步取数据的关键在什么时候取,直接取可能还没有数据</p>
-<h2 id="用promise解决回掉地狱"><a href="#用promise解决回掉地狱" class="headerlink" title="用promise解决回掉地狱"></a>用promise解决回掉地狱</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">sum</span>(<span class="params">a,b</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            <span class="title function_">resolve</span>(a + b)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> result = <span class="title function_">sum</span>(<span class="number">123</span>,<span class="number">456</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> promise = result</span><br><span class="line">.<span class="title function_">then</span>(<span class="function">(<span class="params">result</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> result += <span class="number">7</span></span><br><span class="line">&#125;)</span><br><span class="line">.<span class="title function_">then</span>(<span class="function">(<span class="params">result</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> result += <span class="number">8</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(promise);    </span><br><span class="line">&#125;,<span class="number">3000</span>)</span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/07/21/Promise/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
     </nav>
   
 

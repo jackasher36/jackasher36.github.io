@@ -146,6 +146,719 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-RPC编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/09/19/RPC%E7%BC%96%E7%A8%8B/">RPC编程</a>
+    </h1>
+  
+
+        
+        <a href="/2024/09/19/RPC%E7%BC%96%E7%A8%8B/" class="archive-article-date">
+  	<time datetime="2024-09-19T04:49:01.932Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-09-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-09-19 Thursday 12:49:01<br>Author: Jackasher</p>
+<h1 id="RPC编程"><a href="#RPC编程" class="headerlink" title="RPC编程"></a>RPC编程</h1><h1 id="单体架构"><a href="#单体架构" class="headerlink" title="单体架构"></a>单体架构</h1><p>其实我做的325论坛就是一个单体架构,而且是前后端不分离的模版,在后台渲染数据后展现视图,所有板块打成一个jar包,在单体架构的扩展就是水平 架构,我们可以打成三个jar包,在不同的服务器运行,但是公用一个数据库</p>
+<h2 id="垂直架构"><a href="#垂直架构" class="headerlink" title="垂直架构"></a>垂直架构</h2><p>垂直架构就是将不同的子系统放在不同的进程中,相互独立,可以通过http调用进入另一个模块,缺点是无法复用模块,相关的数据库操作,监控,日志等代码都需要重新写</p>
+<h2 id="RPC"><a href="#RPC" class="headerlink" title="RPC"></a>RPC</h2><p>所有有了rpc的出现,通过网络通信可以实现一个进程对另一个进程的某个类,方法调用</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/09/19/RPC%E7%BC%96%E7%A8%8B/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Float横向布局" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/09/19/Float%E6%A8%AA%E5%90%91%E5%B8%83%E5%B1%80/">Float横向布局</a>
+    </h1>
+  
+
+        
+        <a href="/2024/09/19/Float%E6%A8%AA%E5%90%91%E5%B8%83%E5%B1%80/" class="archive-article-date">
+  	<time datetime="2024-09-19T04:49:01.889Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-09-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-09-19 Thursday 12:49:01<br>Author: Jackasher</p>
+<h1 id="Float横向布局"><a href="#Float横向布局" class="headerlink" title="Float横向布局"></a>Float横向布局</h1><p>试着利用float完成页面的布局,这样就可以开始完成基本的页面了</p>
+<p><img src="https://p.ipic.vip/5ebbxt.png" alt="image-20240730103847752"></p>
+<p>浮动的解决基本就是clear,然后垂直居中显示可以用line-height</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.header</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin</span>: auto;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">display</span>: flex;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">float</span>: left;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">height</span>: <span class="number">80px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin-bottom</span>: <span class="number">10px</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.logo</span>,</span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.banner1</span>,</span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.banner2</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">display</span>: flex;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">justify-content</span>: center;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">align-items</span>: center;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.logo</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">border</span>: <span class="number">1px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: grey;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">210px</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.banner1</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: grey;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">border</span>: <span class="number">1px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">560px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin-left</span>: <span class="number">10px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin-right</span>: <span class="number">10px</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.banner2</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: grey;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">border</span>: <span class="number">1px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">210px</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.menu</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: grey;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">clear</span>: both;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin-bottom</span>: <span class="number">10px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">1000px</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* .main &#123;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            margin-right: 10px;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        &#125; */</span></span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.list-height-370</span>&#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">height</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">370px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">border</span>: <span class="number">1px</span> solid black;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">float</span>: left;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin</span>: <span class="number">10px</span>;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.left-sider</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">790px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">float</span>: left;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.right-sider</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin</span>: <span class="number">10px</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-tag">body</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin</span>: <span class="number">10px</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.clearfloat</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">clear</span>: both;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.list-height-180</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">height</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">180px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">border</span>: <span class="number">1px</span> solid black;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">float</span>: left;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin</span>: <span class="number">7px</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.list-height-130</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">height</span>: <span class="number">125px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">border</span>: <span class="number">1px</span> solid black;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">float</span>: left;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin</span>: <span class="number">10px</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.footer</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">height</span>: <span class="number">60px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">1000px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">border</span>: <span class="number">1px</span> solid black;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">clear</span>: both;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: grey;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">line-height</span>: <span class="number">60px</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;header&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;logo&quot;</span>&gt;</span>logo<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;banner1&quot;</span>&gt;</span>banner1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;banner2&quot;</span>&gt;</span>banner2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;menu&quot;</span>&gt;</span>菜单<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;main&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;left-sider&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;list-height-370&quot;</span>&gt;</span>栏目一<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;list-height-370&quot;</span>&gt;</span>栏目二<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;clearfloat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;list-height-180&quot;</span>&gt;</span>栏目三<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;list-height-180&quot;</span>&gt;</span>栏目四<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;list-height-180&quot;</span>&gt;</span>栏目五<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;list-height-180&quot;</span>&gt;</span>栏目六<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;right-sider&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;list-height-130&quot;</span>&gt;</span>栏目七<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;list-height-130&quot;</span>&gt;</span>栏目八<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;list-height-130&quot;</span>&gt;</span>栏目九<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;footer&quot;</span>&gt;</span>页脚<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/09/19/Float%E6%A8%AA%E5%90%91%E5%B8%83%E5%B1%80/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Css Diner" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/09/19/Css%20Diner/">Css Diner</a>
+    </h1>
+  
+
+        
+        <a href="/2024/09/19/Css%20Diner/" class="archive-article-date">
+  	<time datetime="2024-09-19T04:49:01.874Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-09-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-09-19 Thursday 12:49:01<br>Author: Jackasher</p>
+<h1 id="Css-Diner"><a href="#Css-Diner" class="headerlink" title="Css Diner"></a>Css Diner</h1><p><img src="https://p.ipic.vip/e2bbg7.png" alt="image-20240727105311918"></p>
+<p><a target="_blank" rel="noopener" href="https://flukeout.github.io/%E6%84%9F%E5%85%B4%E8%B6%A3%E5%8F%AF%E4%BB%A5%E5%8E%BB%E7%9C%8B%E7%9C%8B,%E7%BB%83%E4%B9%A0css%E6%8C%BA%E6%9C%89%E6%84%8F%E6%80%9D%E7%9A%84">https://flukeout.github.io/感兴趣可以去看看,练习css挺有意思的</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/09/19/Css%20Diner/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Electron构建桌面应用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/07/23/Electron%E6%9E%84%E5%BB%BA%E6%A1%8C%E9%9D%A2%E5%BA%94%E7%94%A8/">Electron构建桌面应用</a>
+    </h1>
+  
+
+        
+        <a href="/2024/07/23/Electron%E6%9E%84%E5%BB%BA%E6%A1%8C%E9%9D%A2%E5%BA%94%E7%94%A8/" class="archive-article-date">
+  	<time datetime="2024-07-23T08:18:01.067Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-07-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-07-23 Tuesday 16:18:01<br>Author: Jackasher</p>
+<h1 id="Electron构建桌面应用"><a href="#Electron构建桌面应用" class="headerlink" title="Electron构建桌面应用"></a>Electron构建桌面应用</h1><p>Electron的是npm下载的JS包,采用ES6导入,核心是app和BrowserWindow,<strong>app.on</strong>开启进程,然后new Browserwindow代表创建窗口</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;app,<span class="title class_">BrowserWindow</span>,ipcMain&#125; = <span class="built_in">require</span>(<span class="string">&quot;electron&quot;</span>)</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">writeFile</span>(<span class="params">event,data</span>)&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Hi&quot;</span>,event,data);</span><br><span class="line">    fs.<span class="title function_">writeFileSync</span>(<span class="string">&quot;/Users/leojackasher/Documents/Word/electron.txt&quot;</span>,data)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">readFile</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> fs.<span class="title function_">readFileSync</span>(<span class="string">&#x27;/Users/leojackasher/Documents/Word/electron.txt&#x27;</span>).<span class="title function_">toString</span>()</span><br><span class="line">&#125;</span><br><span class="line">app.<span class="title function_">on</span>(<span class="string">&#x27;ready&#x27;</span>,<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> win = <span class="keyword">new</span> <span class="title class_">BrowserWindow</span>(&#123;</span><br><span class="line">        <span class="attr">width</span>: <span class="number">800</span>,</span><br><span class="line">        <span class="attr">height</span>: <span class="number">600</span>,</span><br><span class="line">        <span class="attr">webPreferences</span>: &#123;</span><br><span class="line">            <span class="attr">preload</span>:path.<span class="title function_">resolve</span>(__dirname,<span class="string">&#x27;./preload.js&#x27;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    ipcMain.<span class="title function_">on</span>(<span class="string">&#x27;file-save&#x27;</span>,writeFile)</span><br><span class="line">    ipcMain.<span class="title function_">handle</span>(<span class="string">&#x27;file-read&#x27;</span>,readFile)</span><br><span class="line">    win.<span class="title function_">loadFile</span>(<span class="string">&#x27;./pages/index.html&#x27;</span>)</span><br><span class="line">    <span class="comment">// win.loadURL(&quot;http://www.jackasher.com&quot;)</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="代码解释"><a href="#代码解释" class="headerlink" title="代码解释"></a>代码解释</h2><p>用于注册预加载脚本,实现让nodejs和Chrome之间的通信,</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">webPreferences</span>: &#123;</span><br><span class="line">            <span class="attr">preload</span>:path.<span class="title function_">resolve</span>(__dirname,<span class="string">&#x27;./preload.js&#x27;</span>)</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>用于接受来自预加载脚本的数据,而该数据来源于渲染端</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ipcMain.<span class="title function_">on</span>(<span class="string">&#x27;file-save&#x27;</span>,writeFile)</span><br><span class="line">    ipcMain.<span class="title function_">handle</span>(<span class="string">&#x27;file-read&#x27;</span>,readFile)</span><br></pre></td></tr></table></figure>
+
+<h2 id="预加载脚本"><a href="#预加载脚本" class="headerlink" title="预加载脚本"></a>预加载脚本</h2><p>主要实现通信,contextBridge可以将属性注册到Window,渲染端可以拿到该数据,ipcRenderer用于接受渲染端数据,将调动主进程的程序</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;contextBridge,ipcRenderer&#125; = <span class="built_in">require</span>(<span class="string">&#x27;electron&#x27;</span>)</span><br><span class="line"></span><br><span class="line">contextBridge.<span class="title function_">exposeInMainWorld</span>(<span class="string">&#x27;myApi&#x27;</span>,&#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;jack&#x27;</span>,</span><br><span class="line">    <span class="attr">saveFile</span>: <span class="keyword">function</span>(<span class="params">data</span>)&#123;</span><br><span class="line">        ipcRenderer.<span class="title function_">send</span>(<span class="string">&#x27;file-save&#x27;</span>,data)</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">readFile</span>: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> ipcRenderer.<span class="title function_">invoke</span>(<span class="string">&#x27;file-read&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>win打包配置文件</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;electron&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;A desktop application&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;main&quot;</span><span class="punctuation">:</span> <span class="string">&quot;index.js&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;start2&quot;</span><span class="punctuation">:</span> <span class="string">&quot;nodemon --exec electron .&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;start&quot;</span><span class="punctuation">:</span> <span class="string">&quot;electron .&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;test&quot;</span><span class="punctuation">:</span> <span class="string">&quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;build&quot;</span><span class="punctuation">:</span> <span class="string">&quot;electron-builder --win --x64&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;build&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;productName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Jtest&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;appId&quot;</span><span class="punctuation">:</span> <span class="string">&quot;com.jackasher.app&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;copyright&quot;</span><span class="punctuation">:</span> <span class="string">&quot;© 2024 Jackasher&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;directories&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;output&quot;</span><span class="punctuation">:</span> <span class="string">&quot;build&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;win&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;target&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;target&quot;</span><span class="punctuation">:</span> <span class="string">&quot;nsis&quot;</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;arch&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">            <span class="string">&quot;x64&quot;</span></span><br><span class="line">          <span class="punctuation">]</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;icon&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./jack.ico&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;asar&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;nsis&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;oneClick&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;allowToChangeInstallationDirectory&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;createDesktopShortcut&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;keywords&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;author&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Jackasher&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;license&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ISC&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;devDependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;electron&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^31.2.1&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;electron-builder&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^24.13.3&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;nodemon&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^3.0.0&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;path&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^0.12.7&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/07/23/Electron%E6%9E%84%E5%BB%BA%E6%A1%8C%E9%9D%A2%E5%BA%94%E7%94%A8/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-图片测试" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/07/23/%E5%9B%BE%E7%89%87%E6%B5%8B%E8%AF%95/">图片测试</a>
+    </h1>
+  
+
+        
+        <a href="/2024/07/23/%E5%9B%BE%E7%89%87%E6%B5%8B%E8%AF%95/" class="archive-article-date">
+  	<time datetime="2024-07-23T03:58:01.985Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-07-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-07-23 Tuesday 11:58:01<br>Author: Jackasher</p>
+<h1 id="图片测试"><a href="#图片测试" class="headerlink" title="图片测试"></a>图片测试</h1><p><img src="/Users/leojackasher/Pictures/jack.png" alt="jack"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/07/23/%E5%9B%BE%E7%89%87%E6%B5%8B%E8%AF%95/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-JS模块化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/07/23/JS%E6%A8%A1%E5%9D%97%E5%8C%96/">JS模块化</a>
+    </h1>
+  
+
+        
+        <a href="/2024/07/23/JS%E6%A8%A1%E5%9D%97%E5%8C%96/" class="archive-article-date">
+  	<time datetime="2024-07-23T03:58:01.908Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-07-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-07-23 Tuesday 11:58:01<br>Author: Jackasher</p>
+<h1 id="JS模块化"><a href="#JS模块化" class="headerlink" title="JS模块化"></a>JS模块化</h1><p>在一个文件导出属性时有两张,一种是exports,一种是module.exports,指向的是一个对象,但module.exports才是真正导出的那个,如果exports指向其他对象就会失效</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/07/23/JS%E6%A8%A1%E5%9D%97%E5%8C%96/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Promise原理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/07/21/Promise%E5%8E%9F%E7%90%86/">Promise原理</a>
+    </h1>
+  
+
+        
+        <a href="/2024/07/21/Promise%E5%8E%9F%E7%90%86/" class="archive-article-date">
+  	<time datetime="2024-07-21T06:49:01.526Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-07-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-07-21 Sunday 14:49:01<br>Author: Jackasher</p>
+<h1 id="Promise原理"><a href="#Promise原理" class="headerlink" title="Promise原理"></a>Promise原理</h1><h2 id="首先来看栈的情况"><a href="#首先来看栈的情况" class="headerlink" title="首先来看栈的情况"></a>首先来看栈的情况</h2><p><img src="https://p.ipic.vip/ggas3f.png" alt="image-20240721105605491"></p>
+<h3 id="这里容易误解的是栈和队列不在内存-都是在内存的-JS中有两个队列-一个是宏队列-一个是微队列-先从微队列取完-才能执行宏任务队列"><a href="#这里容易误解的是栈和队列不在内存-都是在内存的-JS中有两个队列-一个是宏队列-一个是微队列-先从微队列取完-才能执行宏任务队列" class="headerlink" title="这里容易误解的是栈和队列不在内存,都是在内存的 ,JS中有两个队列,一个是宏队列,一个是微队列 , 先从微队列取完,才能执行宏任务队列"></a><strong>这里容易误解的是栈和队列不在内存,都是在内存的 ,JS中有两个队列,一个是宏队列,一个是微队列 , 先从微队列取完,才能执行宏任务队列</strong></h3><hr>
+<p><img src="https://p.ipic.vip/uqc36s.png" alt="image-20240721110941281"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/07/21/Promise%E5%8E%9F%E7%90%86/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Promise" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/07/21/Promise/">Promise</a>
+    </h1>
+  
+
+        
+        <a href="/2024/07/21/Promise/" class="archive-article-date">
+  	<time datetime="2024-07-21T06:49:01.516Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-07-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-07-21 Sunday 14:49:01<br>Author: Jackasher</p>
+<h1 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h1><h2 id="Promise的存在意义"><a href="#Promise的存在意义" class="headerlink" title="Promise的存在意义"></a>Promise的存在意义</h2><p>就是来解决回掉地狱的问题,通过Resolve()来存取数据,then会在Promise状态为fullfill的时候执行,异步取数据的关键在什么时候取,直接取可能还没有数据</p>
+<h2 id="用promise解决回掉地狱"><a href="#用promise解决回掉地狱" class="headerlink" title="用promise解决回掉地狱"></a>用promise解决回掉地狱</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">sum</span>(<span class="params">a,b</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            <span class="title function_">resolve</span>(a + b)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> result = <span class="title function_">sum</span>(<span class="number">123</span>,<span class="number">456</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> promise = result</span><br><span class="line">.<span class="title function_">then</span>(<span class="function">(<span class="params">result</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> result += <span class="number">7</span></span><br><span class="line">&#125;)</span><br><span class="line">.<span class="title function_">then</span>(<span class="function">(<span class="params">result</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> result += <span class="number">8</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(promise);    </span><br><span class="line">&#125;,<span class="number">3000</span>)</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/07/21/Promise/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-JWT的使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -325,797 +1038,9 @@
 
 
   
-    <article id="post-JSONP跨域完成获取信息" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/07/21/JSONP%E8%B7%A8%E5%9F%9F%E5%AE%8C%E6%88%90%E8%8E%B7%E5%8F%96%E4%BF%A1%E6%81%AF/">JSONP跨域完成获取信息</a>
-    </h1>
-  
-
-        
-        <a href="/2024/07/21/JSONP%E8%B7%A8%E5%9F%9F%E5%AE%8C%E6%88%90%E8%8E%B7%E5%8F%96%E4%BF%A1%E6%81%AF/" class="archive-article-date">
-  	<time datetime="2024-07-21T06:49:01.465Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-07-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-07-21 Sunday 14:49:01<br>Author: Jackasher</p>
-<h1 id="JSONP跨域完成获取信息"><a href="#JSONP跨域完成获取信息" class="headerlink" title="JSONP跨域完成获取信息"></a>JSONP跨域完成获取信息</h1><h3 id="服务器端返回函数信息"><a href="#服务器端返回函数信息" class="headerlink" title="服务器端返回函数信息"></a>服务器端返回函数信息</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">get</span>(<span class="string">&quot;/jsonp&quot;</span>,<span class="function">(<span class="params">req,res</span>) =&gt;</span> &#123;</span><br><span class="line">    res.<span class="title function_">type</span>(<span class="string">&quot;application/javascript&quot;</span>) </span><br><span class="line">    res.<span class="title function_">send</span>(<span class="string">&quot;addTestOfDiv()&quot;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h3 id="动态创建script获取数据返回-执行回调函数"><a href="#动态创建script获取数据返回-执行回调函数" class="headerlink" title="动态创建script获取数据返回,执行回调函数"></a>动态创建script获取数据返回,执行回调函数</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;typejavascript.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">&quot;button&quot;</span>&gt;</span>发送jsonp请求<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;div&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">function</span> <span class="title function_">addTestOfDiv</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> div = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;div&quot;</span>)</span></span><br><span class="line"><span class="language-javascript">            div.<span class="property">innerText</span> = <span class="string">&quot;Hi Jsonp&quot;</span></span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">const</span> button = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;button&quot;</span>)</span></span><br><span class="line"><span class="language-javascript">        button.<span class="property">onclick</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> script = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;script&#x27;</span>)</span></span><br><span class="line"><span class="language-javascript">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;点击了!!!&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">            script.<span class="property">src</span> = <span class="string">&quot;http://127.0.0.1:3000/jsonp&quot;</span></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">            <span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">append</span>(script)</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">        </span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/07/21/JSONP%E8%B7%A8%E5%9F%9F%E5%AE%8C%E6%88%90%E8%8E%B7%E5%8F%96%E4%BF%A1%E6%81%AF/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-jsonp原理及实现方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/07/21/jsonp%E5%8E%9F%E7%90%86%E5%8F%8A%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95/">jsonp原理及实现方法</a>
-    </h1>
-  
-
-        
-        <a href="/2024/07/21/jsonp%E5%8E%9F%E7%90%86%E5%8F%8A%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95/" class="archive-article-date">
-  	<time datetime="2024-07-21T06:49:01.455Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-07-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-07-21 Sunday 14:49:01<br>Author: Jackasher</p>
-<h1 id="jsonp原理及实现方法"><a href="#jsonp原理及实现方法" class="headerlink" title="jsonp原理及实现方法"></a>jsonp原理及实现方法</h1><h3 id="一、-同源策略"><a href="#一、-同源策略" class="headerlink" title="一、 同源策略"></a>一、 同源策略</h3><p>所有支持Javascript的浏览器都会使用同源策略这个安全策略。看看百度的解释：</p>
-<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">同源策略，它是由Netscape提出的一个著名的安全策略。</span><br><span class="line">现在所有支持<span class="keyword">JavaScript </span>的浏览器都会使用这个策略。所谓同源是指，域名，协议，端口相同。</span><br><span class="line">当一个浏览器的两个tab页中分别打开百度和谷歌的页面</span><br><span class="line">当一个百度浏览器执行一个脚本的时候会检查这个脚本是属于哪个页面的</span><br><span class="line">即检查是否同源，只有和百度同源的脚本才会被执行。</span><br></pre></td></tr></table></figure>
-
-<p>而解决这种同源策略的方法称之为<strong>跨域</strong><br>跨域的方法有很多种,这里介绍一下最经典的jsonp跨域</p>
-<h3 id="二、JSON和JSONP"><a href="#二、JSON和JSONP" class="headerlink" title="二、JSON和JSONP"></a>二、JSON和JSONP</h3><p>JSONP和JSON好像啊，他们之间有什么联系吗？</p>
-<p>JSON(JavaScript Object Notation) 是一种轻量级的数据交换格式。对于JSON大家应该是很了解了吧，不是很清楚的朋友可以去<a target="_blank" rel="noopener" href="http://www.json.org/json-zh.html">json.org</a>上了解下，简单易懂。</p>
-<p><strong>JSONP是JSON with Padding的略称。它是一个非官方的协议，它允许在服务器端集成Script tags返回至客户端，通过javascript callback的形式实现跨域访问（这仅仅是JSONP简单的实现形式）。</strong>–来源百度</p>
-<p>　　JSONP就像是JSON+Padding一样(Padding这里我们理解为填充)， 我们先看下面的小例子然后再详细介绍。
-　　</p>
-<h3 id="三、跨域的简单原理"><a href="#三、跨域的简单原理" class="headerlink" title="三、跨域的简单原理"></a>三、跨域的简单原理</h3><p>光看定义还不是很明白，那首先我们先来手动做个简单易懂的小测试。新建一个asp.net的web程序，添加<strong>sample.html</strong>网页和一个<strong>test.js</strong>文件，代码如下：</p>
-<p>sample.html的代码：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//sample.html</span><br><span class="line"><span class="meta">&lt;!DOCTYPE&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>test<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;test.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>test.js的代码：</p>
-<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//test.js</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">alert</span>(&quot;success&quot;);</span><br></pre></td></tr></table></figure>
-
-<p>打开sample.html后会跳出”success”这样的这样的信息框，这似乎并不能说明什么， 跨域问题到底怎么解决呢？</p>
-<p>好，现在我们模拟下<strong>非同源的环境</strong>，刚才我们不是已经用Visual Studio新建了一个Web程序吗(这里我们叫A程序)，现在我们再打开一个新的Visual Studio再新建一个Web程序(B程序)，将我们的之前的test.js文件从A程序中移除然后拷贝到B程序中。</p>
-<p>两个程序都运行起来后，Visual Studio会启动内置服务器，假设A程序是localhost:20001,B程序是localhost:20002，这就模拟了一个非同源的环境了(虽然域名相同但端口号不同，所以是非同源的)。</p>
-<p>OK，我们接下来应该改下sample.html里的代码，因为test.js文件在B程序上了，url也就变成了localhost:20002。</p>
-<p>sample.html部分代码:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;http://localhost:20002/test.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>请保持AB两个Web程序的运行状态，当你再次刷新localhost:20001&#x2F;sample.html的时候，和原来一样跳出了”success”的对话框.</p>
-<p>是的，成功访问到了<strong>非同源的localhost:20002&#x2F;test.js</strong>这个所谓的远程服务了。到了这一步，相信大家应该已经大概明白如何跨域访问了的原理了。</p>
-<p>　　<script>标签的src属性并不被同源策略所约束，所以可以获取任何服务器上脚本并执行。</p>
-<h3 id="四、JSONP的实现模式-CallBack"><a href="#四、JSONP的实现模式-CallBack" class="headerlink" title="四、JSONP的实现模式--CallBack"></a>四、JSONP的实现模式--CallBack</h3><p>刚才的小例子讲解了跨域的原理，我们回上去再看看JSONP的定义说明中讲到了<code>javascript callback</code>的形式。那我们就来修改下代码，如何实现JSONP的javascript callback的形式。</p>
-<p>程序A中sample的部分代码：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="comment">//回调函数</span></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">function</span> <span class="title function_">callback</span>(<span class="params">data</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="title function_">alert</span>(data.<span class="property">message</span>);</span></span><br><span class="line"><span class="language-javascript">&#125;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;http://localhost:20002/test.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>程序B中test.js的代码：</p>
-<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//调用callback函数，并以json数据形式作为阐述传递，完成回调</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">callback</span>(&#123;message:&quot;success&quot;&#125;);</span><br></pre></td></tr></table></figure>
-
-<p>这其实就是JSONP的简单实现模式，或者说是JSONP的原型：<strong>创建一个回调函数，然后在远程服务上调用这个函数并且将JSON 数据形式作为参数传递，完成回调。</strong></p>
-<p><strong>将JSON数据填充进回调函数</strong>，这就是JSONP的JSON+Padding的含义吧。</p>
-<p>一般情况下，我们希望这个script标签能够动态的调用，而不是像上面因为固定在html里面所以没等页面显示就执行了，很不灵活。我们可以通过javascript动态的创建script标签，这样我们就可以灵活调用远程服务了。</p>
-<p>程序A中sample的部分代码：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">   <span class="keyword">function</span> <span class="title function_">callback</span>(<span class="params">data</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">       <span class="title function_">alert</span>(data.<span class="property">message</span>);</span></span><br><span class="line"><span class="language-javascript">   &#125;</span></span><br><span class="line"><span class="language-javascript">   <span class="comment">//添加&lt;script&gt;标签的方法</span></span></span><br><span class="line"><span class="language-javascript">   <span class="keyword">function</span> <span class="title function_">addScriptTag</span>(<span class="params">src</span>)&#123;</span></span><br><span class="line"><span class="language-javascript">   <span class="keyword">var</span> script = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;script&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">       script.<span class="title function_">setAttribute</span>(<span class="string">&quot;type&quot;</span>,<span class="string">&quot;text/javascript&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">       script.<span class="property">src</span> = src;</span></span><br><span class="line"><span class="language-javascript">       <span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(script);</span></span><br><span class="line"><span class="language-javascript">   &#125;</span></span><br><span class="line"><span class="language-javascript">   </span></span><br><span class="line"><span class="language-javascript">   <span class="variable language_">window</span>.<span class="property">onload</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">       <span class="title function_">addScriptTag</span>(<span class="string">&quot;http://localhost:20002/test.js&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">   &#125;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>程序B的test.js代码不变，我们再执行下程序，是不是和原来的一样呢。</p>
-<p>如果我们再想调用一个远程服务的话，只要添加<code>addScriptTag</code>方法，传入远程服务的src值就可以了。</p>
-<p>这里说明下为什么要将addScriptTag方法放入到<code>window.onload</code>的方法里，原因是addScriptTag方法中有句<code>document.body.appendChild(script);</code>，这个script标签是被添加到body里的，由于我们写的javascript代码是在head标签中，document.body还没有初始化完毕呢，所以我们要通过window.onload方法先初始化页面，这样才不会出错。</p>
-<p>上面的例子是最简单的JSONP的实现模型</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/07/21/jsonp%E5%8E%9F%E7%90%86%E5%8F%8A%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Fetch基于Promise的API" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/07/21/Fetch%E5%9F%BA%E4%BA%8EPromise%E7%9A%84API/">Fetch基于Promise的API</a>
-    </h1>
-  
-
-        
-        <a href="/2024/07/21/Fetch%E5%9F%BA%E4%BA%8EPromise%E7%9A%84API/" class="archive-article-date">
-  	<time datetime="2024-07-21T06:49:01.436Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-07-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-07-21 Sunday 14:49:01<br>Author: Jackasher</p>
-<h1 id="Fetch基于Promise的API"><a href="#Fetch基于Promise的API" class="headerlink" title="Fetch基于Promise的API"></a>Fetch基于Promise的API</h1><h3 id="Fetch是浏览器原生支持的Api-类似于ajax的发送请求"><a href="#Fetch是浏览器原生支持的Api-类似于ajax的发送请求" class="headerlink" title="Fetch是浏览器原生支持的Api,类似于ajax的发送请求"></a>Fetch是浏览器原生支持的Api,类似于ajax的发送请求</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">            <span class="selector-tag">table</span> &#123;</span></span><br><span class="line"><span class="language-css">                <span class="attribute">border-collapse</span>: collapse;</span></span><br><span class="line"><span class="language-css">                <span class="attribute">width</span>: <span class="number">100</span>;</span></span><br><span class="line"><span class="language-css">                </span></span><br><span class="line"><span class="language-css">            &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">            <span class="selector-tag">td</span>, <span class="selector-tag">th</span> &#123;</span></span><br><span class="line"><span class="language-css">                <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="language-css">                <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">            &#125;</span></span><br><span class="line"><span class="language-css">        </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        这是客户端</span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">&quot;btn&quot;</span>&gt;</span>点我加载数据<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> btn = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;btn&quot;</span>)</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> root = <span class="variable language_">document</span>.<span class="property">documentElement</span></span></span><br><span class="line"><span class="language-javascript">            btn.<span class="property">onclick</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">                <span class="title function_">fetch</span>(<span class="string">&quot;http://127.0.0.1:3000/student&quot;</span>)</span></span><br><span class="line"><span class="language-javascript">                .<span class="title function_">then</span>(<span class="function">(<span class="params">res </span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">                    <span class="keyword">return</span> res.<span class="title function_">json</span>()</span></span><br><span class="line"><span class="language-javascript">                &#125;).<span class="property">then</span> (<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">                    <span class="keyword">const</span> table = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;table&quot;</span>)</span></span><br><span class="line"><span class="language-javascript">                    root.<span class="title function_">appendChild</span>(table)</span></span><br><span class="line"><span class="language-javascript">                    table.<span class="title function_">insertAdjacentHTML</span>(<span class="string">&quot;beforeend&quot;</span>,<span class="string">&quot;&lt;caption&gt;血色浪漫&lt;/caption&gt;&quot;</span>)</span></span><br><span class="line"><span class="language-javascript">                    table.<span class="title function_">insertAdjacentHTML</span>(<span class="string">&quot;beforeend&quot;</span>,</span></span><br><span class="line"><span class="language-javascript">                    <span class="string">`</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                        &lt;thead&gt;</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                            &lt;tr&gt;</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                                &lt;th&gt;1&lt;/th&gt; </span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                                &lt;th&gt;2&lt;/th&gt; </span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                                &lt;th&gt;3&lt;/th&gt; </span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                                &lt;th&gt;4&lt;/th&gt; </span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                                &lt;th&gt;5&lt;/th&gt;    </span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                            &lt;/tr&gt;</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                        &lt;/thead&gt;</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                    `</span>)</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">                    <span class="keyword">const</span> tbody  = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;tbody&quot;</span>)</span></span><br><span class="line"><span class="language-javascript">                    table.<span class="title function_">appendChild</span>(tbody)</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">                    <span class="keyword">for</span> (<span class="keyword">const</span> stu <span class="keyword">of</span> res.<span class="property">data</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">                        tbody.<span class="title function_">insertAdjacentHTML</span>(<span class="string">&quot;beforeend&quot;</span>,</span></span><br><span class="line"><span class="language-javascript">                        <span class="string">`</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                            &lt;tr&gt;</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                                &lt;td&gt;<span class="subst">$&#123;stu.id&#125;</span>&lt;/td&gt;</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                                &lt;td&gt;<span class="subst">$&#123;stu.name&#125;</span>&lt;/td&gt;</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                                &lt;td&gt;<span class="subst">$&#123;stu.age&#125;</span>&lt;/td&gt;</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                                &lt;td&gt;<span class="subst">$&#123;stu.gender&#125;</span>&lt;/td&gt;</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                                &lt;td&gt;<span class="subst">$&#123;stu.address&#125;</span>&lt;/td&gt;</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                            &lt;/tr&gt;</span></span></span><br><span class="line"><span class="string"><span class="language-javascript"></span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                        `</span>)</span></span><br><span class="line"><span class="language-javascript">                    &#125;</span></span><br><span class="line"><span class="language-javascript">                &#125;)</span></span><br><span class="line"><span class="language-javascript">                .<span class="title function_">catch</span>(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">                    <span class="variable language_">console</span>.<span class="title function_">log</span>(err);</span></span><br><span class="line"><span class="language-javascript">                &#125;)</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">            &#125;</span></span><br><span class="line"><span class="language-javascript">                </span></span><br><span class="line"><span class="language-javascript">    </span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>其实我们可以看到,前端渲染方式和,后端原始Servlet渲染很像,手写一大段HTML代码,然后加入数据,而且是在js里面写,那么Vue就是解决数据和视图之间的问题,双向绑定和视图渲染</strong></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/07/21/Fetch%E5%9F%BA%E4%BA%8EPromise%E7%9A%84API/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-CSS选择器" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/07/21/CSS%E9%80%89%E6%8B%A9%E5%99%A8/">CSS选择器</a>
-    </h1>
-  
-
-        
-        <a href="/2024/07/21/CSS%E9%80%89%E6%8B%A9%E5%99%A8/" class="archive-article-date">
-  	<time datetime="2024-07-21T06:49:01.425Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-07-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-07-21 Sunday 14:49:01<br>Author: Jackasher</p>
-<h1 id="CSS选择器"><a href="#CSS选择器" class="headerlink" title="CSS选择器"></a>CSS选择器</h1><h2 id="通用选择器"><a href="#通用选择器" class="headerlink" title="通用选择器"></a>通用选择器</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 所有后代元素 */</span></span><br><span class="line">       <span class="selector-tag">ul</span> <span class="selector-tag">li</span> &#123;</span><br><span class="line">           <span class="attribute">color</span>: red</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="子代选择器"><a href="#子代选择器" class="headerlink" title="子代选择器"></a>子代选择器</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*子代选择器,只选子代*/</span></span><br><span class="line">      <span class="selector-tag">ul</span> &gt; <span class="selector-tag">li</span> &#123;</span><br><span class="line">          <span class="attribute">color</span>: red;</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="交集-并集选择器"><a href="#交集-并集选择器" class="headerlink" title="交集,并集选择器"></a>交集,并集选择器</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*交集选择,标签和类*/</span></span><br><span class="line">       <span class="selector-tag">ul</span><span class="selector-class">.li</span> &#123;</span><br><span class="line">           <span class="attribute">columns</span>: auto;</span><br><span class="line">       &#125;</span><br><span class="line">			<span class="selector-tag">ul</span>,<span class="selector-tag">li</span> &#123;</span><br><span class="line">			&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="兄弟选择器"><a href="#兄弟选择器" class="headerlink" title="兄弟选择器"></a>兄弟选择器</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*兄弟选择器,只选紧紧相连的,直往下看,必须紧紧相邻*/</span></span><br><span class="line">       <span class="selector-tag">div</span> + <span class="selector-tag">p</span> &#123;</span><br><span class="line">           <span class="attribute">columns</span>: auto;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="comment">/*兄弟选择器,选择所有后面的兄弟元素*/</span></span><br><span class="line">       <span class="selector-tag">div</span> ~ <span class="selector-tag">p</span> &#123;</span><br><span class="line">           <span class="attribute">columns</span>: auto;</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="属性选择器"><a href="#属性选择器" class="headerlink" title="属性选择器"></a>属性选择器</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*属性选择器,选择所有有title属性的,可以赋值,也可以不赋值 ^=是以什么开头的,$=是结尾,*=是包含*/</span></span><br><span class="line">      <span class="selector-attr">[title=<span class="string">&quot;jack&quot;</span>]</span> &#123;</span><br><span class="line">          <span class="attribute">column-rule</span>: aliceblue;</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="伪类选择器-动态"><a href="#伪类选择器-动态" class="headerlink" title="伪类选择器-动态"></a>伪类选择器-动态</h2><p>这是一种元素状态的特殊描述</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*没有访问过的a*/</span></span><br><span class="line">      <span class="selector-tag">a</span><span class="selector-pseudo">:link</span> &#123;</span><br><span class="line">          <span class="attribute">color</span>: rebeccapurple;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*访问过的a*/</span></span><br><span class="line">      <span class="selector-tag">a</span><span class="selector-pseudo">:visited</span> &#123;</span><br><span class="line">          <span class="attribute">columns</span>: auto;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">/*选择的是鼠标悬浮的a元素*/</span></span><br><span class="line">      <span class="selector-tag">a</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">          <span class="attribute">columns</span>: auto;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">/*按下a时的状态*/</span></span><br><span class="line">      <span class="selector-tag">a</span><span class="selector-pseudo">:active</span> &#123;</span><br><span class="line">          <span class="attribute">columns</span>: auto;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">/*获取焦点,输入东西的标签才可以用*/</span></span><br><span class="line">      <span class="selector-tag">input</span><span class="selector-pseudo">:focus</span> &#123;</span><br><span class="line">          <span class="attribute">columns</span>: auto;</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="伪类选择器-结构"><a href="#伪类选择器-结构" class="headerlink" title="伪类选择器-结构"></a>伪类选择器-结构</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*所有层级的第一个p会被选中*/</span></span><br><span class="line">        <span class="selector-tag">p</span><span class="selector-pseudo">:first</span>-child &#123;</span><br><span class="line">            <span class="attribute">counter-reset</span>: a;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*所有层级的最后一个p会被选中,不在最后一个就选不到*/</span></span><br><span class="line">        <span class="selector-tag">p</span><span class="selector-pseudo">:first</span>-child &#123;</span><br><span class="line">            <span class="attribute">counter-reset</span>: a;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*选第三个p*/</span></span><br><span class="line">        <span class="selector-tag">p</span><span class="selector-pseudo">:nth-child</span>(<span class="number">3</span>)&#123;</span><br><span class="line">            <span class="attribute">align-self</span>: start;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*第一个出现的p元素*/</span></span><br><span class="line">        <span class="selector-tag">p</span><span class="selector-pseudo">:first</span>-of-type &#123;</span><br><span class="line">            <span class="attribute">color</span>: <span class="number">#000</span>;</span><br><span class="line">            <span class="attribute">background-color</span>: red;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*第三个出现的p*/</span></span><br><span class="line">        <span class="selector-tag">p</span><span class="selector-pseudo">:nth-of-type</span>(<span class="number">3</span>) &#123;</span><br><span class="line">            <span class="attribute">columns</span>: auto;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*倒着的第三个*/</span></span><br><span class="line">        <span class="selector-tag">p</span><span class="selector-pseudo">:nth-last-child</span>(<span class="number">3</span>) &#123;</span><br><span class="line">            <span class="attribute">counter-reset</span>: a;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*没有兄弟的p*/</span></span><br><span class="line">        <span class="selector-tag">p</span><span class="selector-pseudo">:only-child</span> &#123;</span><br><span class="line">            <span class="attribute">clear</span>: both;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*没有同类型兄弟的p*/</span></span><br><span class="line">        <span class="selector-tag">p</span><span class="selector-pseudo">:only-of-type</span> &#123;</span><br><span class="line">            <span class="attribute">clear</span>: both;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*什么都没有的p*/</span></span><br><span class="line">        <span class="selector-tag">p</span><span class="selector-pseudo">:empty</span> &#123;</span><br><span class="line">            <span class="attribute">clear</span>: both;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><strong>child通常是直接的第一个,不在乎类型</strong> </p>
-<h2 id="否定伪类"><a href="#否定伪类" class="headerlink" title="否定伪类"></a>否定伪类</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*排除的是类名伪fail的p,还可以写[title^=&quot;Jack&quot;]*/</span></span><br><span class="line">       <span class="selector-tag">p</span><span class="selector-pseudo">:not</span>(<span class="selector-class">.fail</span>) &#123;</span><br><span class="line">           <span class="attribute">clear</span>: both;</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="UI伪类"><a href="#UI伪类" class="headerlink" title="UI伪类"></a>UI伪类</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*勾选的input*/</span></span><br><span class="line">     <span class="selector-tag">input</span><span class="selector-pseudo">:checked</span> &#123;</span><br><span class="line">         <span class="attribute">clear</span>: both;</span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="目标伪类"><a href="#目标伪类" class="headerlink" title="目标伪类"></a>目标伪类</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*目标为div的时候*/</span></span><br><span class="line">       <span class="selector-tag">div</span><span class="selector-pseudo">:target</span> &#123;</span><br><span class="line">           <span class="attribute">clear</span>: both;</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="语言选择器"><a href="#语言选择器" class="headerlink" title="语言选择器"></a>语言选择器</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*只选择英文*/</span></span><br><span class="line">       <span class="selector-tag">div</span><span class="selector-pseudo">:lang</span>(en) &#123;</span><br><span class="line">           <span class="attribute">columns</span>: auto;</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="伪元素选择器"><a href="#伪元素选择器" class="headerlink" title="伪元素选择器"></a>伪元素选择器</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*div里面的第一个文字,选择的甚至不是元素*/</span></span><br><span class="line">        <span class="selector-tag">div</span><span class="selector-pseudo">::first-letter</span> &#123;</span><br><span class="line">            <span class="attribute">clear</span>: both;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*被鼠标选中的*/</span></span><br><span class="line">        <span class="selector-tag">div</span><span class="selector-pseudo">::selection</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">/*input里面元素文字*/</span></span><br><span class="line">        <span class="selector-tag">div</span><span class="selector-pseudo">::placeholder</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">/*p元素内容前加$*/</span></span><br><span class="line">        <span class="selector-tag">p</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">            <span class="attribute">content</span>: <span class="string">&quot;$&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="selector-tag">p</span><span class="selector-pseudo">::after</span> &#123;</span><br><span class="line">            <span class="attribute">content</span>: <span class="string">&quot;.00&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/07/21/CSS%E9%80%89%E6%8B%A9%E5%99%A8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-axios" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/07/21/axios/">axios</a>
-    </h1>
-  
-
-        
-        <a href="/2024/07/21/axios/" class="archive-article-date">
-  	<time datetime="2024-07-21T06:49:01.382Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-07-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-07-21 Sunday 14:49:01<br>Author: Jackasher</p>
-<h1 id="axios"><a href="#axios" class="headerlink" title="axios"></a>axios</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">btn3.<span class="property">onclick</span> = <span class="keyword">function</span> (<span class="params"></span>)&#123;</span><br><span class="line">       <span class="title function_">axios</span>(&#123;</span><br><span class="line">           <span class="attr">method</span>: <span class="string">&quot;get&quot;</span>,</span><br><span class="line">           <span class="attr">url</span>: <span class="string">&quot;http://127.0.0.1:3000/student&quot;</span>,</span><br><span class="line"></span><br><span class="line">       &#125;).<span class="title function_">then</span>(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">           <span class="variable language_">console</span>.<span class="title function_">log</span>(res);</span><br><span class="line">           <span class="variable language_">console</span>.<span class="title function_">log</span>(res.<span class="property">data</span>);</span><br><span class="line">       &#125;).<span class="title function_">catch</span>(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">           <span class="variable language_">console</span>.<span class="title function_">log</span>(err);</span><br><span class="line">       &#125;)</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-
-<p>axios会自动设置请求头Application和对对返回做promise处理</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/07/21/axios/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-AJAX跨域问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/07/21/AJAX%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/">AJAX跨域问题</a>
-    </h1>
-  
-
-        
-        <a href="/2024/07/21/AJAX%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2024-07-21T06:49:01.374Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-07-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-07-21 Sunday 14:49:01<br>Author: Jackasher</p>
-<h1 id="AJAX跨域问题"><a href="#AJAX跨域问题" class="headerlink" title="AJAX跨域问题"></a>AJAX跨域问题</h1><p>请求可以到达服务器,服务器正常响应,只是被浏览器拦截下来,浏览器为了保护浏览器,需要浏览器授权,我们可以看到是要求服务器设置响应头</p>
-<p><img src="https://p.ipic.vip/hgmfmn.png" alt="image-20240719184303320"></p>
-<p>所以在路由中设置响应头就可以解决了</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置路由</span></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&quot;/student&quot;</span>, <span class="function">(<span class="params">req,res</span>) =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;收到get请求&quot;</span>);</span><br><span class="line"></span><br><span class="line">    res.<span class="title function_">setHeader</span>(<span class="string">&quot;Access-Control-Allow-Origin&quot;</span>,<span class="string">&quot;*&quot;</span>)</span><br><span class="line"></span><br><span class="line">    res.<span class="title function_">send</span>(&#123;</span><br><span class="line">        <span class="attr">status</span>: <span class="string">&quot;ok&quot;</span>,</span><br><span class="line">        <span class="attr">result</span>: <span class="variable constant_">STU_ARR</span></span><br><span class="line">    &#125;)</span><br><span class="line">    </span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>最基本的ajax请求,正是因为是异步请求,才必须依靠回调函数来接受响应</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">         <span class="keyword">const</span> btn = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;btn&quot;</span>)</span><br><span class="line"></span><br><span class="line">         <span class="keyword">const</span> root = <span class="variable language_">document</span>.<span class="property">documentElement</span></span><br><span class="line">         btn.<span class="property">onclick</span> = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">             <span class="keyword">const</span> xhr = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>()</span><br><span class="line"></span><br><span class="line">             <span class="comment">//设置请求行</span></span><br><span class="line">             xhr.<span class="title function_">open</span>(<span class="string">&quot;get&quot;</span>,<span class="string">&quot;http://127.0.0.1:3000/student&quot;</span>)</span><br><span class="line"></span><br><span class="line">             xhr.<span class="title function_">send</span>()</span><br><span class="line"></span><br><span class="line">             xhr.<span class="property">responseType</span> = <span class="string">&quot;json&quot;</span></span><br><span class="line"></span><br><span class="line">             <span class="comment">// console.log(xhr.response);</span></span><br><span class="line"></span><br><span class="line">             xhr.<span class="property">onload</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line"></span><br><span class="line">                      <span class="comment">//将字符串转为对象</span></span><br><span class="line">                 <span class="comment">// const stuList = JSON.parse(xhr.response)</span></span><br><span class="line">                 <span class="comment">// console.log(xhr.response);</span></span><br><span class="line">                 <span class="comment">// console.log(&quot;----------------&quot;);</span></span><br><span class="line">                 <span class="comment">// console.log(stuList);</span></span><br><span class="line">                 <span class="variable language_">console</span>.<span class="title function_">log</span>(xhr.<span class="property">response</span>);</span><br><span class="line">                 <span class="keyword">const</span> result = xhr.<span class="property">response</span></span><br><span class="line"></span><br><span class="line">                 <span class="keyword">const</span> ul = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;ul&quot;</span>)</span><br><span class="line">                 root.<span class="title function_">appendChild</span>(ul)</span><br><span class="line"></span><br><span class="line">                 <span class="keyword">for</span> (<span class="keyword">const</span> stu <span class="keyword">of</span> result.<span class="property">data</span>) &#123;</span><br><span class="line">                     ul.<span class="title function_">insertAdjacentHTML</span>(<span class="string">&quot;beforeend&quot;</span>,<span class="string">`&lt;li&gt;<span class="subst">$&#123;stu.id&#125;</span>-<span class="subst">$&#123;stu.name&#125;</span>-<span class="subst">$&#123;stu.age&#125;</span>-<span class="subst">$&#123;stu.gender&#125;</span>-<span class="subst">$&#123;stu.address&#125;</span>&lt;/li&gt;`</span>)</span><br><span class="line">                 &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                </span><br><span class="line"></span><br><span class="line">             &#125;</span><br><span class="line">         &#125;</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">     &lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/07/21/AJAX%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Vue的数据代理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/07/19/Vue%E7%9A%84%E6%95%B0%E6%8D%AE%E4%BB%A3%E7%90%86/">Vue的数据代理</a>
-    </h1>
-  
-
-        
-        <a href="/2024/07/19/Vue%E7%9A%84%E6%95%B0%E6%8D%AE%E4%BB%A3%E7%90%86/" class="archive-article-date">
-  	<time datetime="2024-07-19T03:53:01.893Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-07-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-07-19 Friday 11:53:01<br>Author: Jackasher</p>
-<h1 id="Vue的数据代理"><a href="#Vue的数据代理" class="headerlink" title="Vue的数据代理"></a>Vue的数据代理</h1><p>Vue中的data属性会被放在_data里面,通过一个observer(data)传入data后,封装到__data里面,同时改变data自己与_data相同,vm的外部属性,是从_data里面代理得到的,监测数据是由getter实现的,数组的数据是不可以被检测的,需要由数组方法更改</p>
-<ul>
-<li>Vue会监视data所有层级数据<ul>
-<li>setter监视,通过Vue.set( )追加属性,但是不可以给vm的根属性添加</li>
-</ul>
-</li>
-<li>数组监测是靠包裹后的Push Pop等方法,与Array的Prototype不一样</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/07/19/Vue%E7%9A%84%E6%95%B0%E6%8D%AE%E4%BB%A3%E7%90%86/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-SnakeGame Intro" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/07/19/SnakeGame%20Intro/">SnakeGame Intro</a>
-    </h1>
-  
-
-        
-        <a href="/2024/07/19/SnakeGame%20Intro/" class="archive-article-date">
-  	<time datetime="2024-07-19T03:53:01.852Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-07-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-07-19 Friday 11:53:01<br>Author: Jackasher</p>
-<h1 id="SnakeGame-Intro"><a href="#SnakeGame-Intro" class="headerlink" title="SnakeGame Intro"></a>SnakeGame Intro</h1><p>这是一个用javascript写的贪吃蛇游戏,可以直接在浏览器上运行,也可以在nodejs环境下运行,介绍核心代码</p>
-<h3 id="改变的x-y的变量-并未直接改变蛇的坐标"><a href="#改变的x-y的变量-并未直接改变蛇的坐标" class="headerlink" title="改变的x,y的变量,并未直接改变蛇的坐标"></a>改变的x,y的变量,并未直接改变蛇的坐标</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">changeFood</span>(<span class="params"></span>) &#123;</span><br><span class="line">            <span class="keyword">const</span> x = (<span class="title class_">Math</span>.<span class="title function_">floor</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>() * <span class="number">30</span>)) * <span class="number">10</span></span><br><span class="line">            <span class="keyword">const</span> y = (<span class="title class_">Math</span>.<span class="title function_">floor</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>() * <span class="number">30</span>)) * <span class="number">10</span></span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(x, y);</span><br><span class="line">            food.<span class="property">style</span>.<span class="property">left</span> = x + <span class="string">&#x27;px&#x27;</span></span><br><span class="line">            food.<span class="property">style</span>.<span class="property">right</span> = y + <span class="string">&#x27;px&#x27;</span></span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h3 id="接受方向键前判断-这个方向键和当前蛇的方向是否相同"><a href="#接受方向键前判断-这个方向键和当前蛇的方向是否相同" class="headerlink" title="接受方向键前判断,这个方向键和当前蛇的方向是否相同"></a>接受方向键前判断,这个方向键和当前蛇的方向是否相同</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;keydown&#x27;</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">           <span class="comment">//如果按键与方向相同才会继续接受</span></span><br><span class="line">           <span class="keyword">if</span> (reObj[dir] !== event.<span class="property">key</span> &amp;&amp; keyActive) &#123;</span><br><span class="line">               dir = event.<span class="property">key</span></span><br><span class="line">               keyActive = <span class="literal">false</span></span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">       &#125;)</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="这是最核心的蛇移动代码"><a href="#这是最核心的蛇移动代码" class="headerlink" title="这是最核心的蛇移动代码"></a>这是最核心的蛇移动代码</h2><h3 id="将蛇尾部挪到头部-改变蛇尾成蛇头"><a href="#将蛇尾部挪到头部-改变蛇尾成蛇头" class="headerlink" title="将蛇尾部挪到头部,改变蛇尾成蛇头"></a>将蛇尾部挪到头部,改变蛇尾成蛇头</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> tail = snakes[snakes.<span class="property">length</span> - <span class="number">1</span>]</span><br><span class="line">           tail.<span class="property">style</span>.<span class="property">left</span> = x + <span class="string">&quot;px&quot;</span></span><br><span class="line">           tail.<span class="property">style</span>.<span class="property">top</span> = y + <span class="string">&quot;px&quot;</span></span><br><span class="line"></span><br><span class="line">					<span class="comment">//在div元素的开始第一个插入tail元素</span></span><br><span class="line">           snake.<span class="title function_">insertAdjacentElement</span>(<span class="string">&quot;afterbegin&quot;</span>, tail)</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="这个地方的KeyActive是为了阻止同时按下两个键-下一次循环开始又会把KeyActive设为true"><a href="#这个地方的KeyActive是为了阻止同时按下两个键-下一次循环开始又会把KeyActive设为true" class="headerlink" title="这个地方的KeyActive是为了阻止同时按下两个键,下一次循环开始又会把KeyActive设为true"></a>这个地方的KeyActive是为了阻止同时按下两个键,下一次循环开始又会把KeyActive设为true</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;keydown&#x27;</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="comment">//如果按键与方向相同才会继续接受</span></span><br><span class="line">            <span class="keyword">if</span> (reObj[dir] !== event.<span class="property">key</span> &amp;&amp; keyActive) &#123;</span><br><span class="line">                dir = event.<span class="property">key</span></span><br><span class="line">                keyActive = <span class="literal">false</span></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;)</span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/07/19/SnakeGame%20Intro/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
     </nav>
   
 

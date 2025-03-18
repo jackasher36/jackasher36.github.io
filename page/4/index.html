@@ -146,6 +146,1073 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Redis-黑马" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/10/21/Redis-%E9%BB%91%E9%A9%AC/">Redis-黑马</a>
+    </h1>
+  
+
+        
+        <a href="/2024/10/21/Redis-%E9%BB%91%E9%A9%AC/" class="archive-article-date">
+  	<time datetime="2024-10-21T00:42:01.703Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-10-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-10-21 Monday 08:42:01<br>Author: Jackasher</p>
+<h1 id="Redis-黑马"><a href="#Redis-黑马" class="headerlink" title="Redis-黑马"></a>Redis-黑马</h1><p>直接跳过基本操作和 Jedis 操作开始实战,然后我们重点是学会 redis 的思想,而不是编码,所以直接拿着现成项目学习, 而不是一个一个敲,</p>
+<h2 id="手机号模拟验证码和登入"><a href="#手机号模拟验证码和登入" class="headerlink" title="手机号模拟验证码和登入"></a>手机号模拟验证码和登入</h2><p>把生成验证码保存到 session 后, 返回给前端, 前端输入验证码,服务器进行验证</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> Result <span class="title function_">sedCode</span><span class="params">(String phone, HttpSession session)</span> &#123;</span><br><span class="line">    <span class="comment">//1. 校验手机号</span></span><br><span class="line">    <span class="keyword">if</span> (RegexUtils.isPhoneInvalid(phone)) &#123;</span><br><span class="line">        <span class="comment">//2.如果不符合，返回错误信息</span></span><br><span class="line">        <span class="keyword">return</span> Result.fail(<span class="string">&quot;手机号格式错误&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//3. 符合，生成验证码</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">code</span> <span class="operator">=</span> RandomUtil.randomNumbers(<span class="number">6</span>);</span><br><span class="line">    <span class="comment">//4. 保存验证码到session</span></span><br><span class="line">    session.setAttribute(<span class="string">&quot;code&quot;</span>,code);</span><br><span class="line">    <span class="comment">//5. 发送验证码</span></span><br><span class="line">    log.debug(<span class="string">&quot;发送短信验证码成功，验证码:&#123;&#125;&quot;</span>,code);</span><br><span class="line">    <span class="comment">//返回ok</span></span><br><span class="line">    <span class="keyword">return</span> Result.ok();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> Result <span class="title function_">login</span><span class="params">(LoginFormDTO loginForm, HttpSession session)</span> &#123;</span><br><span class="line">    <span class="comment">//1. 校验手机号</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">phone</span> <span class="operator">=</span> loginForm.getPhone();</span><br><span class="line">    <span class="keyword">if</span> (RegexUtils.isPhoneInvalid(phone)) &#123;</span><br><span class="line">        <span class="keyword">return</span> Result.fail(<span class="string">&quot;手机号格式错误&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//2. 校验验证码</span></span><br><span class="line">    <span class="type">Object</span> <span class="variable">cacheCode</span> <span class="operator">=</span> session.getAttribute(<span class="string">&quot;code&quot;</span>);</span><br><span class="line">    <span class="type">String</span> <span class="variable">code</span> <span class="operator">=</span> loginForm.getCode();</span><br><span class="line">    <span class="keyword">if</span> (cacheCode == <span class="literal">null</span> || !cacheCode.toString().equals(code))&#123;</span><br><span class="line">        <span class="comment">//3. 不一致，报错</span></span><br><span class="line">        <span class="keyword">return</span> Result.fail(<span class="string">&quot;验证码错误&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//4.一致，根据手机号查询用户</span></span><br><span class="line">    <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> query().eq(<span class="string">&quot;phone&quot;</span>, phone).one();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//5. 判断用户是否存在</span></span><br><span class="line">    <span class="keyword">if</span> (user == <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="comment">//6. 不存在，创建新用户</span></span><br><span class="line">        user = createUserWithPhone(phone);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//7.保存用户信息到session</span></span><br><span class="line">    session.setAttribute(<span class="string">&quot;user&quot;</span>,BeanUtil.copyProperties(user,UserDTO.class));</span><br><span class="line">    <span class="keyword">return</span> Result.ok();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Session-到底是个什么"><a href="#Session-到底是个什么" class="headerlink" title="Session 到底是个什么"></a>Session 到底是个什么</h2><p>用户打开浏览器, 默认会有一个 sessionid, 在发生请求时, 自动发送到服务器, 所以不需要一个返回凭证</p>
+<h2 id="拦截器"><a href="#拦截器" class="headerlink" title="拦截器"></a>拦截器</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LoginInterceptor</span> <span class="keyword">implements</span> <span class="title class_">HandlerInterceptor</span></span><br></pre></td></tr></table></figure>
+
+<p>这是 Spring 配置拦截器的类,注册到容器里</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.hmdp.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.hmdp.utils.LoginInterceptor;</span><br><span class="line"><span class="keyword">import</span> com.hmdp.utils.RefreshTokenInterceptor;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.redis.core.StringRedisTemplate;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.InterceptorRegistry;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.WebMvcConfigurer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.annotation.Resource;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MvcConfig</span> <span class="keyword">implements</span> <span class="title class_">WebMvcConfigurer</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> StringRedisTemplate stringRedisTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> &#123;</span><br><span class="line">        <span class="comment">// 登录拦截器</span></span><br><span class="line">        registry.addInterceptor(<span class="keyword">new</span> <span class="title class_">LoginInterceptor</span>())</span><br><span class="line">                .excludePathPatterns(</span><br><span class="line">                        <span class="string">&quot;/shop/**&quot;</span>,</span><br><span class="line">                        <span class="string">&quot;/voucher/**&quot;</span>,</span><br><span class="line">                        <span class="string">&quot;/shop-type/**&quot;</span>,</span><br><span class="line">                        <span class="string">&quot;/upload/**&quot;</span>,</span><br><span class="line">                        <span class="string">&quot;/blog/hot&quot;</span>,</span><br><span class="line">                        <span class="string">&quot;/user/code&quot;</span>,</span><br><span class="line">                        <span class="string">&quot;/user/login&quot;</span></span><br><span class="line">                );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="BeanUtil"><a href="#BeanUtil" class="headerlink" title="BeanUtil"></a>BeanUtil</h2><p>这是 javaJDk 提供的包, 可以把一个对象的属性粘贴在另一个对象, 也可以把 bean 转成 map, 把 map 转出 bean</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">UserDTO</span> <span class="variable">userDTO</span> <span class="operator">=</span> BeanUtil.copyProperties(user, UserDTO.class);</span><br><span class="line"></span><br><span class="line">Map&lt;String, Object&gt; stringObjectMap = BeanUtil.beanToMap(userDTO);</span><br><span class="line"></span><br><span class="line">Map&lt;String, Object&gt; stringObjectMap = BeanUtil.beanToMap(userDTO);</span><br></pre></td></tr></table></figure>
+
+<h2 id="StrUtil"><a href="#StrUtil" class="headerlink" title="StrUtil"></a>StrUtil</h2><p>StrUtil.isBlank(token) 是来自 <strong>Hutool</strong> 工具库的一个方法，它的作用是检查字符串是否为以下三种情况之一：</p>
+<p>​	•null</p>
+<p>​	•字符串（””）</p>
+<p>​	•仅包含空白字符（如空格、制表符等）</p>
+<h2 id="Redis-速度"><a href="#Redis-速度" class="headerlink" title="Redis 速度"></a>Redis 速度</h2><p>首先看看从数据库查数据的返回速度,可以看到是 884ms,听说 redis 是微秒级别的,我们来看看吧</p>
+<p><img src="https://p.ipic.vip/a4pyih.png" alt="image-20241003214338666"></p>
+<p>可以看到第二次的查询速度直接数量级的下降了,直接变成 71ms 了,这就是 redis 的速度</p>
+<p><img src="https://p.ipic.vip/rt55pm.png" alt="image-20241003214448039"></p>
+<h2 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h2><p>缓存穿透是指, 客户请求的数据不存在, 每一次请求都会打到数据库, 解决方法是布隆过滤和缓存空对象, 这里的演示缓存空对象, 原理就是把这个不存在 的 key 放在 redis</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Result <span class="title function_">queryById</span><span class="params">(Long id)</span> &#123;</span><br><span class="line">        <span class="comment">// 根据ID查询店铺信息的缓存键</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span> CACHE_SHOP_KEY + id;</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// 从redis查询店铺信息的JSON字符串</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">shopJson</span> <span class="operator">=</span> stringRedisTemplate.opsForValue().get(key);</span><br><span class="line">        <span class="comment">// 判断查询结果是否非空</span></span><br><span class="line">        <span class="keyword">if</span> (StrUtil.isNotBlank(shopJson)) &#123;</span><br><span class="line">            <span class="comment">// 如果redis中存在该店铺信息，则将其转换为Shop对象并直接返回</span></span><br><span class="line">            <span class="type">Shop</span> <span class="variable">shop</span> <span class="operator">=</span> JSONUtil.toBean(shopJson, Shop.class);</span><br><span class="line">            System.out.println(<span class="string">&quot;redis 存在该数据&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> Result.ok(shop);</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// 如果查询结果为空字符串，则返回店铺不存在的错误信息</span></span><br><span class="line">        <span class="keyword">if</span> (shopJson != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> Result.fail(<span class="string">&quot;店铺不存在&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// 如果redis中不存在该店铺信息，则从数据库中查询</span></span><br><span class="line">        <span class="type">Shop</span> <span class="variable">shop</span> <span class="operator">=</span> getById(id);</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// 如果数据库中也不存在该店铺信息，则在redis中写入null值，以避免重复查询数据库</span></span><br><span class="line">        <span class="keyword">if</span> (shop == <span class="literal">null</span>) &#123;</span><br><span class="line">            stringRedisTemplate.opsForValue().set(<span class="string">&quot;cache:shop:&quot;</span> + id, <span class="string">&quot;&quot;</span>, <span class="number">5L</span>, TimeUnit.MINUTES);</span><br><span class="line">            <span class="keyword">return</span> Result.fail(<span class="string">&quot;店铺不存在&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// 如果数据库中存在该店铺信息，则将其转换为JSON字符串并写入redis，同时设置过期时间</span></span><br><span class="line">        <span class="keyword">if</span> (shop != <span class="literal">null</span>) &#123;</span><br><span class="line">            stringRedisTemplate.opsForValue().set(<span class="string">&quot;cache:shop:&quot;</span> + id, JSONUtil.toJsonStr(shop), CACHE_SHOP_TTL, TimeUnit.MINUTES);</span><br><span class="line">            <span class="keyword">return</span> Result.ok(shop);</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// 返回查询结果，此处返回的shop可能为null，表示店铺信息不存在</span></span><br><span class="line">        <span class="keyword">return</span> Result.ok(shop);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>通过格式校验也可以解决缓存穿透,还有<code>SpringCloud</code>的限流</p>
+<p><img src="https://p.ipic.vip/nqjuvd.png" alt="image-20241003224840416"></p>
+<h2 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h2><p>缓存雪崩就是 redis 宕机了,或者同一时间大量缓存 key 过期,造成大量访问数据库了, </p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><ul>
+<li>给 Key 的 ttl 设置不同的时间段</li>
+<li>集群</li>
+<li>限流</li>
+<li>多级缓存</li>
+</ul>
+<h2 id="缓存击穿"><a href="#缓存击穿" class="headerlink" title="缓存击穿"></a>缓存击穿</h2><p>缓存击穿, 就是某一个常用的 key 失效了, 然后大量请求直接打向数据库</p>
+<h2 id="BooleanUtil-isTrue"><a href="#BooleanUtil-isTrue" class="headerlink" title="BooleanUtil.isTrue"></a>BooleanUtil.isTrue</h2><p><code>BooleanUtil</code> 的 <code>isTrue</code> 方法用于判断传入的布尔值是否为 <code>true</code>。它通常用来简化布尔值的判断逻辑，避免对 <code>null</code> 值进行显式的处理。</p>
+<p>具体而言，<code>isTrue</code> 方法的实现通常会判断传入的对象是否为 <code>true</code>，并且会自动处理 <code>null</code> 的情况。伪代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">isTrue</span><span class="params">(Boolean bool)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> bool != <span class="literal">null</span> &amp;&amp; bool;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="功能总结："><a href="#功能总结：" class="headerlink" title="功能总结："></a>功能总结：</h3><ul>
+<li>如果传入的值为 <code>true</code>，返回 <code>true</code>。</li>
+<li>如果传入的值为 <code>false</code> 或 <code>null</code>，返回 <code>false</code>。</li>
+</ul>
+<p>这个方法可以防止 <code>NullPointerException</code>，避免手动去写 <code>bool != null &amp;&amp; bool == true</code> 的复杂判断。</p>
+<h2 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h2><p>决定不听了,实在是讲的太差了, 真的不知道怎么回去推荐黑马的课程,太荒唐了, 根本不是给初学者看的</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/10/21/Redis-%E9%BB%91%E9%A9%AC/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Redis-动力节点" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/10/21/Redis-%E5%8A%A8%E5%8A%9B%E8%8A%82%E7%82%B9/">Redis-动力节点</a>
+    </h1>
+  
+
+        
+        <a href="/2024/10/21/Redis-%E5%8A%A8%E5%8A%9B%E8%8A%82%E7%82%B9/" class="archive-article-date">
+  	<time datetime="2024-10-21T00:42:01.691Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-10-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-10-21 Monday 08:42:01<br>Author: Jackasher</p>
+<h1 id="Redis-动力节点"><a href="#Redis-动力节点" class="headerlink" title="Redis-动力节点"></a>Redis-动力节点</h1><h2 id="redis-客户端通过-TCP-建立连接"><a href="#redis-客户端通过-TCP-建立连接" class="headerlink" title="redis 客户端通过 TCP 建立连接,"></a>redis 客户端通过 TCP 建立连接,</h2><h3 id="SYN-标志的作用："><a href="#SYN-标志的作用：" class="headerlink" title="SYN 标志的作用："></a><strong>SYN 标志的作用：</strong></h3><p>​	<strong>序列号同步</strong>：SYN 包的目的是在通信的双方之间同步序列号，用于之后的可靠数据传输。TCP 通过序列号来跟踪每个字节的顺序，以确保数据能够按照正确的顺序接收。</p>
+<p>​	<strong>连接建立请求</strong>：SYN 标志指示一方希望与另一方建立 TCP 连接。</p>
+<h3 id="ACK-则是确认"><a href="#ACK-则是确认" class="headerlink" title="ACK 则是确认"></a>ACK 则是确认</h3><p><strong>ACK</strong> 是 “<code>Acknowledgment</code>”（确认）的缩写，用于 TCP 协议中的确认机制。它的主要作用是确认已经收到的包，以保证数据传输的可靠性。TCP 是一种可靠的传输协议，通过序列号和 ACK 来确保每个数据包都能被正确接收，并且按顺序传递。</p>
+<p>TCP 是双工的,双方都要建立<code>Socket</code>连接</p>
+<p><img src="https://p.ipic.vip/1m0f89.png" alt="image-20241007194930300"></p>
+<p><img src="https://p.ipic.vip/q79t2x.png" alt="image-20241007195600258"></p>
+<p>其实本质都是一问一答, TCP 有两个 Socket, 都需要确认连接和关闭</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/10/21/Redis-%E5%8A%A8%E5%8A%9B%E8%8A%82%E7%82%B9/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Parallel虚拟机" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/10/21/Parallel%E8%99%9A%E6%8B%9F%E6%9C%BA/">Parallel虚拟机</a>
+    </h1>
+  
+
+        
+        <a href="/2024/10/21/Parallel%E8%99%9A%E6%8B%9F%E6%9C%BA/" class="archive-article-date">
+  	<time datetime="2024-10-21T00:42:01.659Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-10-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-10-21 Monday 08:42:01<br>Author: Jackasher</p>
+<h1 id="Parallel虚拟机"><a href="#Parallel虚拟机" class="headerlink" title="Parallel虚拟机"></a>Parallel虚拟机</h1><p>出现该问题是因为 prl_disp_service 进程在后台没有退出去,可能是因为开了旅行模式什么的</p>
+<p><img src="https://p.ipic.vip/9int1p.png" alt="image-20241009173721033"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/10/21/Parallel%E8%99%9A%E6%8B%9F%E6%9C%BA/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Macbook控制台指令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/10/21/Macbook%E6%8E%A7%E5%88%B6%E5%8F%B0%E6%8C%87%E4%BB%A4/">Macbook控制台指令</a>
+    </h1>
+  
+
+        
+        <a href="/2024/10/21/Macbook%E6%8E%A7%E5%88%B6%E5%8F%B0%E6%8C%87%E4%BB%A4/" class="archive-article-date">
+  	<time datetime="2024-10-21T00:42:01.644Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-10-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-10-21 Monday 08:42:01<br>Author: Jackasher</p>
+<h1 id="Macbook控制台指令"><a href="#Macbook控制台指令" class="headerlink" title="Macbook控制台指令"></a>Macbook控制台指令</h1><h2 id="恢复默认设置"><a href="#恢复默认设置" class="headerlink" title="恢复默认设置"></a>恢复默认设置</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">defaults write com.apple.dock springboard-rows Default</span><br><span class="line"></span><br><span class="line">defaults write com.apple.dock springboard-columns Default</span><br><span class="line"></span><br><span class="line">defaults write com.apple.dock ResetLaunchPad -bool TRUE</span><br><span class="line"></span><br><span class="line">killall Dock</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>设置数量</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">defaults write com.apple.dock springboard-columns -int 9</span><br><span class="line"></span><br><span class="line">defaults write com.apple.dock springboard-rows -int 6</span><br><span class="line"></span><br><span class="line">defaults write com.apple.dock ResetLaunchPad -bool TRUE</span><br><span class="line"></span><br><span class="line">killall Dock</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/10/21/Macbook%E6%8E%A7%E5%88%B6%E5%8F%B0%E6%8C%87%E4%BB%A4/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-M3Max" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/10/21/M3Max/">M3Max</a>
+    </h1>
+  
+
+        
+        <a href="/2024/10/21/M3Max/" class="archive-article-date">
+  	<time datetime="2024-10-21T00:42:01.634Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-10-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-10-21 Monday 08:42:01<br>Author: Jackasher</p>
+<h1 id="M3Max"><a href="#M3Max" class="headerlink" title="M3Max"></a>M3Max</h1><p>M3Max 的CPU满功耗是 <code>45w</code>,省电模式下限制到 <code>35w</code>, GPU也是同理, 但是同时满载下, 也会限制到 <code>45w</code>,</p>
+<h3 id="Blender-渲染"><a href="#Blender-渲染" class="headerlink" title="Blender 渲染"></a>Blender 渲染</h3><p>![image-20241007005012815](&#x2F;Users&#x2F;leojackasher&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20241007005012815.png)</p>
+<h2 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h2><p>内存位宽是 <code>300GB/S</code>, 内存位宽是 <code>384bit</code></p>
+<h2 id="M3Pro"><a href="#M3Pro" class="headerlink" title="M3Pro"></a>M3Pro</h2><p>M3pro  CPU最大功率只有<code> 27w</code></p>
+<h2 id="Luna-与-M3-对比"><a href="#Luna-与-M3-对比" class="headerlink" title="Luna 与 M3 对比"></a>Luna 与 M3 对比</h2><p><img src="/Users/leojackasher/Markdown/M3Max.assets/image-20241010174439252.png" alt="image-20241010174439252"></p>
+<h2 id="windows-封装功耗"><a href="#windows-封装功耗" class="headerlink" title="windows 封装功耗"></a>windows 封装功耗</h2><p><img src="/Users/leojackasher/Markdown/M3Max.assets/image-20241010164004391.png" alt="image-20241010164004391"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/10/21/M3Max/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-JVM理解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/10/21/JVM%E7%90%86%E8%A7%A3/">JVM理解</a>
+    </h1>
+  
+
+        
+        <a href="/2024/10/21/JVM%E7%90%86%E8%A7%A3/" class="archive-article-date">
+  	<time datetime="2024-10-21T00:42:01.618Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-10-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-10-21 Monday 08:42:01<br>Author: Jackasher</p>
+<h1 id="JVM理解"><a href="#JVM理解" class="headerlink" title="JVM理解"></a>JVM理解</h1><p>我们常说的栈呀,堆呀,方法区,其实就是java运行时,划分的几块物理空间来存储数据, 每个区域存储的数据不一样,比如栈存的进程,在进程里面存储方法,及其方法变量, 堆里面存对象,方法区里面存类信息</p>
+<h3 id="栈存的是方法-基本数据类型和引用"><a href="#栈存的是方法-基本数据类型和引用" class="headerlink" title="栈存的是方法, 基本数据类型和引用"></a>栈存的是方法, 基本数据类型和引用</h3><ul>
+<li>栈内存中存储局部变量和方法调用信息，包括对象的引用（指针）以及原始类型的数据（如 int、char 等）</li>
+</ul>
+<hr>
+<h4 id="而堆存储的是实例对象-像是数组-集合等"><a href="#而堆存储的是实例对象-像是数组-集合等" class="headerlink" title="而堆存储的是实例对象,像是数组,集合等"></a>而堆存储的是实例对象,像是数组,集合等</h4><ul>
+<li><p>Java 使用堆（Heap）来存储动态分配的对象。堆是一块较大的内存区域，用于存储所有对象实例和数组。</p>
+</li>
+<li><p>当使用 new 关键字创建对象时，这个对象被分配到堆上，并由垃圾收集器管理其生命周期。</p>
+</li>
+<li><p>对象在堆中存活的时间取决于它们的引用是否还存在。堆中的对象不一定会马上被销毁，只有当没有任何引用指向该对象时，垃圾收集器（Garbage Collector）才会标记并清除它。</p>
+</li>
+</ul>
+<hr>
+<p>字符串对象有特殊的存储机制。使用字面量创建的字符串，例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="string">&quot;Hello&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p><u>这个字符串 “Hello” 会存储在<strong>字符串常量池</strong>中，而不是直接在堆中。</u></p>
+<ul>
+<li>常量池存储在堆的特殊区域中，它可以避免创建重复的字符串对象。如果你使用相同的字符串字面量创建多个 String 对象，JVM 会复用常量池中的字符串对象。</li>
+</ul>
+<hr>
+<h3 id="方法区存储的是类的元数据"><a href="#方法区存储的是类的元数据" class="headerlink" title="方法区存储的是类的元数据"></a>方法区存储的是类的元数据</h3><p>在 <strong>Java SE 8 之前</strong>，方法区通常被称为<strong>永久代（Permanent Generation）</strong>,而从 <strong>Java SE 8 开始</strong>，永久代被移除，方法区的实现被称为<strong>元空间（Metaspace）</strong>所以我们可以知道,方法区一定存储的是永久性的信息,</p>
+<ol>
+<li><strong>例如类的元信息,</strong></li>
+</ol>
+<ul>
+<li><strong>类的结构信息</strong>：包括类名、父类名、接口实现信息、类的修饰符（如 public、abstract 等）。</li>
+<li><strong>方法信息</strong>：类中定义的方法名、修饰符、参数类型、返回值类型等。</li>
+<li><strong>字段信息</strong>：类中定义的所有字段的名称、类型和修饰符。</li>
+</ul>
+<hr>
+<ol start="2">
+<li><strong>运行时常量池（Runtime Constant Pool）</strong></li>
+</ol>
+<ul>
+<li>*常量池**存储的是编译期间生成的一些常量和符号引用，主要包括：</li>
+<li>字符串常量</li>
+<li>基本数据类型的常量</li>
+<li>方法和字段的符号引用（方法名、字段名、类名等）</li>
+<li>字符串字面量</li>
+</ul>
+<hr>
+<ol start="3">
+<li><strong>方法的字节码（Bytecode）</strong></li>
+</ol>
+<ul>
+<li>方法区还保存类的每个方法的字节码。JVM 在执行方法时，先从方法区中获取该方法的字节码，然后将其解释执行或即时编译为机器码。</li>
+</ul>
+<hr>
+<ol start="4">
+<li><strong>静态变量</strong></li>
+</ol>
+<ul>
+<li>静态变量是类级别的变量，所有该类的实例共享这些变量。静态变量在类加载时被分配存储空间，存在于方法区。</li>
+</ul>
+<hr>
+<ol start="5">
+<li><strong>类的加载信息</strong></li>
+</ol>
+<ul>
+<li>包括类加载器的信息，类是由哪个类加载器加载的（比如系统类加载器、扩展类加载器等）。</li>
+</ul>
+<hr>
+<ol start="6">
+<li><strong>编译后的代码（JIT 编译后的本地代码）</strong></li>
+</ol>
+<ul>
+<li>当 JVM 对某些热点方法进行<strong>即时编译（Just-In-Time compilation, JIT）</strong>时，编译后的本地机器码也可能会存储在方法区中。JIT 编译器会将这些频繁调用的方法转换为机器代码，以加快执行速度。</li>
+</ul>
+<h3 id="JVM的全景"><a href="#JVM的全景" class="headerlink" title="JVM的全景"></a>JVM的全景</h3><p><img src="https://p.ipic.vip/wzx7nf.png" alt="image-20240926012505921"></p>
+<h2 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h2><p>程序计数器,就是指令寄存机,用于存取下一条指令的地址, </p>
+<h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><p>一个线程对应一个栈,一个方法对应一个栈帧, 默认的栈大小是1024kB, -Xss设置栈大小, </p>
+<p><img src="https://p.ipic.vip/rt5hhc.png" alt="image-20240925232042309"></p>
+<p>垃圾回收不负责栈的回收,栈在方法的执行和消失自动出栈入栈, 如果我们的电脑有500MB,分配的栈是1MB,那么可以生成500个栈, 内存太大,导致栈数量减少,线程数减少, 但是可以增加递归的调用, 局部变量是线程安全的,但是作为方法的参数和返回值时,是不安全的, </p>
+<h2 id="栈内存溢出"><a href="#栈内存溢出" class="headerlink" title="栈内存溢出"></a>栈内存溢出</h2><h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a><strong>原因</strong></h3><ul>
+<li>栈帧过多</li>
+<li>栈帧过大</li>
+</ul>
+<p>我们来看着这段代码,栈在45429的时候溢出, </p>
+<p>![image-20240925234250901](&#x2F;Users&#x2F;leojackasher&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20240925234250901.png)</p>
+<p>当我们把栈设置为256k时,栈帧数量就被减少到<strong>2198</strong></p>
+<h2 id="线程诊断"><a href="#线程诊断" class="headerlink" title="线程诊断"></a>线程诊断</h2><p>学到一个很有意思的东西, top是用来查看进程的, 而ps是查看线程的</p>
+<p><img src="https://p.ipic.vip/ctobtk.png" alt="image-20240926000524565"></p>
+<ol>
+<li><strong>PID</strong> 的全称是 Process ID，它是操作系统分配给每个运行中的进程的唯一标识符。</li>
+<li><strong>TID</strong> 的全称是 Thread ID，它是操作系统分配给每个运行中的线程的唯一标识符。在某些系统中，<code>ps</code> 命令可能使用 <code>tid</code> 来表示线程组ID（Thread Group ID），这与线程ID是不同的概念。</li>
+<li><strong><code>-eo</code></strong> 的全称是 <code>--output-format</code>，这是一个GNU <code>ps</code>命令的选项，允许你指定输出格式。在使用<code>-eo</code>选项时，你可以自定义输出的列，例如<code>pid,tid,%mem,%cpu</code>。</li>
+</ol>
+<p><img src="https://p.ipic.vip/j72exk.png" alt="image-20240926000753928"></p>
+<h4 id="可以看到我的Hexo博客-开了这么多线程"><a href="#可以看到我的Hexo博客-开了这么多线程" class="headerlink" title="可以看到我的Hexo博客,开了这么多线程"></a>可以看到我的Hexo博客,开了这么多线程</h4><p><img src="https://p.ipic.vip/tnv4ze.png" alt="image-20240926001032628"></p>
+<h4 id="可以使用jstack查看java进程的线程-可以看到有271个线程"><a href="#可以使用jstack查看java进程的线程-可以看到有271个线程" class="headerlink" title="可以使用jstack查看java进程的线程,可以看到有271个线程"></a>可以使用jstack查看java进程的线程,可以看到有271个线程</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">2024-09-26 00:18:56</span><br><span class="line">Full thread dump Java HotSpot(TM) 64-Bit Server VM (21.0.1+12-LTS-29 mixed mode, sharing):</span><br><span class="line"></span><br><span class="line">Threads class SMR info:</span><br><span class="line">_java_thread_list=0x0000600003bcae00, length=271, elements=&#123;</span><br><span class="line">0x000000015903d000, 0x0000000159042600, 0x000000015903f800, 0x0000000159040000,</span><br><span class="line">0x0000000159040800, 0x0000000159902e00, 0x0000000159903600, 0x0000000149010c00,</span><br><span class="line">0x0000000149011400, 0x00000001599bd400, 0x00000001593c1e00, 0x0000000159a07400,</span><br><span class="line">0x000000015998aa00, 0x00000001593a8a00, 0x00000001495adc00, 0x0000000159bd6200,</span><br><span class="line">0x000000012b008200, 0x0000000159236400, 0x0000000129808200, 0x00000001495bda00,</span><br><span class="line">0x00000001495be200, 0x0000000149387600, 0x0000000149387e00, 0x00000001493fb800,</span><br><span class="line">0x00000001493fc000, 0x0000000149090800, 0x00000001496a5600, 0x00000001497a0200,</span><br><span class="line">0x000000014978f200, 0x00000001496c0a00, 0x00000001290adc00, 0x000000014973fc00,</span><br><span class="line">0x00000001293a2400, 0x00000001293a2c00, 0x0000000149772a00, 0x00000001293a3400,</span><br><span class="line">0x000000015913f400, 0x0000000159367600, 0x0000000159486c00, 0x00000001593da600,</span><br><span class="line">0x00000001592a3400, 0x0000000149386a00, 0x0000000149369800, 0x0000000149694c00,</span><br><span class="line">0x00000001493e8400, 0x0000000149573000, 0x0000000159c1b200, 0x0000000159bb1e00,</span><br><span class="line">0x0000000159c7c800, 0x0000000159047200, 0x000000014942aa00, 0x00000001596d0c00,</span><br><span class="line">0x00000001293ca800, 0x0000000159f95400, 0x00000001596e2400, 0x0000000159e6e600,</span><br><span class="line">0x000000012a809a00, 0x0000000159212800, 0x0000000159e57400, 0x0000000124cd5e00,</span><br><span class="line">0x0000000124ca3200, 0x0000000124ca3a00, 0x0000000159213000, 0x00000001592bb400,</span><br><span class="line">0x00000001594e5200, 0x00000001597ff600, 0x00000001493fa200, 0x00000001491af400,</span><br><span class="line">0x00000001492bec00, 0x00000001492bf400, 0x0000000159665200, 0x000000014935f200,</span><br><span class="line">0x0000000159904a00, 0x0000000159969e00, 0x0000000159905200, 0x00000001592baa00,</span><br><span class="line">0x00000001599b7800, 0x0000000159f5f200, 0x000000011d912e00, 0x0000000159b54a00,</span><br><span class="line">0x00000001493bd800, 0x000000012922b600, 0x00000001493a2a00, 0x00000001596aa200,</span><br><span class="line">0x00000001594dea00, 0x00000001491aec00, 0x00000001495e6200, 0x00000001591d1600,</span><br><span class="line">0x00000001496a6600, 0x0000000159de3c00, 0x0000000159de7a00, 0x000000015966f800,</span><br><span class="line">0x00000001493c8e00, 0x0000000129279200, 0x0000000159f12a00, 0x000000014932f200,</span><br><span class="line">0x00000001492bb400, 0x00000001493bce00, 0x000000015936be00, 0x000000012935e800,</span><br><span class="line">0x0000000124d60a00, 0x0000000124df5e00, 0x0000000159239a00, 0x0000000124da8c00,</span><br><span class="line">0x0000000124da9400, 0x000000011d912600, 0x000000012935e000, 0x000000012910c600,</span><br><span class="line">0x00000001590a9a00, 0x000000012a00e800, 0x00000001593c1200, 0x0000000159f94400,</span><br><span class="line">0x0000000159352e00, 0x0000000159353600, 0x000000015938d600, 0x000000014962a400,</span><br><span class="line">0x000000015938de00, 0x0000000124045e00, 0x0000000159234800, 0x000000011d9a1600,</span><br><span class="line">0x0000000159fb7e00, 0x0000000159fbda00, 0x00000001591be400, 0x0000000159f9dc00,</span><br><span class="line">0x0000000159730600, 0x000000011d998200, 0x0000000159779400, 0x00000001294c4800,</span><br><span class="line">0x000000011d9c3800, 0x0000000129342c00, 0x0000000159748800, 0x000000015977a400,</span><br><span class="line">0x0000000159779c00, 0x000000011da19200, 0x00000001597ae000, 0x0000000124cea800,</span><br><span class="line">0x00000001597ae800, 0x0000000159797000, 0x000000011d9c9600, 0x0000000124d26e00,</span><br><span class="line">0x0000000129812c00, 0x00000001597ccc00, 0x0000000159718c00, 0x00000001597cd400,</span><br><span class="line">0x000000012948f000, 0x00000001597a3000, 0x000000015959be00, 0x00000001595c1800,</span><br><span class="line">0x00000001595c2000, 0x00000001595ac200, 0x000000011d884400, 0x0000000124810e00,</span><br><span class="line">0x0000000124c34000, 0x0000000159704600, 0x000000011d878600, 0x000000011d881c00,</span><br><span class="line">0x00000001494ba400, 0x00000001494bac00, 0x0000000149706c00, 0x000000012b00e600,</span><br><span class="line">0x00000001595eba00, 0x00000001595aca00, 0x0000000159fff400, 0x0000000124cc7400,</span><br><span class="line">0x00000001596f1e00, 0x000000012a808200, 0x00000001596f2600, 0x00000001596f2e00,</span><br><span class="line">0x0000000159717400, 0x0000000159717c00, 0x0000000159718400, 0x000000015971ba00,</span><br><span class="line">0x000000012927c800, 0x0000000129523a00, 0x000000012934b600, 0x0000000159e88a00,</span><br><span class="line">0x0000000124866a00, 0x0000000159b95200, 0x00000001240c6e00, 0x0000000159b95a00,</span><br><span class="line">0x0000000124126200, 0x00000001242f3e00, 0x0000000159e4fa00, 0x0000000159e50200,</span><br><span class="line">0x0000000159e50a00, 0x00000001243c0200, 0x00000001243c2a00, 0x0000000159b94600,</span><br><span class="line">0x00000001243c3c00, 0x000000011d818200, 0x000000012a80ba00, 0x000000012b00de00,</span><br><span class="line">0x000000012a00ce00, 0x000000012b009a00, 0x0000000159b5c600, 0x000000011d840800,</span><br><span class="line">0x000000012a025a00, 0x00000001243e0600, 0x00000001243dea00, 0x00000001243c4400,</span><br><span class="line">0x000000012a029a00, 0x0000000159e51a00, 0x000000012982b200, 0x0000000129821800,</span><br><span class="line">0x000000012b033600, 0x000000012b036e00, 0x000000012b082000, 0x000000012b082800,</span><br><span class="line">0x000000012a835c00, 0x000000012a028800, 0x000000012a06bc00, 0x000000012b083000,</span><br><span class="line">0x000000012a836400, 0x000000012a83a600, 0x000000012a836c00, 0x0000000129817c00,</span><br><span class="line">0x0000000124205a00, 0x0000000124207a00, 0x000000011dcd2200, 0x0000000124208200,</span><br><span class="line">0x000000011dbfd200, 0x000000011dcd2a00, 0x0000000124c06200, 0x0000000129419c00,</span><br><span class="line">0x0000000124cc6800, 0x0000000124cf4c00, 0x0000000124d4b000, 0x000000012a837400,</span><br><span class="line">0x000000012b02e800, 0x000000012981f400, 0x0000000129819400, 0x000000012a04c400,</span><br><span class="line">0x000000012b02f600, 0x000000012b032400, 0x000000012b031200, 0x000000012a94fe00,</span><br><span class="line">0x000000012a052c00, 0x000000012a8eb200, 0x000000012b025e00, 0x000000012b026600,</span><br><span class="line">0x00000001298c7a00, 0x000000012a8e9000, 0x00000001298c8800, 0x000000012a857200,</span><br><span class="line">0x000000012a054600, 0x0000000159baf200, 0x0000000159ebf800, 0x000000011dce3800,</span><br><span class="line">0x000000012a0ce400, 0x0000000124052e00, 0x00000001290c1e00, 0x0000000124206200,</span><br><span class="line">0x00000001292c5c00, 0x00000001294c8800, 0x000000012a260600, 0x0000000159b12e00,</span><br><span class="line">0x000000012b2ed000, 0x000000012a0dde00, 0x00000001293a9800, 0x000000011d889e00,</span><br><span class="line">0x0000000129936e00, 0x000000012923de00, 0x00000001290b8800, 0x00000001293d0200,</span><br><span class="line">0x000000012a3d6e00, 0x000000012a3d7600, 0x000000012480e800, 0x0000000129821000,</span><br><span class="line">0x00000001298e9800, 0x00000001496e5600, 0x00000001243c8a00</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h2><h4 id="Java有一本分代码不是java写的-而是c-这些使用的方法就是本地方法栈-为naive方法-例如clone-notify-hashCode"><a href="#Java有一本分代码不是java写的-而是c-这些使用的方法就是本地方法栈-为naive方法-例如clone-notify-hashCode" class="headerlink" title="Java有一本分代码不是java写的,而是c,这些使用的方法就是本地方法栈, 为naive方法,例如clone, notify, hashCode,"></a>Java有一本分代码不是java写的,而是c,这些使用的方法就是本地方法栈, 为naive方法,例如clone, notify, hashCode,</h4><p><img src="https://p.ipic.vip/3xxuar.png" alt="image-20240926012429887"></p>
+<h2 id="堆-Heap"><a href="#堆-Heap" class="headerlink" title="堆(Heap)"></a>堆(Heap)</h2><h3 id="堆是对象的空间-是共享的"><a href="#堆是对象的空间-是共享的" class="headerlink" title="堆是对象的空间,是共享的,"></a>堆是对象的空间,是共享的,</h3><p><img src="https://p.ipic.vip/7s8noj.png" alt="image-20240926013020253"></p>
+<p>例如设置内存、垃圾回收行为等。-X 后面接的选项属于 JVM 特定的功能，但可能并不在不同的 JVM 实现中通用。</p>
+<p>例如：</p>
+<p>​	•-Xmx：设置最大堆内存大小。</p>
+<p>​	•-Xms：设置初始堆内存大小。</p>
+<p>​	•-Xss：设置每个线程的栈大小。</p>
+<p>2048mb只够27次添加</p>
+<p><img src="https://p.ipic.vip/auuq31.png" alt="image-20240926014005545"></p>
+<h3 id="查看堆内存"><a href="#查看堆内存" class="headerlink" title="查看堆内存"></a>查看堆内存</h3><ul>
+<li>jps</li>
+<li>jmap</li>
+<li>jconsole</li>
+</ul>
+<h3 id="jconsole也太厉害了"><a href="#jconsole也太厉害了" class="headerlink" title="jconsole也太厉害了"></a>jconsole也太厉害了</h3><p><img src="https://p.ipic.vip/ewbv1u.png" alt="image-20240926015401842"></p>
+<h4 id="当使用new-Byte-1024-1024-10-时-会创建10MB的堆空间-除了jconsole以外-还有一个工具-jvisualvm-只不过在JDK8之后被移除了-需要单独下载-这个有个分析堆的功能-可以找到占用堆最大的类"><a href="#当使用new-Byte-1024-1024-10-时-会创建10MB的堆空间-除了jconsole以外-还有一个工具-jvisualvm-只不过在JDK8之后被移除了-需要单独下载-这个有个分析堆的功能-可以找到占用堆最大的类" class="headerlink" title="当使用new Byte[1024 * 1024 * 10]时,会创建10MB的堆空间, 除了jconsole以外,还有一个工具,jvisualvm,只不过在JDK8之后被移除了,需要单独下载,这个有个分析堆的功能,可以找到占用堆最大的类"></a>当使用<code>new Byte[1024 * 1024 * 10]</code>时,会创建10MB的堆空间, 除了jconsole以外,还有一个工具,jvisualvm,只不过在JDK8之后被移除了,需要单独下载,这个有个分析堆的功能,可以找到占用堆最大的类</h4><p><img src="https://p.ipic.vip/no8uy6.png" alt="image-20240926144503022"></p>
+<h2 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h2><h4 id="在JVM1-6时-方法区是在JVM里面-但是1-8后-就把方法区放在了本地内存-由元空间实现-Metaspace-使用-XX-MaxMetaspaceSize-8m设置方法区大小"><a href="#在JVM1-6时-方法区是在JVM里面-但是1-8后-就把方法区放在了本地内存-由元空间实现-Metaspace-使用-XX-MaxMetaspaceSize-8m设置方法区大小" class="headerlink" title="在JVM1.6时,方法区是在JVM里面, 但是1.8后,就把方法区放在了本地内存, 由元空间实现(Metaspace),使用-XX:MaxMetaspaceSize=8m设置方法区大小"></a>在JVM1.6时,方法区是在JVM里面, 但是1.8后,就把方法区放在了本地内存, 由元空间实现(<strong>Metaspace</strong>),使用<code>-XX:MaxMetaspaceSize=8m</code>设置方法区大小</h4><p><img src="https://p.ipic.vip/fttqj1.png" alt="image-20240926145518118"></p>
+<h3 id="二进制字节码包括了类的基本信息-常量池-类方法定义-包含虚拟机指令-我们可以通过javap-反编译一个文件看看-可以看到有构造器和主方法"><a href="#二进制字节码包括了类的基本信息-常量池-类方法定义-包含虚拟机指令-我们可以通过javap-反编译一个文件看看-可以看到有构造器和主方法" class="headerlink" title="二进制字节码包括了类的基本信息, 常量池,类方法定义,包含虚拟机指令,我们可以通过javap,反编译一个文件看看,可以看到有构造器和主方法"></a>二进制字节码包括了类的基本信息, 常量池,类方法定义,包含虚拟机指令,我们可以通过javap,反编译一个文件看看,可以看到有构造器和主方法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">leojackasher<span class="meta">@LeoJackAshers</span>-MacBook-Air example % javap  Main.<span class="keyword">class</span> </span><br><span class="line">  </span><br><span class="line"><span class="title class_">Compiled</span> from <span class="string">&quot;Main.java&quot;</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">org</span>.example.Main &#123;</span><br><span class="line">  <span class="keyword">public</span> org.example.Main();</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(java.lang.String[])</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用javap-v完整反编译后得到"><a href="#使用javap-v完整反编译后得到" class="headerlink" title="使用javap -v完整反编译后得到"></a>使用<code>javap -v</code>完整反编译后得到</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br></pre></td><td class="code"><pre><span class="line">leojackasher@LeoJackAshers-MacBook-Air example % javap -v Main.class</span><br><span class="line">Classfile /Users/leojackasher/IdeaProjects/JVM/target/classes/org/example/Main.class</span><br><span class="line">  Last modified 2024年9月25日; size 1153 bytes</span><br><span class="line">  SHA-256 checksum 5a5c7458846ffeabb04f901273578e395e30cb8f3661afaa1ad552019fbdfcc6</span><br><span class="line">  Compiled from <span class="string">&quot;Main.java&quot;</span></span><br><span class="line">public class org.example.Main</span><br><span class="line">  minor version: 0</span><br><span class="line">  major version: 61</span><br><span class="line">  flags: (0x0021) ACC_PUBLIC, ACC_SUPER</span><br><span class="line">  this_class: <span class="comment">#29                         // org/example/Main</span></span><br><span class="line">  super_class: <span class="comment">#2                         // java/lang/Object</span></span><br><span class="line">  interfaces: 0, fields: 0, methods: 2, attributes: 3</span><br><span class="line">Constant pool:</span><br><span class="line">   <span class="comment">#1 = Methodref          #2.#3          // java/lang/Object.&quot;&lt;init&gt;&quot;:()V</span></span><br><span class="line">   <span class="comment">#2 = Class              #4             // java/lang/Object</span></span><br><span class="line">   <span class="comment">#3 = NameAndType        #5:#6          // &quot;&lt;init&gt;&quot;:()V</span></span><br><span class="line">   <span class="comment">#4 = Utf8               java/lang/Object</span></span><br><span class="line">   <span class="comment">#5 = Utf8               &lt;init&gt;</span></span><br><span class="line">   <span class="comment">#6 = Utf8               ()V</span></span><br><span class="line">   <span class="comment">#7 = Fieldref           #8.#9          // java/lang/System.out:Ljava/io/PrintStream;</span></span><br><span class="line">   <span class="comment">#8 = Class              #10            // java/lang/System</span></span><br><span class="line">   <span class="comment">#9 = NameAndType        #11:#12        // out:Ljava/io/PrintStream;</span></span><br><span class="line">  <span class="comment">#10 = Utf8               java/lang/System</span></span><br><span class="line">  <span class="comment">#11 = Utf8               out</span></span><br><span class="line">  <span class="comment">#12 = Utf8               Ljava/io/PrintStream;</span></span><br><span class="line">  <span class="comment">#13 = String             #14            // Hello and welcome!</span></span><br><span class="line">  <span class="comment">#14 = Utf8               Hello and welcome!</span></span><br><span class="line">  <span class="comment">#15 = Methodref          #16.#17        // java/io/PrintStream.printf:(Ljava/lang/String;[Ljava/lang/Object;)Ljava/io/PrintStream;</span></span><br><span class="line">  <span class="comment">#16 = Class              #18            // java/io/PrintStream</span></span><br><span class="line">  <span class="comment">#17 = NameAndType        #19:#20        // printf:(Ljava/lang/String;[Ljava/lang/Object;)Ljava/io/PrintStream;</span></span><br><span class="line">  <span class="comment">#18 = Utf8               java/io/PrintStream</span></span><br><span class="line">  <span class="comment">#19 = Utf8               printf</span></span><br><span class="line">  <span class="comment">#20 = Utf8               (Ljava/lang/String;[Ljava/lang/Object;)Ljava/io/PrintStream;</span></span><br><span class="line">  <span class="comment">#21 = InvokeDynamic      #0:#22         // #0:makeConcatWithConstants:(I)Ljava/lang/String;</span></span><br><span class="line">  <span class="comment">#22 = NameAndType        #23:#24        // makeConcatWithConstants:(I)Ljava/lang/String;</span></span><br><span class="line">  <span class="comment">#23 = Utf8               makeConcatWithConstants</span></span><br><span class="line">  <span class="comment">#24 = Utf8               (I)Ljava/lang/String;</span></span><br><span class="line">  <span class="comment">#25 = Methodref          #16.#26        // java/io/PrintStream.println:(Ljava/lang/String;)V</span></span><br><span class="line">  <span class="comment">#26 = NameAndType        #27:#28        // println:(Ljava/lang/String;)V</span></span><br><span class="line">  <span class="comment">#27 = Utf8               println</span></span><br><span class="line">  <span class="comment">#28 = Utf8               (Ljava/lang/String;)V</span></span><br><span class="line">  <span class="comment">#29 = Class              #30            // org/example/Main</span></span><br><span class="line">  <span class="comment">#30 = Utf8               org/example/Main</span></span><br><span class="line">  <span class="comment">#31 = Utf8               Code</span></span><br><span class="line">  <span class="comment">#32 = Utf8               LineNumberTable</span></span><br><span class="line">  <span class="comment">#33 = Utf8               LocalVariableTable</span></span><br><span class="line">  <span class="comment">#34 = Utf8               this</span></span><br><span class="line">  <span class="comment">#35 = Utf8               Lorg/example/Main;</span></span><br><span class="line">  <span class="comment">#36 = Utf8               main</span></span><br><span class="line">  <span class="comment">#37 = Utf8               ([Ljava/lang/String;)V</span></span><br><span class="line">  <span class="comment">#38 = Utf8               i</span></span><br><span class="line">  <span class="comment">#39 = Utf8               I</span></span><br><span class="line">  <span class="comment">#40 = Utf8               args</span></span><br><span class="line">  <span class="comment">#41 = Utf8               [Ljava/lang/String;</span></span><br><span class="line">  <span class="comment">#42 = Utf8               StackMapTable</span></span><br><span class="line">  <span class="comment">#43 = Utf8               SourceFile</span></span><br><span class="line">  <span class="comment">#44 = Utf8               Main.java</span></span><br><span class="line">  <span class="comment">#45 = Utf8               BootstrapMethods</span></span><br><span class="line">  <span class="comment">#46 = MethodHandle       6:#47          // REF_invokeStatic java/lang/invoke/StringConcatFactory.makeConcatWithConstants:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite;</span></span><br><span class="line">  <span class="comment">#47 = Methodref          #48.#49        // java/lang/invoke/StringConcatFactory.makeConcatWithConstants:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite;</span></span><br><span class="line">  <span class="comment">#48 = Class              #50            // java/lang/invoke/StringConcatFactory</span></span><br><span class="line">  <span class="comment">#49 = NameAndType        #23:#51        // makeConcatWithConstants:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite;</span></span><br><span class="line">  <span class="comment">#50 = Utf8               java/lang/invoke/StringConcatFactory</span></span><br><span class="line">  <span class="comment">#51 = Utf8               (Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite;</span></span><br><span class="line">  <span class="comment">#52 = String             #53            // i = \u0001</span></span><br><span class="line">  <span class="comment">#53 = Utf8               i = \u0001</span></span><br><span class="line">  <span class="comment">#54 = Utf8               InnerClasses</span></span><br><span class="line">  <span class="comment">#55 = Class              #56            // java/lang/invoke/MethodHandles$Lookup</span></span><br><span class="line">  <span class="comment">#56 = Utf8               java/lang/invoke/MethodHandles$Lookup</span></span><br><span class="line">  <span class="comment">#57 = Class              #58            // java/lang/invoke/MethodHandles</span></span><br><span class="line">  <span class="comment">#58 = Utf8               java/lang/invoke/MethodHandles</span></span><br><span class="line">  <span class="comment">#59 = Utf8               Lookup</span></span><br><span class="line">&#123;</span><br><span class="line">  public org.example.Main();</span><br><span class="line">    descriptor: ()V</span><br><span class="line">    flags: (0x0001) ACC_PUBLIC</span><br><span class="line">    Code:</span><br><span class="line">      stack=1, locals=1, args_size=1</span><br><span class="line">         0: aload_0</span><br><span class="line">         1: invokespecial <span class="comment">#1                  // Method java/lang/Object.&quot;&lt;init&gt;&quot;:()V</span></span><br><span class="line">         4: <span class="built_in">return</span></span><br><span class="line">      LineNumberTable:</span><br><span class="line">        line 11: 0</span><br><span class="line">      LocalVariableTable:</span><br><span class="line">        Start  Length  Slot  Name   Signature</span><br><span class="line">            0       5     0  this   Lorg/example/Main;</span><br><span class="line"></span><br><span class="line">  public static void main(java.lang.String[]);</span><br><span class="line">    descriptor: ([Ljava/lang/String;)V</span><br><span class="line">    flags: (0x0009) ACC_PUBLIC, ACC_STATIC</span><br><span class="line">    Code:</span><br><span class="line">      stack=3, locals=2, args_size=1</span><br><span class="line">         0: getstatic     <span class="comment">#7                  // Field java/lang/System.out:Ljava/io/PrintStream;</span></span><br><span class="line">         3: ldc           <span class="comment">#13                 // String Hello and welcome!</span></span><br><span class="line">         5: iconst_0</span><br><span class="line">         6: anewarray     <span class="comment">#2                  // class java/lang/Object</span></span><br><span class="line">         9: invokevirtual <span class="comment">#15                 // Method java/io/PrintStream.printf:(Ljava/lang/String;[Ljava/lang/Object;)Ljava/io/PrintStream;</span></span><br><span class="line">        12: pop</span><br><span class="line">        13: iconst_1</span><br><span class="line">        14: istore_1</span><br><span class="line">        15: iload_1</span><br><span class="line">        16: iconst_5</span><br><span class="line">        17: if_icmpgt     38</span><br><span class="line">        20: getstatic     <span class="comment">#7                  // Field java/lang/System.out:Ljava/io/PrintStream;</span></span><br><span class="line">        23: iload_1</span><br><span class="line">        24: invokedynamic <span class="comment">#21,  0             // InvokeDynamic #0:makeConcatWithConstants:(I)Ljava/lang/String;</span></span><br><span class="line">        29: invokevirtual <span class="comment">#25                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V</span></span><br><span class="line">        32: iinc          1, 1</span><br><span class="line">        35: goto          15</span><br><span class="line">        38: <span class="built_in">return</span></span><br><span class="line">      LineNumberTable:</span><br><span class="line">        line 15: 0</span><br><span class="line">        line 18: 13</span><br><span class="line">        line 22: 20</span><br><span class="line">        line 18: 32</span><br><span class="line">        line 24: 38</span><br><span class="line">      LocalVariableTable:</span><br><span class="line">        Start  Length  Slot  Name   Signature</span><br><span class="line">           15      23     1     i   I</span><br><span class="line">            0      39     0  args   [Ljava/lang/String;</span><br><span class="line">      StackMapTable: number_of_entries = 2</span><br><span class="line">        frame_type = 252 /* append */</span><br><span class="line">          offset_delta = 15</span><br><span class="line">          locals = [ int ]</span><br><span class="line">        frame_type = 250 /* chop */</span><br><span class="line">          offset_delta = 22</span><br><span class="line">&#125;</span><br><span class="line">SourceFile: <span class="string">&quot;Main.java&quot;</span></span><br><span class="line">BootstrapMethods:</span><br><span class="line">  0: <span class="comment">#46 REF_invokeStatic java/lang/invoke/StringConcatFactory.makeConcatWithConstants:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite;</span></span><br><span class="line">    Method arguments:</span><br><span class="line">      <span class="comment">#52 i = \u0001</span></span><br><span class="line">InnerClasses:</span><br><span class="line">  public static final <span class="comment">#59= #55 of #57;    // Lookup=class java/lang/invoke/MethodHandles$Lookup of class java/lang/invoke/MethodHandles</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="该部分为类的基本信息"><a href="#该部分为类的基本信息" class="headerlink" title="该部分为类的基本信息"></a>该部分为类的基本信息</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Classfile /Users/leojackasher/IdeaProjects/JVM/target/classes/org/example/Main.class</span><br><span class="line">  Last modified 2024年9月25日; size 1153 bytes</span><br><span class="line">  SHA-256 checksum 5a5c7458846ffeabb04f901273578e395e30cb8f3661afaa1ad552019fbdfcc6</span><br><span class="line">  Compiled from <span class="string">&quot;Main.java&quot;</span></span><br><span class="line">public class org.example.Main</span><br><span class="line">  minor version: 0</span><br><span class="line">  major version: 61</span><br><span class="line">  flags: (0x0021) ACC_PUBLIC, ACC_SUPER</span><br><span class="line">  this_class: <span class="comment">#29                         // org/example/Main</span></span><br><span class="line">  super_class: <span class="comment">#2                         // java/lang/Object</span></span><br><span class="line">  interfaces: 0, fields: 0, methods: 2, attributes: 3</span><br></pre></td></tr></table></figure>
+
+<h4 id="然后是常量池"><a href="#然后是常量池" class="headerlink" title="然后是常量池"></a>然后是常量池</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Constant pool:</span><br><span class="line">   <span class="comment">#1 = Methodref          #2.#3          // java/lang/Object.&quot;&lt;init&gt;&quot;:()V</span></span><br><span class="line">   <span class="comment">#2 = Class              #4             // java/lang/Object</span></span><br><span class="line">   <span class="comment">#3 = NameAndType        #5:#6          // &quot;&lt;init&gt;&quot;:()V</span></span><br><span class="line">   <span class="comment">#4 = Utf8               java/lang/Object</span></span><br><span class="line">   <span class="comment">#5 = Utf8               &lt;init&gt;</span></span><br><span class="line">   <span class="comment">#6 = Utf8               ()V</span></span><br><span class="line">   <span class="comment">#7 = Fieldref           #8.#9          // java/lang/System.out:Ljava/io/PrintStream;</span></span><br><span class="line">   <span class="comment">#8 = Class              #10            // java/lang/System</span></span><br><span class="line">   <span class="comment">#9 = NameAndType        #11:#12        // out:Ljava/io/PrintStream;</span></span><br><span class="line">  <span class="comment">#10 = Utf8               java/lang/System</span></span><br><span class="line">  <span class="comment">#11 = Utf8               out</span></span><br><span class="line">  <span class="comment">#12 = Utf8               Ljava/io/PrintStream;</span></span><br><span class="line">  <span class="comment">#13 = String             #14            // Hello and welcome!</span></span><br><span class="line">  <span class="comment">#14 = Utf8               Hello and welcome!</span></span><br><span class="line">  <span class="comment">#15 = Methodref          #16.#17        // java/io/PrintStream.printf:</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="最后是方法信息"><a href="#最后是方法信息" class="headerlink" title="最后是方法信息"></a>最后是方法信息</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  public org.example.Main();</span><br><span class="line">    descriptor: ()V</span><br><span class="line">    flags: (0x0001) ACC_PUBLIC</span><br><span class="line">    Code:</span><br><span class="line">      stack=1, locals=1, args_size=1</span><br><span class="line">         0: aload_0</span><br><span class="line">         1: invokespecial <span class="comment">#1                  // Method java/lang/Object.&quot;&lt;init&gt;&quot;:()V</span></span><br><span class="line">         4: <span class="built_in">return</span></span><br><span class="line">      LineNumberTable:</span><br><span class="line">        line 11: 0</span><br><span class="line">      LocalVariableTable:</span><br><span class="line">        Start  Length  Slot  Name   Signature</span><br><span class="line">            0       5     0  this   Lorg/example/Main;</span><br><span class="line"></span><br><span class="line">  public static void main(java.lang.String[]);</span><br><span class="line">    descriptor: ([Ljava/lang/String;)V</span><br><span class="line">    flags: (0x0009) ACC_PUBLIC, ACC_STATIC</span><br><span class="line">    Code:</span><br><span class="line">      stack=3, locals=2, args_size=1</span><br><span class="line">         0: getstatic     <span class="comment">#7                  // Field java/lang/System.out:Ljava/io/PrintStream;</span></span><br><span class="line">         3: ldc           <span class="comment">#13                 // String Hello and welcome!</span></span><br><span class="line">         5: iconst_0</span><br><span class="line">         6: anewarray     <span class="comment">#2                  // class java/lang/Object</span></span><br><span class="line">         9: invokevirtual <span class="comment">#15                 // Method java/io/PrintStream.printf:(Ljava/lang/String;[Ljava/lang/Object;)Ljava/io/PrintStream;</span></span><br><span class="line">        12: pop</span><br><span class="line">        13: iconst_1</span><br><span class="line">        14: istore_1</span><br><span class="line">        15: iload_1</span><br><span class="line">        16: iconst_5</span><br><span class="line">        17: if_icmpgt     38</span><br><span class="line">        20: getstatic     <span class="comment">#7                  // Field java/lang/System.out:Ljava/io/PrintStream;</span></span><br><span class="line">        23: iload_1</span><br><span class="line">        24: invokedynamic <span class="comment">#21,  0             // InvokeDynamic #0:makeConcatWithConstants:(I)Ljava/lang/String;</span></span><br><span class="line">        29: invokevirtual <span class="comment">#25                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V</span></span><br><span class="line">        32: iinc          1, 1</span><br><span class="line">        35: goto          15</span><br><span class="line">        38: <span class="built_in">return</span></span><br><span class="line">      LineNumberTable:</span><br><span class="line">        line 15: 0</span><br><span class="line">        line 18: 13</span><br><span class="line">        line 22: 20</span><br><span class="line">        line 18: 32</span><br><span class="line">        line 24: 38</span><br><span class="line">      LocalVariableTable:</span><br><span class="line">        Start  Length  Slot  Name   Signature</span><br><span class="line">           15      23     1     i   I</span><br><span class="line">            0      39     0  args   [Ljava/lang/String;</span><br><span class="line">      StackMapTable: number_of_entries = 2</span><br><span class="line">        frame_type = 252 /* append */</span><br><span class="line">          offset_delta = 15</span><br><span class="line">          locals = [ int ]</span><br><span class="line">        frame_type = 250 /* chop */</span><br><span class="line">          offset_delta = 22</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们可以理解为,方法区和常量池都在.class文件里面, 常量池就是一张表,虚拟机通过指令找到这张表的类名,方法,常量等, 虚拟机运行时,常量池会被加载进运行常量池,虚拟地址,变成真实地址</p>
+<h2 id="StringTable"><a href="#StringTable" class="headerlink" title="StringTable"></a>StringTable</h2><p>这是JVM用来存放字符串常量的地方,这个时候还没有加载进java的字符串常量,可以通过-XX:StringtableSize来设置大小,该对象底层也是hashTable,当Size设置过小,会导致加大冲突,减少运行效率</p>
+<p>.	<strong>哈希计算</strong>：</p>
+<p>​	•	当插入一个键值对时，Hashtable 使用哈希函数计算键的哈希值，并将其映射到数组中的一个索引。</p>
+<p>​	2.	<strong>插入</strong>：</p>
+<p>​	•	如果该桶为空，直接将新的 Entry 放入。</p>
+<p>​	•	如果该桶已经有一个或多个 Entry（即发生了哈希冲突），则在链表的末尾插入新的 Entry。</p>
+<p>​	3.	<strong>查找</strong>：</p>
+<p>​	•	通过哈希函数计算键的哈希值，找到对应的桶。如果桶中有多个 Entry，则遍历链表查找对应的键。</p>
+<p>​	4.	<strong>删除</strong>：</p>
+<p>​	•	找到对应的桶和链表中的 Entry，将其从链表中移除。</p>
+<p>我们可以写一段代码来感受一下, 这个常量池的应用, 传说,推特原本是要存储用户地址,预计是30G, 但是使用了字符串常量池后, 减少到了300MB,真是巨大的进步啊, 我们可以大量读取文本文件来做实验</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.example;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Jackasher</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@version</span> 1.0</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@className</span> _StirngTable</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 1.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">_StirngTable</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        List&lt;String&gt; address = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        System.in.read();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">1000000</span>; i++) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span> (<span class="type">BufferedReader</span> <span class="variable">bufferedReader</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedReader</span>(<span class="keyword">new</span> <span class="title class_">InputStreamReader</span>(<span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;/Users/leojackasher/jmeter.log&quot;</span>)));) &#123;</span><br><span class="line"></span><br><span class="line">                <span class="type">String</span> <span class="variable">line</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">                <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">                    line = bufferedReader.readLine();</span><br><span class="line">                    <span class="keyword">if</span> (line == <span class="literal">null</span>) &#123;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    address.add(line);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>运行该项目,进行阻塞,查看String占的堆内存, 可以看到初始时只有800KB</p>
+<p><img src="https://p.ipic.vip/q2j059.png" alt="image-20240926192300848"></p>
+<p>当我们开始运行程序,达到162MB,非常的大了</p>
+<p><img src="/Users/leojackasher/Desktop/Markdown/JVM%E7%90%86%E8%A7%A3.assets/image-20240926192700107.png" alt="image-20240926192700107"></p>
+<p>而我们如果把数据放入常量池</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">address.add(line.intern());</span><br></pre></td></tr></table></figure>
+
+<p>那么再来看看String内存占用是多少,一下子缩减到了12MB,这个进步可就大了</p>
+<p><img src="https://p.ipic.vip/gaylc1.png" alt="image-20240926192903247"></p>
+<h2 id="直接内存"><a href="#直接内存" class="headerlink" title="直接内存"></a>直接内存</h2><p>直接内存就是,直接调用操作系统的内存,最好的例子就是, ByteBuffer, 这个直接内存被操作系统和java可以直接访问,所以读写速度就会更快,原本的读取,是需要从操作系统的缓冲器拷贝到java的缓冲区,,这样就会慢很多,不过直接内存是不受JVM回收管理的</p>
+<p><img src="https://p.ipic.vip/93k39s.png" alt="image-20240926194435251"></p>
+<h2 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h2><h3 id="如何判断对象可以回收"><a href="#如何判断对象可以回收" class="headerlink" title="如何判断对象可以回收"></a>如何判断对象可以回收</h3>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/10/21/JVM%E7%90%86%E8%A7%A3/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Java函数式编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/10/21/Java%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/">Java函数式编程</a>
+    </h1>
+  
+
+        
+        <a href="/2024/10/21/Java%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" class="archive-article-date">
+  	<time datetime="2024-10-21T00:42:01.603Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-10-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-10-21 Monday 08:42:01<br>Author: Jackasher</p>
+<h1 id="Java函数式编程"><a href="#Java函数式编程" class="headerlink" title="Java函数式编程"></a>Java函数式编程</h1><p>Java 5 泛型,枚举,拆箱,注解,Java 8  函数式编程, Stream API</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/10/21/Java%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Apple 命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/10/21/Apple%20%E5%91%BD%E4%BB%A4/">Apple 命令</a>
+    </h1>
+  
+
+        
+        <a href="/2024/10/21/Apple%20%E5%91%BD%E4%BB%A4/" class="archive-article-date">
+  	<time datetime="2024-10-21T00:42:01.565Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-10-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-10-21 Monday 08:42:01<br>Author: Jackasher</p>
+<h1 id="Apple-命令"><a href="#Apple-命令" class="headerlink" title="Apple 命令"></a>Apple 命令</h1><h2 id="以下是使用-pmset-g-命令查看的当前电源管理设置的输出及其解释"><a href="#以下是使用-pmset-g-命令查看的当前电源管理设置的输出及其解释" class="headerlink" title="以下是使用 pmset -g 命令查看的当前电源管理设置的输出及其解释"></a>以下是使用 <code>pmset -g</code> 命令查看的当前电源管理设置的输出及其解释</h2><ol>
+<li><p><strong>standby: 1</strong></p>
+<ul>
+<li>启用了待机模式，系统在休眠一段时间后会进入更深度的节能状态。</li>
+</ul>
+</li>
+<li><p><strong>Sleep On Power Button: 1</strong></p>
+<ul>
+<li>当按下电源按钮时，Mac 将会进入睡眠模式。</li>
+</ul>
+</li>
+<li><p><strong>hibernatefile: &#x2F;var&#x2F;vm&#x2F;sleepimage</strong></p>
+<ul>
+<li>系统的休眠映像文件位置，当 Mac 进入休眠时，它会将内存内容写入此文件。</li>
+</ul>
+</li>
+<li><p><strong>powernap: 1</strong></p>
+<ul>
+<li>Power Nap 功能启用时，即使 Mac 处于睡眠状态，它仍然可以执行一些后台任务，如检查电子邮件、日历事件、软件更新等。</li>
+</ul>
+</li>
+<li><p><strong>networkoversleep: 0</strong></p>
+<ul>
+<li>在睡眠状态下，Mac 不会通过网络唤醒。</li>
+</ul>
+</li>
+<li><p><strong>disksleep: 10</strong></p>
+<ul>
+<li>Mac 空闲 10 分钟后，硬盘将进入睡眠状态，以节省电力。</li>
+</ul>
+</li>
+<li><p><strong>sleep: 1</strong></p>
+<ul>
+<li>主睡眠计时器，表示 Mac 会在 1 分钟后进入睡眠状态（但目前被一些进程阻止，如 powerd、sharingd、Finder 和 coreaudiod）。</li>
+</ul>
+</li>
+<li><p><strong>hibernatemode: 3</strong></p>
+<ul>
+<li>混合睡眠模式，内存内容会保存到磁盘（休眠文件），同时保持内存供电。当电池电量低时，系统会从磁盘中恢复。</li>
+</ul>
+</li>
+<li><p><strong>ttyskeepawake: 1</strong></p>
+<ul>
+<li>当有打开的终端会话（TTYs）时，系统不会进入睡眠状态。</li>
+</ul>
+</li>
+<li><p><strong>displaysleep: 0</strong></p>
+<ul>
+<li>显示器不会自动进入睡眠状态。</li>
+</ul>
+</li>
+<li><p><strong>tcpkeepalive: 1</strong></p>
+<ul>
+<li>系统在睡眠状态下保持 TCP 连接活跃，确保网络服务不会中断。</li>
+</ul>
+</li>
+<li><p><strong>powermode: 2</strong></p>
+<ul>
+<li>macOS 的低功耗模式设置之一，数值越高，系统可能会更加节能。</li>
+</ul>
+</li>
+<li><p><strong>womp: 0</strong></p>
+<ul>
+<li>关闭了 <strong>Wake on Magic Packet</strong>（通过网络唤醒），这意味着你的 Mac 无法通过网络信号唤醒。</li>
+</ul>
+</li>
+</ol>
+<h3 id="恢复默认设置"><a href="#恢复默认设置" class="headerlink" title="恢复默认设置"></a>恢复默认设置</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pmset restoredefaults</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="查看-cpu"><a href="#查看-cpu" class="headerlink" title="查看 cpu"></a>查看 cpu</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo powermetrics --samplers cpu_power</span><br></pre></td></tr></table></figure>
+
+<h2 id="查看内存压力"><a href="#查看内存压力" class="headerlink" title="查看内存压力"></a>查看内存压力</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo memory_pressure</span><br></pre></td></tr></table></figure>
+
+<p>以下是系统内存状态的总结，已进行格式优化：</p>
+<ol>
+<li><p><strong>系统内存总量</strong>：</p>
+<ul>
+<li>系统总内存：38,654,705,664 字节（约 36 GB）</li>
+<li>内存页面大小：16,384 字节（16 KB）</li>
+<li>总内存页数：2,359,296</li>
+</ul>
+</li>
+<li><p><strong>内存页状态</strong>：</p>
+<ul>
+<li>空闲内存页：33,684 页（约 524 MB）</li>
+<li>可清除内存页：183,596 页（约 2.8 GB）</li>
+<li>已清除内存页：12,373,066 页</li>
+</ul>
+</li>
+<li><p><strong>交换 I&#x2F;O（Swap I&#x2F;O）</strong>：</p>
+<ul>
+<li>从交换空间加载到内存的页面数：32,648 页</li>
+<li>内存交换到磁盘的页面数：124,191 页</li>
+</ul>
+</li>
+<li><p><strong>页面队列计数（Page Q counts）</strong>：</p>
+<ul>
+<li>活动内存页：977,967 页（约 14.9 GB）</li>
+<li>非活动内存页：944,118 页（约 14.4 GB）</li>
+<li>推测性内存页：46,829 页（约 732 MB）</li>
+<li>被限制的内存页：0 页</li>
+<li>锁定内存页：191,507 页（约 3 GB）</li>
+</ul>
+</li>
+<li><p><strong>压缩器统计（Compressor Stats）</strong>：</p>
+<ul>
+<li>压缩器使用的内存页：108,155 页（约 1.65 GB）</li>
+<li>解压回内存的页面数：9,763,175 页</li>
+<li>已压缩的页面数：14,253,134 页</li>
+</ul>
+</li>
+<li><p><strong>文件 I&#x2F;O（File I&#x2F;O）</strong>：</p>
+<ul>
+<li>从磁盘加载到内存的文件页面数：10,364,056 页</li>
+<li>从内存写回到磁盘的文件页面数：466,777 页</li>
+</ul>
+</li>
+<li><p><strong>系统内存空闲百分比</strong>：</p>
+<ul>
+<li>系统内存空闲百分比：86%</li>
+</ul>
+</li>
+</ol>
+<p>总结：系统的大部分内存处于空闲或可回收状态（86%），表明系统当前有大量可用内存。部分页面已经交换到磁盘或通过压缩器压缩以节省内存空间。</p>
+<h2 id="内存带宽查看"><a href="#内存带宽查看" class="headerlink" title="内存带宽查看"></a>内存带宽查看</h2><p>macbook pro 的读写可以达到 200GB&#x2F;S,</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">WARNING -- The above is only a rough guideline.</span><br><span class="line">For best results, please be sure you know the</span><br><span class="line">precision of your system timer.</span><br><span class="line">-------------------------------------------------------------</span><br><span class="line">Function    Best Rate MB/s  Avg time     Min time     Max time</span><br><span class="line">Copy:          204351.0     0.000828     0.000783     0.000933</span><br><span class="line">Scale:         193007.9     0.000870     0.000829     0.000968</span><br><span class="line">Add:           166001.5     0.001501     0.001446     0.001556</span><br><span class="line">Triad:         167131.5     0.001506     0.001436     0.001570</span><br><span class="line">-------------------------------------------------------------</span><br><span class="line">Solution Validates: avg error less than 1.000000e-13 on all three arrays</span><br><span class="line">-------------------------------------------------------------</span><br><span class="line">leojackasher@leojackasherdeMacBook-Pro tmp % </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这是 macbook Air 的内存带宽, 只有 55GB&#x2F;S,小了很多</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">precision of your system timer.</span><br><span class="line">-------------------------------------------------------------</span><br><span class="line">Function    Best Rate MB/s  Avg time     Min time     Max time</span><br><span class="line">Copy:           55056.9     0.003326     0.002906     0.003575</span><br><span class="line">Scale:          45506.8     0.004052     0.003516     0.004728</span><br><span class="line">Add:            44876.9     0.005830     0.005348     0.006646</span><br><span class="line">Triad:          45258.2     0.005861     0.005303     0.006746</span><br><span class="line">-------------------------------------------------------------</span><br><span class="line">Solution Validates: avg error less than 1.000000e-13 on all three arrays</span><br></pre></td></tr></table></figure>
+
+<p>打开文件检索(Spotlight)：<code>sudo mdutil -a -i on</code>  <code>sudo mdutil -E /</code><br>关闭文件检索(Spotlight)：sudo mdutil -a -i off </p>
+<p>关闭前</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CPU Power: 1149 mW</span><br><span class="line">GPU Power: 32 mW</span><br><span class="line">ANE Power: 0 mW</span><br><span class="line">Combined Power (CPU + GPU + ANE): 1181 mW</span><br></pre></td></tr></table></figure>
+
+<p>关闭后</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CPU Power: 858 mW</span><br><span class="line">GPU Power: 35 mW</span><br><span class="line">ANE Power: 0 mW</span><br><span class="line">Combined Power (CPU + GPU + ANE): 893 mW</span><br></pre></td></tr></table></figure>
+
+<p>好像并没有什么用…..</p>
+<h2 id="内存交换"><a href="#内存交换" class="headerlink" title="内存交换"></a>内存交换</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">leojackasher@leojackasherdeMacBook-Pro leojackasher % vm_stat</span><br><span class="line"></span><br><span class="line">Mach Virtual Memory Statistics: (page size of 16384 bytes)</span><br><span class="line">Pages free:                               18660.</span><br><span class="line">Pages active:                            657327.</span><br><span class="line">Pages inactive:                          656870.</span><br><span class="line">Pages speculative:                          566.</span><br><span class="line">Pages throttled:                              0.</span><br><span class="line">Pages wired down:                        275610.</span><br><span class="line">Pages purgeable:                          93652.</span><br><span class="line"><span class="string">&quot;Translation faults&quot;</span>:                1694435670.</span><br><span class="line">Pages copy-on-write:                   57165632.</span><br><span class="line">Pages zero filled:                   1043040697.</span><br><span class="line">Pages reactivated:                    103361766.</span><br><span class="line">Pages purged:                          39991898.</span><br><span class="line">File-backed pages:                       436701.</span><br><span class="line">Anonymous pages:                         878062.</span><br><span class="line">Pages stored <span class="keyword">in</span> compressor:             1636585.</span><br><span class="line">Pages occupied by compressor:            693554.</span><br><span class="line">Decompressions:                        78999421.</span><br><span class="line">Compressions:                          95061680.</span><br><span class="line">Pageins:                               20957857.</span><br><span class="line">Pageouts:                               1932868.</span><br><span class="line">Swapins:                                  23073.</span><br><span class="line">Swapouts:                                 43424.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="解释"><a href="#解释" class="headerlink" title="解释"></a>解释</h3><p><strong>关键参数解释：</strong></p>
+<ul>
+<li><strong>Pages free</strong>: 18660 页（大约 305MB）<br>当前系统中的空闲内存页面数量。</li>
+<li><strong>Pages active</strong>: 657327 页（大约 10GB）<br>活跃的内存页面，表示当前正在使用的内存。</li>
+<li><strong>Pages inactive</strong>: 656870 页（大约 10GB）<br>处于非活跃状态的页面，可能是最近未被访问的页面，但仍然保存在内存中以备将来使用。</li>
+<li><strong>Pages speculative</strong>: 566 页（大约 9MB）<br>预测性加载的页面，系统可能认为这些页面会很快被使用，因此预先加载。</li>
+<li><strong>Pages wired down</strong>: 275610 页（大约 4.2GB）<br>被锁定的页面，无法被交换到磁盘中，因为它们对于内核或关键系统进程是必须的。</li>
+<li><strong>Pages purgeable</strong>: 93652 页（大约 1.43GB）<br>可清理的页面，系统可以在需要更多内存时将其释放。</li>
+<li><strong>Pageins</strong>: 20957857<br>从磁盘加载到内存的页面数量（即从磁盘读取到内存中）。</li>
+<li><strong>Pageouts</strong>: 1932868<br>从内存交换到磁盘的页面数量（即写入到交换文件中的页面）。</li>
+<li><strong>Swapins</strong>: 23073<br>从交换空间加载回内存的页面数量。表示某些被交换出去的页面已经被重新加载到内存中。</li>
+<li><strong>Swapouts</strong>: 43424<br>从内存交换到磁盘的页面数量。表示内存不足时，操作系统将页面交换到磁盘的数量。</li>
+<li><strong>Pages stored in compressor</strong>: 1636585（大约 25GB） 被压缩并存储在内存压缩器中的页面数量。</li>
+<li><strong>Pages occupied by compressor</strong>: 693554（大约 10.5GB） 内存压缩器占用的物理内存数量。</li>
+<li><strong>Decompressions</strong>: 78999421<br>从压缩内存中恢复（解压缩）页面的次数。</li>
+<li><strong>Compressions</strong>: 95061680<br>将页面压缩以节省物理内存的次数。</li>
+</ul>
+<h3 id="分析："><a href="#分析：" class="headerlink" title="分析："></a>分析：</h3><ol>
+<li><strong>交换（Swap）活动</strong>：<ul>
+<li><code>Swapins: 23073</code> 和 <code>Swapouts: 43424</code> 表示一些内存页面确实被交换到了磁盘，并且其中一些已经被重新加载回内存。不过交换活动不是特别大，这表明系统总体上还没有频繁使用交换空间。</li>
+</ul>
+</li>
+<li><strong>内存压缩</strong>：<ul>
+<li><code>Pages stored in compressor: 1636585</code> 和 <code>Pages occupied by compressor: 693554</code> 显示系统在大量使用内存压缩。这意味着虽然物理内存紧张，但系统还没有大量依赖磁盘交换，而是通过内存压缩减少了对交换的需求。</li>
+</ul>
+</li>
+<li><strong>内存利用率</strong>：<ul>
+<li>系统当前有大约 <strong>10GB</strong> 的活跃内存，约 <strong>10GB</strong> 的非活跃内存，和 <strong>4.2GB</strong> 的锁定内存。空闲内存只有大约 <strong>305MB</strong>，这意味着内存使用接近饱和，但通过压缩和交换机制维持系统运行。</li>
+</ul>
+</li>
+</ol>
+<h2 id="打开未知软件"><a href="#打开未知软件" class="headerlink" title="打开未知软件"></a>打开未知软件</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo spctl --master-disable</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/10/21/Apple%20%E5%91%BD%E4%BB%A4/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-String的一些事" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -380,959 +1447,9 @@
 
 
   
-    <article id="post-Linux命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/09/28/Linux%E5%91%BD%E4%BB%A4/">Linux命令</a>
-    </h1>
-  
-
-        
-        <a href="/2024/09/28/Linux%E5%91%BD%E4%BB%A4/" class="archive-article-date">
-  	<time datetime="2024-09-28T15:46:01.684Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-09-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-09-28 Saturday 23:46:01<br>Author: Jackasher</p>
-<h1 id="Linux命令"><a href="#Linux命令" class="headerlink" title="Linux命令"></a>Linux命令</h1><h2 id="防火墙命令"><a href="#防火墙命令" class="headerlink" title="防火墙命令"></a>防火墙命令</h2><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo firewall-<span class="built_in">cmd</span> --list-all</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://p.ipic.vip/hh4ku7.png" alt="image-20240924033031611"></p>
-<h2 id="防火墙增加端口"><a href="#防火墙增加端口" class="headerlink" title="防火墙增加端口"></a>防火墙增加端口</h2><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo firewall-<span class="built_in">cmd</span> --add-port=<span class="number">5672</span>/tcp --permanent</span><br><span class="line">sudo firewall-<span class="built_in">cmd</span> --reload</span><br></pre></td></tr></table></figure>
-
-<h2 id="RabbitMq安装"><a href="#RabbitMq安装" class="headerlink" title="RabbitMq安装"></a>RabbitMq安装</h2><p>直接yum下载rabbitmq-server,然后配置环境变量后,启动,打开15672端口,打开插件</p>
-<p><img src="https://p.ipic.vip/bn95xi.png" alt="image-20240924034229189"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/09/28/Linux%E5%91%BD%E4%BB%A4/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-软件自动化测试" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/09/23/%E8%BD%AF%E4%BB%B6%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/">软件自动化测试</a>
-    </h1>
-  
-
-        
-        <a href="/2024/09/23/%E8%BD%AF%E4%BB%B6%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/" class="archive-article-date">
-  	<time datetime="2024-09-23T12:23:01.216Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-09-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-09-23 Monday 20:23:01<br>Author: Jackasher</p>
-<h1 id="软件自动化测试"><a href="#软件自动化测试" class="headerlink" title="软件自动化测试"></a>软件自动化测试</h1><p>本来不想做了,结果最后成功了,版本一直是对的,只是chrome有跨域问题</p>
-<p>![image-20240920003914754](&#x2F;Users&#x2F;leojackasher&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20240920003914754.png)</p>
-<p>尽管如此还是有报错,但是这不影响运行 !!!!!!!!!!!只要接着往下写,就可以运行</p>
-<p><img src="https://p.ipic.vip/ymdkvn.png" alt="image-20240920003945544"></p>
-<p>下面是源码,注意打开新窗口是要切换到新窗口选取元素,同时今天知道了浏览器可以获取Xpath和Selector,还有JS路径,太方便了</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.example;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.openqa.selenium.By;</span><br><span class="line"><span class="keyword">import</span> org.openqa.selenium.WebDriver;</span><br><span class="line"><span class="keyword">import</span> org.openqa.selenium.WebElement;</span><br><span class="line"><span class="keyword">import</span> org.openqa.selenium.chrome.ChromeDriver;</span><br><span class="line"><span class="keyword">import</span> org.openqa.selenium.chrome.ChromeOptions;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Set;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span>: BaiduSearch</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: LiShuai</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@create</span>: 2021-07-12 15:14</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BaiduSearch</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 访问的目标地址</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">URL</span> <span class="operator">=</span> <span class="string">&quot;https://shop.aircheng.com/&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">test</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 设置 ChromeDriver 路径</span></span><br><span class="line">        System.setProperty(<span class="string">&quot;webdriver.chrome.driver&quot;</span>, <span class="string">&quot;/Users/leojackasher/Download/Compressed/chromedriver-mac-arm64 3/chromedriver&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">ChromeOptions</span> <span class="variable">options</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ChromeOptions</span>();</span><br><span class="line">        options.addArguments(<span class="string">&quot;--remote-allow-origins=*&quot;</span>);</span><br><span class="line">        options.setBinary(<span class="string">&quot;/Users/leojackasher/Download/Compressed/chrome-mac-arm64 2/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 定义驱动对象为 ChromeDriver</span></span><br><span class="line">        <span class="type">WebDriver</span> <span class="variable">driver</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ChromeDriver</span>(options);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 打开目标网站</span></span><br><span class="line">        driver.get(URL);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 隐式等待，确保页面元素加载完成</span></span><br><span class="line">        driver.manage().timeouts().implicitlyWait(<span class="number">10</span>, TimeUnit.SECONDS);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 找到并点击第一个元素</span></span><br><span class="line">        <span class="type">WebElement</span> <span class="variable">firstElement</span> <span class="operator">=</span> driver.findElement(By.xpath(<span class="string">&quot;/html/body/header/div[2]/div/div/div[1]/ul/li[1]/div[1]/a[1]&quot;</span>));</span><br><span class="line">        firstElement.click();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 等待几秒钟以确保页面加载</span></span><br><span class="line">        Thread.sleep(<span class="number">2000</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 找到并点击第二个元素</span></span><br><span class="line">        <span class="type">WebElement</span> <span class="variable">secondElement</span> <span class="operator">=</span> driver.findElement(By.xpath(<span class="string">&quot;/html/body/div[3]/div/section[2]/section/section/ul/li[1]/a&quot;</span>));</span><br><span class="line">        secondElement.click();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 等待几秒钟以确保页面加载</span></span><br><span class="line">        Thread.sleep(<span class="number">2000</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 记录当前窗口句柄</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">originalWindow</span> <span class="operator">=</span> driver.getWindowHandle();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取所有窗口句柄</span></span><br><span class="line">        Set&lt;String&gt; handles = driver.getWindowHandles();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 找到并切换到新窗口</span></span><br><span class="line">        <span class="keyword">for</span> (String handle : handles) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!handle.equals(originalWindow)) &#123;</span><br><span class="line">                driver.switchTo().window(handle);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 在新窗口中找到并点击第三个元素</span></span><br><span class="line">        <span class="type">WebElement</span> <span class="variable">thirdElement</span> <span class="operator">=</span> driver.findElement(By.xpath(<span class="string">&quot;/html/body/div[3]/div/section[2]/section[2]/div[2]/div[1]/span&quot;</span>));</span><br><span class="line">        thirdElement.click();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 等待几秒钟以确保操作完成</span></span><br><span class="line">        Thread.sleep(<span class="number">2000</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 关闭新窗口</span></span><br><span class="line">        driver.close();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 切换回原窗口</span></span><br><span class="line">        driver.switchTo().window(originalWindow);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 继续在原窗口中执行操作</span></span><br><span class="line">        <span class="comment">// 可以在这里添加更多的操作代码</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 关闭驱动</span></span><br><span class="line">        driver.quit();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">        test();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/09/23/%E8%BD%AF%E4%BB%B6%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-查看进程命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/09/23/%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E5%91%BD%E4%BB%A4/">查看进程命令</a>
-    </h1>
-  
-
-        
-        <a href="/2024/09/23/%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E5%91%BD%E4%BB%A4/" class="archive-article-date">
-  	<time datetime="2024-09-23T12:23:01.203Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-09-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-09-23 Monday 20:23:01<br>Author: Jackasher</p>
-<h1 id="查看进程命令"><a href="#查看进程命令" class="headerlink" title="查看进程命令"></a>查看进程命令</h1><h3 id="1-ps-命令"><a href="#1-ps-命令" class="headerlink" title="1. ps 命令"></a>1. <code>ps</code> 命令</h3><p><code>ps</code> 可以显示当前正在运行的进程。结合 <code>grep</code> 可以找到指定进程的相关信息。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux | grep &lt;进程名或PID&gt;</span><br></pre></td></tr></table></figure>
-
-<p>例如，要查找名为 <code>chrome</code> 的进程：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux | grep chrome</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-top-命令"><a href="#2-top-命令" class="headerlink" title="2. top 命令"></a>2. <code>top</code> 命令</h3><p><code>top</code> 是一个实时显示系统运行状态和进程信息的工具。打开后，按 <code>o</code> 然后输入进程名，可以筛选出指定的进程。要退出 <code>top</code>，按 <code>q</code>。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">top</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-htop-命令"><a href="#3-htop-命令" class="headerlink" title="3. htop 命令"></a>3. <code>htop</code> 命令</h3><p><code>htop</code> 是 <code>top</code> 的增强版工具，但默认不在macOS中，需要安装。安装方法：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install htop</span><br></pre></td></tr></table></figure>
-
-<p>安装后，运行 <code>htop</code>，可以更直观地查看和筛选进程。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">htop</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-lsof-命令"><a href="#4-lsof-命令" class="headerlink" title="4. lsof 命令"></a>4. <code>lsof</code> 命令</h3><p><code>lsof</code> 显示进程打开的文件列表，可以通过进程名或PID来过滤进程。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsof -c &lt;进程名&gt;</span><br></pre></td></tr></table></figure>
-
-<p>例如，要查看 <code>chrome</code> 进程相关的文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsof -c chrome</span><br></pre></td></tr></table></figure>
-
-<h3 id="5-pgrep-命令"><a href="#5-pgrep-命令" class="headerlink" title="5. pgrep 命令"></a>5. <code>pgrep</code> 命令</h3><p><code>pgrep</code> 用来查找正在运行的进程的PID。你可以通过进程名来查找对应的PID：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pgrep &lt;进程名&gt;</span><br></pre></td></tr></table></figure>
-
-<p>例如：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pgrep chrome</span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/09/23/%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E5%91%BD%E4%BB%A4/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-设计模式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/09/23/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
-    </h1>
-  
-
-        
-        <a href="/2024/09/23/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="archive-article-date">
-  	<time datetime="2024-09-23T12:22:01.859Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-09-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-09-23 Monday 20:22:01<br>Author: Jackasher</p>
-<h1 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h1><h2 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h2><p>单例模式是一种设计模式，确保一个类只有一个实例，并提供全局访问点。它在许多应用场景中都非常有用。以下是一些常见的单例应用场景：</p>
-<h3 id="1-配置管理"><a href="#1-配置管理" class="headerlink" title="1. 配置管理"></a>1. <strong>配置管理</strong></h3><ul>
-<li>在应用程序中，通常需要读取和管理配置文件。使用单例模式可以确保整个应用只加载一次配置，避免多次读取带来的开销。</li>
-<li><strong>示例</strong>：使用单例类 <code>ConfigManager</code> 读取 <code>config.properties</code> 文件，确保整个应用程序只有一个配置实例。还有SqlsessionFactoryBuilder也是如此,</li>
-</ul>
-<h3 id="2-日志管理"><a href="#2-日志管理" class="headerlink" title="2. 日志管理"></a>2. <strong>日志管理</strong></h3><ul>
-<li>日志管理器通常实现为单例，以确保所有日志记录都通过同一个实例进行，避免多个实例写入日志文件导致的混乱。</li>
-<li><strong>示例</strong>：使用单例类 <code>Logger</code> 记录日志，确保所有日志输出通过同一实例。</li>
-</ul>
-<h3 id="3-数据库连接池"><a href="#3-数据库连接池" class="headerlink" title="3. 数据库连接池"></a>3. <strong>数据库连接池</strong></h3><ul>
-<li>数据库连接池可以使用单例模式来管理连接资源，确保只有一个连接池实例来处理所有的数据库连接请求，提高性能和资源利用率。</li>
-<li><strong>示例</strong>：使用单例类 <code>ConnectionPool</code> 管理数据库连接，确保连接的复用。</li>
-</ul>
-<h3 id="4-线程池"><a href="#4-线程池" class="headerlink" title="4. 线程池"></a>4. <strong>线程池</strong></h3><ul>
-<li>线程池管理也可以使用单例模式，确保应用程序中只有一个线程池实例，这样可以有效控制线程的使用和资源分配。</li>
-<li><strong>示例</strong>：使用单例类 <code>ConnectionPool</code> 管理数据库连接，确保连接的复用。</li>
-</ul>
-<h3 id="5-全局状态管理"><a href="#5-全局状态管理" class="headerlink" title="5. 全局状态管理"></a>5. <strong>全局状态管理</strong></h3><ul>
-<li>例如，在游戏或应用中，单例可以用来管理全局状态（如游戏配置、用户设置等），确保状态的一致性。</li>
-<li><strong>示例</strong>：使用单例类 <code>GameSettings</code> 管理游戏的全局设置。</li>
-</ul>
-<h3 id="6-事件调度器"><a href="#6-事件调度器" class="headerlink" title="6. 事件调度器"></a>6. <strong>事件调度器</strong></h3><ul>
-<li>在事件驱动的应用程序中，事件调度器可以实现为单例，确保所有事件都通过同一个实例进行处理和分发。</li>
-<li><strong>示例</strong>：使用单例类 <code>GameSettings</code> 管理游戏的全局设置。还有SpringMVC的DispatchServlet</li>
-</ul>
-<h3 id="7-API-客户端"><a href="#7-API-客户端" class="headerlink" title="7. API 客户端"></a>7. <strong>API 客户端</strong></h3><ul>
-<li>对于外部服务的 API 客户端（如 RESTful API），可以使用单例模式来管理请求，确保只有一个实例负责与外部服务通信。Servlet就是单例的,所有servlet共享一个ServeletContext</li>
-</ul>
-<h3 id="8-缓存管理"><a href="#8-缓存管理" class="headerlink" title="8. 缓存管理"></a>8. <strong>缓存管理</strong></h3><ul>
-<li>缓存系统可以实现为单例，确保所有数据都通过同一个缓存实例进行存储和检索，以提高效率。</li>
-</ul>
-<h3 id="示例代码（Java）："><a href="#示例代码（Java）：" class="headerlink" title="示例代码（Java）："></a>示例代码（Java）：</h3><p>以下是一个简单的 Java 单例模式实现示例：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">java</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">复制代码</span><br><span class="line">public class Configuration &#123;</span><br><span class="line">    private static Configuration instance;</span><br><span class="line"></span><br><span class="line">    private Configuration() &#123;</span><br><span class="line">        // 私有构造函数，防止外部实例化</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static synchronized Configuration getInstance() &#123;</span><br><span class="line">        if (instance == null) &#123;</span><br><span class="line">            instance = new Configuration();</span><br><span class="line">        &#125;</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 配置方法</span><br><span class="line">    public void loadConfig() &#123;</span><br><span class="line">        // 加载配置逻辑</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>单例模式在许多需要确保全局唯一性和一致性的场景中都能发挥重要作用。通过合理使用单例模式，可以有效提高应用的性能、资源利用率和代码可维护性。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/09/23/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Vue图片显示失败" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/09/23/Vue%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA%E5%A4%B1%E8%B4%A5/">Vue图片显示失败</a>
-    </h1>
-  
-
-        
-        <a href="/2024/09/23/Vue%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA%E5%A4%B1%E8%B4%A5/" class="archive-article-date">
-  	<time datetime="2024-09-23T12:22:01.827Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-09-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-09-23 Monday 20:22:01<br>Author: Jackasher</p>
-<h1 id="Vue图片显示失败"><a href="#Vue图片显示失败" class="headerlink" title="Vue图片显示失败"></a>Vue图片显示失败</h1><p>首先要知道该问题,首先要知道显示图片的位置在哪里,以及怎样实现上传图片的, 下面这段负责展现列表页面</p>
-<p><img src="https://p.ipic.vip/uxilg3.png" alt="image-20240725001733485"></p>
-<p>可以看到图片信息依赖于<code>scope</code>,但是并看不出什么东西,也不知道scope是什么</p>
-<p><img src="https://p.ipic.vip/tjfgso.png" alt="image-20240725002435574"></p>
-<p>接着查看上传模块,打开修改用户的模块查看,发现这里是上传图片,上传地址是&#x2F;user&#x2F;img上传图片后,上传成功后才能执行执行<code>handleUpdateAvatarSuccess</code>和<code>saveUser</code>函数,</p>
-<p><img src="https://p.ipic.vip/jdlq4e.png" alt="image-20240725002735560"></p>
-<p>在后端查看&#x2F;user&#x2F;img的处理逻辑,其实就是把文件保存在电脑后又返回文件地址</p>
-<p><img src="https://p.ipic.vip/1z1yt8.png" alt="image-20240725003721376"></p>
-<p>接着进入到<code>handlerAvatarSucess</code>函数查看,其实就是把前面后端的返回值赋给res,也就是文件路径,</p>
-<p>this是当前对象,也就是调用该函数的组件vc,为vc的属性赋值</p>
-<p><img src="https://p.ipic.vip/yelcql.png"></p>
-<p>进入到<code>saveUser</code>查看</p>
-<p><img src="https://p.ipic.vip/1ushqi.png" alt="image-20240725002842490"></p>
-<p>发现添加信息时的信息向&#x2F;user&#x2F;add发送,继续来看后端如何处理该请求</p>
-<p><img src="https://p.ipic.vip/rftoke.png" alt="image-20240725002955202"></p>
-<p>可以看到调用了addUser方法,此时这个User对象会被放入数据库,包括刚才的url地址,以上大致就是上传图片的逻辑,</p>
-<h2 id="接着来到最重要的展示图片的方法-向服务器发-user-page的请求获取页面"><a href="#接着来到最重要的展示图片的方法-向服务器发-user-page的请求获取页面" class="headerlink" title="接着来到最重要的展示图片的方法,向服务器发&#x2F;user&#x2F;page的请求获取页面"></a><strong>接着来到最重要的展示图片的方法</strong>,向服务器发&#x2F;user&#x2F;page的请求获取页面</h2><p><img src="https://p.ipic.vip/hrv15b.png" alt="image-20240725004634192"></p>
-<p>而这是响应回来的数据</p>
-<p><img src="https://p.ipic.vip/izyllr.png" alt="image-20240725004818581"></p>
-<p>然后我们看看后端如何处理&#x2F;user&#x2F;page的请求</p>
-<p><img src="https://p.ipic.vip/us8qbf.png" alt="image-20240725004928694"></p>
-<p>注意到这个row了吗?正是前面展示image的scope.row,由此得知,这个row里面的数据一定就是关键</p>
-<p><img src="https://p.ipic.vip/6w3882.png" alt="image-20240725005015802"></p>
-<p>我们回到前端查看,是如何接受这个row的,是通过userlist来接受</p>
-<p><img src="https://p.ipic.vip/thfj9t.png" alt="image-20240725005147259"></p>
-<h3 id="然后通过输出userlist-终于发现了问题所在-这个userlist是用户数组-但唯独少了图片url的信息"><a href="#然后通过输出userlist-终于发现了问题所在-这个userlist是用户数组-但唯独少了图片url的信息" class="headerlink" title="然后通过输出userlist,终于发现了问题所在,这个userlist是用户数组,但唯独少了图片url的信息"></a>然后通过输出userlist,终于发现了问题所在,这个userlist是用户数组,但唯独少了图片url的信息</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">userlist<span class="punctuation">:</span><span class="punctuation">&#123;</span><span class="attr">&quot;total&quot;</span><span class="punctuation">:</span><span class="number">33</span><span class="punctuation">,</span><span class="attr">&quot;rows&quot;</span><span class="punctuation">:</span><span class="punctuation">[</span><span class="punctuation">&#123;</span><span class="attr">&quot;address&quot;</span><span class="punctuation">:</span><span class="string">&quot;3345&quot;</span><span class="punctuation">,</span><span class="attr">&quot;age&quot;</span><span class="punctuation">:</span><span class="number">21</span><span class="punctuation">,</span><span class="attr">&quot;createBy&quot;</span><span class="punctuation">:</span><span class="string">&quot;admin&quot;</span><span class="punctuation">,</span><span class="attr">&quot;createTime&quot;</span><span class="punctuation">:</span><span class="string">&quot;2024-07-15T15:15:35&quot;</span><span class="punctuation">,</span><span class="attr">&quot;id&quot;</span><span class="punctuation">:</span><span class="number">1</span><span class="punctuation">,</span><span class="attr">&quot;password&quot;</span><span class="punctuation">:</span><span class="string">&quot;123456&quot;</span><span class="punctuation">,</span><span class="attr">&quot;sex&quot;</span><span class="punctuation">:</span><span class="string">&quot;男&quot;</span><span class="punctuation">,</span><span class="attr">&quot;username&quot;</span><span class="punctuation">:</span><span class="string">&quot;admin&quot;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span><span class="punctuation">&#123;</span><span class="attr">&quot;address&quot;</span><span class="punctuation">:</span><span class="string">&quot;34&quot;</span><span class="punctuation">,</span><span class="attr">&quot;age&quot;</span><span class="punctuation">:</span><span class="number">22</span><span class="punctuation">,</span><span class="attr">&quot;createBy&quot;</span><span class="punctuation">:</span><span class="string">&quot;杜&quot;</span><span class="punctuation">,</span><span class="attr">&quot;createTime&quot;</span><span class="punctuation">:</span><span class="string">&quot;2024-07-21T09:16:04&quot;</span><span class="punctuation">,</span><span class="attr">&quot;id&quot;</span><span class="punctuation">:</span><span class="number">2</span><span class="punctuation">,</span><span class="attr">&quot;password&quot;</span><span class="punctuation">:</span><span class="string">&quot;234567&quot;</span><span class="punctuation">,</span><span class="attr">&quot;sex&quot;</span><span class="punctuation">:</span><span class="string">&quot;男&quot;</span><span class="punctuation">,</span><span class="attr">&quot;username&quot;</span><span class="punctuation">:</span><span class="string">&quot;李建林&quot;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span><span class="punctuation">&#123;</span><span class="attr">&quot;address&quot;</span><span class="punctuation">:</span><span class="string">&quot;345&quot;</span><span class="punctuation">,</span><span class="attr">&quot;age&quot;</span><span class="punctuation">:</span><span class="number">22</span><span class="punctuation">,</span><span class="attr">&quot;createBy&quot;</span><span class="punctuation">:</span><span class="string">&quot;杜&quot;</span><span class="punctuation">,</span><span class="attr">&quot;createTime&quot;</span><span class="punctuation">:</span><span class="string">&quot;2024-07-21T09:16:36&quot;</span><span class="punctuation">,</span><span class="attr">&quot;id&quot;</span><span class="punctuation">:</span><span class="number">3</span><span class="punctuation">,</span><span class="attr">&quot;password&quot;</span><span class="punctuation">:</span><span class="string">&quot;345678&quot;</span><span class="punctuation">,</span><span class="attr">&quot;sex&quot;</span><span class="punctuation">:</span><span class="string">&quot;男&quot;</span><span class="punctuation">,</span><span class="attr">&quot;username&quot;</span><span class="punctuation">:</span><span class="string">&quot;李皓宇&quot;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span><span class="punctuation">&#123;</span><span class="attr">&quot;address&quot;</span><span class="punctuation">:</span><span class="string">&quot;345&quot;</span><span class="punctuation">,</span><span class="attr">&quot;age&quot;</span><span class="punctuation">:</span><span class="number">22</span><span class="punctuation">,</span><span class="attr">&quot;createBy&quot;</span><span class="punctuation">:</span><span class="string">&quot;杜&quot;</span><span class="punctuation">,</span><span class="attr">&quot;createTime&quot;</span><span class="punctuation">:</span><span class="string">&quot;2024-07-21T09:17:01&quot;</span><span class="punctuation">,</span><span class="attr">&quot;id&quot;</span><span class="punctuation">:</span><span class="number">4</span><span class="punctuation">,</span><span class="attr">&quot;password&quot;</span><span class="punctuation">:</span><span class="string">&quot;456789&quot;</span><span class="punctuation">,</span><span class="attr">&quot;sex&quot;</span><span class="punctuation">:</span><span class="string">&quot;男&quot;</span><span class="punctuation">,</span><span class="attr">&quot;username&quot;</span><span class="punctuation">:</span><span class="string">&quot;吴扬&quot;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span><span class="punctuation">&#123;</span><span class="attr">&quot;address&quot;</span><span class="punctuation">:</span><span class="string">&quot;345&quot;</span><span class="punctuation">,</span><span class="attr">&quot;age&quot;</span><span class="punctuation">:</span><span class="number">22</span><span class="punctuation">,</span><span class="attr">&quot;createBy&quot;</span><span class="punctuation">:</span><span class="string">&quot;杜&quot;</span><span class="punctuation">,</span><span class="attr">&quot;createTime&quot;</span><span class="punctuation">:</span><span class="string">&quot;2024-07-21T09:17:20&quot;</span><span class="punctuation">,</span><span class="attr">&quot;id&quot;</span><span class="punctuation">:</span><span class="number">5</span><span class="punctuation">,</span><span class="attr">&quot;password&quot;</span><span class="punctuation">:</span><span class="string">&quot;567890&quot;</span><span class="punctuation">,</span><span class="attr">&quot;sex&quot;</span><span class="punctuation">:</span><span class="string">&quot;男&quot;</span><span class="punctuation">,</span><span class="attr">&quot;username&quot;</span><span class="punctuation">:</span><span class="string">&quot;吴震&quot;</span><span class="punctuation">&#125;</span><span class="punctuation">]</span><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<p>可以正常查询到数据库的信息但是没有返回URL字段,一定是查询数据库环节有问题,前面提到后端通过<code>pageUser.getRecords()</code>似乎就获取到了数据库信息,并封装在了row里面,<strong>怎么怎么做到的 ?怎么查询的 ?sql语句是什么 ?</strong></p>
-<p><img src="https://p.ipic.vip/3knixt.png" alt="image-20240725005821654"></p>
-<p>经过摸索,<code>pageUser.getRecords()</code>是mybatis-plus的插件方法,而mybatis可以自动为你生成sql语句,也就是<code>select * from user</code> ,这也意味着所有的mapper.xml都不用看了,mybatis不会使用这些语句,可是为什么<code>select * from user</code> 唯独没有返回img_url字段? 理应获取所有字段呀?</p>
-<p>有没有思考过,通过mybatis框架返回的数据,都会使用类来接受,这也是配置type属性的原因</p>
-<p><img src="https://p.ipic.vip/fq8upo.png" alt="image-20240725010532042"></p>
-<p>那这个类如何才能接受到mybatis返回的数据 ?,有两种,通过set方法或者构造器</p>
-<ul>
-<li>user.setName(“name”)</li>
-<li>new user(“name”)</li>
-</ul>
-<p>可是数据库的字段名是<code>img_url</code>,mybatis怎么会知道你的set方法名字是什么?如何通过set方法为user类赋值 ?只能够靠默认规则,即将_去掉,第二个字母大写,即setImgUrl,可是User里面的字段是img_url</p>
-<p><img src="https://p.ipic.vip/0pztbs.png" alt="image-20240725012643565"></p>
-<p> 对应的set方法是setImg_url,而mybatis试图调用setImgUrl,所以无法将图片地址赋值给user类,因此查出来的图片地址就为null,</p>
-<p><img src="https://p.ipic.vip/fhacmq.png" alt="image-20240725012719253"></p>
-<p>最后只要把字段名改成imgUrl就解决问题</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/09/23/Vue%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA%E5%A4%B1%E8%B4%A5/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Spring理解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/09/23/Spring%E7%90%86%E8%A7%A3/">Spring理解</a>
-    </h1>
-  
-
-        
-        <a href="/2024/09/23/Spring%E7%90%86%E8%A7%A3/" class="archive-article-date">
-  	<time datetime="2024-09-23T12:22:01.810Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-09-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-09-23 Monday 20:22:01<br>Author: Jackasher</p>
-<h1 id="Spring理解"><a href="#Spring理解" class="headerlink" title="Spring理解"></a>Spring理解</h1><p>我想起刚开始学习MVC的痛苦了, 刚开始的时候,还是Thymeleaf视图解析, 需要有页面跳转,配置一堆东西,根本看不懂,什么过滤器,视图解析,静态资源处理,组件扫描,还有表单隐藏作用域</p>
-<p>过滤器和拦截器是不同的,可以采用普通的Filter注册到Spring,也可以用MVC提供的拦截器,这种拦截器过滤器, 都需要指定,默认容器不会执行, 视图解析不需要了,静态资源默认在static下了,组件扫描在Mvc的配置类上,自动配置了表单作用域的处理类</p>
-<p>通常web容器需要一个web.xml文件,但是,Servlet3提出了注解配置,采用类来配置,这个类就是ServletContainerInitializer,Spring通过实现这个接口来取消了web.xml配置,</p>
-<p><img src="https://p.ipic.vip/r3ihri.png" alt="image-20240919144136265"></p>
-<h3 id="依靠这种方法-我们就知道SpringMVC如何简化配置了"><a href="#依靠这种方法-我们就知道SpringMVC如何简化配置了" class="headerlink" title="依靠这种方法,我们就知道SpringMVC如何简化配置了"></a><strong>依靠这种方法,我们就知道<code>SpringMVC</code>如何简化配置了</strong></h3><p><img src="https://p.ipic.vip/s9eqe5.png" alt="image-20240919144512932"></p>
-<p>**<code>WebAppInitializer</code>**就负责配置Spring,MVC,Mybatis,最初是在web.xml里面指定mvc的配置文件位置,现在是在AbstractAnnotationConfigDispatcherServletInitializer子类里面指定mvc路径,该子类代替了web.xml,是Servlet层的接口,Spring提供,而WebMvcConfigurer是Spring里面配置拦截器的,脱离Servlet的接口</p>
-<p><img src="https://p.ipic.vip/s8c9sb.png" alt="image-20240919145646625"></p>
-<h3 id="这段DOCTYPE的声明只是为了idea可以有语法提示-不写也没有问题"><a href="#这段DOCTYPE的声明只是为了idea可以有语法提示-不写也没有问题" class="headerlink" title="这段DOCTYPE的声明只是为了idea可以有语法提示,不写也没有问题"></a>这段DOCTYPE的声明只是为了idea可以有语法提示,不写也没有问题</h3><p><img src="https://p.ipic.vip/6jxino.png" alt="image-20240919150721457"></p>
-<h2 id="AOP"><a href="#AOP" class="headerlink" title="AOP"></a>AOP</h2><p>静态代理就是和原始类实现同一个接口,然后把原始类作为属性注入后,在方法里调用原始类的方法,Spring中的AOP调用时,已经是代理对象了,AOP的核心其实就是,什么方法执行什么切面</p>
-<p><img src="https://p.ipic.vip/0kck7c.png" alt="image-20240920150551912"></p>
-<p>切面的定义需要实现<code>MethodBeforeAdvice</code>或者<code>MethodIntercepter</code></p>
-<p>在 Spring AOP 中，<code>MethodInvocation</code> 是 <code>org.aopalliance.intercept.MethodInvocation</code> 接口的一个实现类，用于封装一个<strong>方法调用</strong>，并且提供对该方法调用过程的控制。它在 Spring AOP 的动态代理机制中起到了核心作用，特别是当你定义了切面（Aspect）时，Spring 使用它来处理方法的拦截、增强以及最终的调用。</p>
-<h3 id="MethodInvocation-包装了以下内容："><a href="#MethodInvocation-包装了以下内容：" class="headerlink" title="MethodInvocation 包装了以下内容："></a><code>MethodInvocation</code> 包装了以下内容：</h3><ol>
-<li><strong>被代理对象（Target Object）</strong>：<ul>
-<li><code>MethodInvocation</code> 中包含了目标对象（即正在被代理的原始对象）。当一个方法被代理时，这个对象就是被拦截的目标对象。</li>
-</ul>
-</li>
-<li><strong>被调用的方法（Method）</strong>：<ul>
-<li><code>MethodInvocation</code> 包装了目标对象上的那个具体的 <code>Method</code> 实例，它代表了要执行的业务逻辑方法。你可以通过 <code>getMethod()</code> 方法获取该被调用的方法。</li>
-</ul>
-</li>
-<li><strong>方法的参数（Arguments）</strong>：<ul>
-<li>被调用的方法的参数也被封装在 <code>MethodInvocation</code> 中，使用 <code>getArguments()</code> 方法可以获取到传递给目标方法的参数列表。</li>
-</ul>
-</li>
-<li><strong>拦截器链（Interceptor Chain）</strong>：<ul>
-<li><code>MethodInvocation</code> 还包装了执行增强逻辑的拦截器链（Advice Chain）。这些拦截器按照顺序执行，最后才执行目标方法本身。拦截器通常包含前置通知（Before Advice）、后置通知（After Advice）等增强逻辑。</li>
-</ul>
-</li>
-<li><strong>代理对象（Proxy Object）</strong>：<ul>
-<li><code>MethodInvocation</code> 中可以包含代理对象本身，这是由 Spring AOP 生成的动态代理，它负责管理代理过程中的方法调用和增强处理。</li>
-</ul>
-</li>
-</ol>
-<h3 id="执行过程"><a href="#执行过程" class="headerlink" title="执行过程"></a>执行过程</h3><p>当代理对象的方法被调用时，<code>MethodInvocation</code> 会依次调用拦截器链中的增强逻辑，最终通过 <code>proceed()</code> 方法执行目标方法。这个 <code>proceed()</code> 方法实际上会继续调用下一个拦截器或最终的目标方法。</p>
-<h3 id="核心方法"><a href="#核心方法" class="headerlink" title="核心方法"></a>核心方法</h3><ol>
-<li><strong><code>proceed()</code></strong>:<ul>
-<li>负责向下执行拦截器链，最终调用被包装的目标方法。</li>
-</ul>
-</li>
-<li><strong><code>getMethod()</code></strong>:<ul>
-<li>获取当前调用的方法实例。</li>
-</ul>
-</li>
-<li><strong><code>getArguments()</code></strong>:<ul>
-<li>获取方法调用的参数。</li>
-</ul>
-</li>
-<li><strong><code>getThis()</code></strong>:<ul>
-<li>返回被代理的对象。</li>
-</ul>
-</li>
-</ol>
-<p>通过 <code>MethodInvocation</code>，Spring AOP 可以灵活地在方法调用之前、之后甚至替代方法本身来执行增强逻辑。这种设计使得切面（Aspect）可以无缝地和业务逻辑解耦，同时又不影响业务方法的执行。</p>
-<h2 id="Aop的切点表达式"><a href="#Aop的切点表达式" class="headerlink" title="Aop的切点表达式"></a><code>Aop</code>的切点表达式</h2><p><code>* *(**)</code>分别为修饰符,方法名,和参数,一个*只可以处理一个包,如果要表示后代包,需要*..,同时还有对方法切入的arg和对类切入的within</p>
-<p><img src="https://p.ipic.vip/8a9fa3.png" alt="image-20240920152620280"></p>
-<p><img src="https://p.ipic.vip/lo30zg.png" alt="image-20240920153414819"></p>
-<p>还可以采用注解方式,自定义一个注解,然后注册这个注解,该注解注解的方法就会成为切面,这个切入点函数还可以使用逻辑运算符,and 和 or, Aop依靠postProcessAfterInitialiazation来做代理,</p>
-<p><img src="https://p.ipic.vip/iwwaao.png" alt="image-20240920154216076"></p>
-<p>只要可以理解AOP是对什么方法执行什么额外功能,就明白注解怎么完成切面, 定义一个切面类,指定额外功能和切点就可以,默认是不会扫描aspect注解,所以才需要在配置文件配置</p>
-<p><img src="https://p.ipic.vip/jbb5mh.png" alt="image-20240920160029186"></p>
-<h2 id="Mybatis的整合"><a href="#Mybatis的整合" class="headerlink" title="Mybatis的整合"></a>Mybatis的整合</h2><p>Mybatis中就是在这样完成代理的,AOP和Mybatis,都是利用PostProcess,利用JDK的动态代理,  前面提到FactoryBean用来创造复杂类,可以看到他实现了以下的接口来创建SqlsessionFactory,不过我疑惑的,它并没有写配置文件,或者标注解纳入Spring容器呢</p>
-<p><img src="https://p.ipic.vip/tdpbnw.png" alt="image-20240920171748469"></p>
-<p><img src="https://p.ipic.vip/4v3ln7.png" alt="image-20240920172041153"></p>
-<p>查询后咋们知道了,是使用类来完成注册进容器的,接下来的问题就是,如何被扫描到的呢</p>
-<p>![image-20240920172517313](&#x2F;Users&#x2F;leojackasher&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20240920172517313.png)</p>
-<p>Spring对Mybatis做的事情到底是什么,我们到底想要Mybatis做的是什么,核心是mapper,mapper的方法,也就是说,Spring直接为我们提供Mapper,要什么,直接Spring容器里面取,这就是Spring做的事情,编程的核心就是数据的表达与传递,Mybatis核心的数据就是,数据源,Mapper包位置, 实体类别名,原本我们需要创建Sqlsession,需要配置文件的信息,现在这个信息交给了sqlSessionfactoryBean来生成SqlsessionFactory,而在注解开发中,不需要在主程序获取,而是直接依赖注入,这就是Spring对Mybatis的整合</p>
-<p><img src="https://p.ipic.vip/b6bdte.png" alt="image-20240920174630509"></p>
-<h2 id="Spring的注解"><a href="#Spring的注解" class="headerlink" title="Spring的注解"></a>Spring的注解</h2><p>前面提到bean的生命周期,实现InitializingBean接口,然后将其注册到Spring的容器里面,就可以在定义Bean的初始化和销毁的时候的操作,现在我们只需要在定义的类方法打上注解就可以,@PostConstruct,@PreDestory,这两个注解是javaee的标准,只是Spring兼容了</p>
-<p><img src="https://p.ipic.vip/7eajkl.png" alt="image-20240921163326949"></p>
-<h3 id="PropertySource注解"><a href="#PropertySource注解" class="headerlink" title="@PropertySource注解"></a>@PropertySource注解</h3><p>这个注解用来指定配置文件地址</p>
-<h2 id="AOP实操"><a href="#AOP实操" class="headerlink" title="AOP实操"></a>AOP实操</h2><p>本来说的是要在主类添加切面注解,但是好像只要加了Aspect可以被扫描到就可以了</p>
-<p><img src="https://p.ipic.vip/vxabbp.png" alt="image-20240922002710044"></p>
-<p>为什么不需要注册AOP驱动,因为SPringBoot帮我们做了,在AspectAutoConfiguration里面配置了</p>
-<p><img src="https://p.ipic.vip/vn8em5.png" alt="image-20240922004846439"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/09/23/Spring%E7%90%86%E8%A7%A3/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-SpringBoot理解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/09/23/SpringBoot%E7%90%86%E8%A7%A3/">SpringBoot理解</a>
-    </h1>
-  
-
-        
-        <a href="/2024/09/23/SpringBoot%E7%90%86%E8%A7%A3/" class="archive-article-date">
-  	<time datetime="2024-09-23T12:22:01.781Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-09-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-09-23 Monday 20:22:01<br>Author: Jackasher</p>
-<h1 id="SpringBoot理解"><a href="#SpringBoot理解" class="headerlink" title="SpringBoot理解"></a>SpringBoot理解</h1><p>@Configuration代表以前的配置文件,Bean注解代表Bean标签,@Import是导入类,直接把类导入到容器里面,</p>
-<p>@ConfigurationProperties, 让该组件与配置文件绑定,以prefix的前缀属性值会绑定在属性里面,</p>
-<p><img src="https://p.ipic.vip/yffr73.png" alt="image-20240919155711845"></p>
-<h2 id="SpringBoot如何自动装配"><a href="#SpringBoot如何自动装配" class="headerlink" title="SpringBoot如何自动装配"></a>SpringBoot如何自动装配</h2><ol>
-<li>导入Starter</li>
-<li>xxxAutoConfiguration生效</li>
-<li>组件</li>
-<li>xxxproperties</li>
-<li>配置文件</li>
-</ol>
-<h2 id="要将自己的框架整合进-Spring-Boot-中，可以按照以下步骤进行："><a href="#要将自己的框架整合进-Spring-Boot-中，可以按照以下步骤进行：" class="headerlink" title="要将自己的框架整合进 Spring Boot 中，可以按照以下步骤进行："></a>要将自己的框架整合进 Spring Boot 中，可以按照以下步骤进行：</h2><h3 id="1-创建-Spring-Boot-Starter"><a href="#1-创建-Spring-Boot-Starter" class="headerlink" title="1. 创建 Spring Boot Starter"></a>1. <strong>创建 Spring Boot Starter</strong></h3><p>为了让 Spring Boot 自动加载你的框架，最好的方式是创建一个<strong>Spring Boot Starter</strong>，即自定义的 Spring Boot 自动配置模块。步骤如下：</p>
-<h4 id="1-1-定义自动配置类"><a href="#1-1-定义自动配置类" class="headerlink" title="1.1 定义自动配置类"></a>1.1 <strong>定义自动配置类</strong></h4><p>在你的框架中，创建一个自动配置类，使用 <code>@Configuration</code> 注解，这样 Spring Boot 会自动配置你的框架组件。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">复制代码</span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyFrameworkAutoConfiguration</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> MyFrameworkComponent <span class="title function_">myFrameworkComponent</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">MyFrameworkComponent</span>();  <span class="comment">// 假设这是你的框架核心组件</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="1-2-创建-spring-factories-文件"><a href="#1-2-创建-spring-factories-文件" class="headerlink" title="1.2 创建 spring.factories 文件"></a>1.2 <strong>创建 <code>spring.factories</code> 文件</strong></h4><p>在 <code>src/main/resources/META-INF/spring</code> 目录下创建一个 org.springframework.boot.autoconfigure.AutoConfiguration.imports 文件。这个文件用于告诉 Spring Boot 在启动时加载你的自动配置类。</p>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="attr">org.springframework.boot.autoconfigure.EnableAutoConfiguration</span>=<span class="string">\</span></span><br><span class="line"><span class="string">com.example.myframework.MyFrameworkAutoConfiguration</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="1-3-确保你的依赖是可自动加载的"><a href="#1-3-确保你的依赖是可自动加载的" class="headerlink" title="1.3 确保你的依赖是可自动加载的"></a>1.3 <strong>确保你的依赖是可自动加载的</strong></h4><p>将你的框架打包为一个可以依赖的 jar 文件，并在 Spring Boot 项目中添加该依赖。Spring Boot 会自动扫描并加载 org.springframework.boot.autoconfigure.AutoConfiguration.imports 文件中的配置。</p>
-<h3 id="2-整合-Conditional-注解（可选）"><a href="#2-整合-Conditional-注解（可选）" class="headerlink" title="2. 整合 @Conditional 注解（可选）"></a>2. <strong>整合 <code>@Conditional</code> 注解（可选）</strong></h3><p>为了让你的框架更加灵活，可以通过 <code>@Conditional</code> 注解来控制配置是否生效，例如在某个配置项启用时才加载某些 Bean。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ConditionalOnProperty(name = &quot;myframework.enabled&quot;, havingValue = &quot;true&quot;, matchIfMissing = true)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyFrameworkAutoConfiguration</span> &#123;</span><br><span class="line">    <span class="comment">// 框架的配置</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-提供默认配置（可选）"><a href="#3-提供默认配置（可选）" class="headerlink" title="3. 提供默认配置（可选）"></a>3. <strong>提供默认配置（可选）</strong></h3><p>如果你的框架有一些默认配置，可以通过在 <code>application.properties</code> 或 <code>application.yml</code> 文件中提供默认值。</p>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="attr">myframework.enabled</span>=<span class="string">true</span></span><br><span class="line"><span class="attr">myframework.someProperty</span>=<span class="string">defaultValue</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="4-在-Spring-Boot-应用中引入你的框架"><a href="#4-在-Spring-Boot-应用中引入你的框架" class="headerlink" title="4. 在 Spring Boot 应用中引入你的框架"></a>4. <strong>在 Spring Boot 应用中引入你的框架</strong></h3><p>发布或将你的框架打包成 Maven&#x2F;Gradle 可引入的依赖，添加到 Spring Boot 项目中即可。例如：</p>
-<p><strong>Maven:</strong></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.example<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>myframework-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<p>所以SpringBoot是通过读取 <code>src/main/resources/META-INF/</code> 目录下 <code>org.springframework.boot.autoconfigure.AutoConfiguration.imports</code> 文件,来纳入Spring的,</p>
-<h2 id="外部配置文件"><a href="#外部配置文件" class="headerlink" title="外部配置文件"></a>外部配置文件</h2><p>如果想要更改项目不需要重新编译,只需要引入外部配置文件,<code>/config</code>,<code>./</code>,以及运行时指定配置文件地址</p>
-<p><img src="https://p.ipic.vip/w2hlu6.png" alt="image-20240922190023203"></p>
-<h2 id="总结手写starter"><a href="#总结手写starter" class="headerlink" title="总结手写starter"></a>总结手写starter</h2><p>首先打开一个SpringBoot项目,然后删改主程序,然后定义自己的程序,最后在一个AutoConfiguration类里面引入所有的组件和配置类,配置类上的注解<code>@ConfigurationProperties(prefix = &quot;jack&quot;)</code>,用于绑定spring配置文件,jack开头的属性会被注入到属性里面</p>
-<p><img src="https://p.ipic.vip/8cn7e5.png" alt="image-20240922210104442"></p>
-<p><img src="https://p.ipic.vip/ruhfmw.png" alt="image-20240922210129756"></p>
-<p>昨天晚上弄了很久都没有搞好,反思一下,一直在程序里显示没有Jack类型的bean,只有手动导入后,才可以使用, 明明很明显的问题就是spring并没有将其注册到容器,我都没有怀疑是META-INF里面的文件出问题,因为不理解Spring的源码才会这样</p>
-<h2 id="Swagger文档"><a href="#Swagger文档" class="headerlink" title="Swagger文档"></a>Swagger文档</h2><p>之前一直很疑惑前后端的接口怎么做,谁来写,写起来不是很复杂吗,原来市面上有自动生成文档的库,而且原理不难,扫描Controller的注解就可以,我的SpringBoot是配了&#x2F;warehouse路径的,所以要访问127.0.0.1&#x2F;warehouse&#x2F;swageer-ui.html,并且要在拦截器放行所有请求,具体怎么放行,我也不知道,我只直接把拦截器给取消了</p>
-<p><img src="https://p.ipic.vip/nv4urn.png" alt="image-20240923134903649"></p>
-<p><img src="https://p.ipic.vip/nek61b.png" alt="image-20240923135101005"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/09/23/SpringBoot%E7%90%86%E8%A7%A3/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Redis Start" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/09/23/Redis%20Start/">Redis Start</a>
-    </h1>
-  
-
-        
-        <a href="/2024/09/23/Redis%20Start/" class="archive-article-date">
-  	<time datetime="2024-09-23T12:22:01.747Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-09-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-09-23 Monday 20:22:01<br>Author: Jackasher</p>
-<h1 id="Redis-Start"><a href="#Redis-Start" class="headerlink" title="Redis Start"></a>Redis Start</h1><p>Redis可以把数据存在内存中,不需要IO操作,可以操作频繁读写的数据,这是redis的一些应用,目前只用过手机验证码的过期设置</p>
-<p><img src="https://p.ipic.vip/epuf90.png" alt="image-20240923140146122"></p>
-<h2 id="远程连接"><a href="#远程连接" class="headerlink" title="远程连接"></a>远程连接</h2><p>redis默认无法远程访问,需要开放权限</p>
-<p><img src="https://p.ipic.vip/fes67a.png" alt="image-20240923191841437"></p>
-<h3 id="防火墙开放端口"><a href="#防火墙开放端口" class="headerlink" title="防火墙开放端口"></a>防火墙开放端口</h3><p>**使用 <code>firewalld</code>**（CentOS&#x2F;RHEL 7+）：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo firewall-cmd --permanent --add-port=6379/tcp</span><br><span class="line">sudo firewall-cmd --reload</span><br></pre></td></tr></table></figure>
-
-<p>最后阿里云也要开放安全组,然后使用命令连接</p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -h <span class="number">8</span>.<span class="number">137</span>.<span class="number">145</span>.<span class="number">18</span> -p <span class="number">6379</span></span><br></pre></td></tr></table></figure>
-
-<p>最后完成后重启服务</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restart redis</span><br></pre></td></tr></table></figure>
-
-<h2 id="RPM包管理"><a href="#RPM包管理" class="headerlink" title="RPM包管理"></a>RPM包管理</h2><p>前面在找不到redis配置文件时,时,使用rpm可以告诉我们软件包的信息</p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ql redis</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://p.ipic.vip/s33feh.png" alt="image-20240923193246071"></p>
-<h2 id="基础操作"><a href="#基础操作" class="headerlink" title="基础操作"></a>基础操作</h2><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">select</span><br><span class="line"></span><br><span class="line">//key操作</span><br><span class="line">keys *</span><br><span class="line">exists &lt;key&gt;</span><br><span class="line"><span class="built_in">type</span> &lt;key&gt;</span><br><span class="line"><span class="built_in">del</span> &lt;key&gt;</span><br><span class="line">expire &lt;key&gt;</span><br><span class="line">ttl &lt;key&gt;</span><br><span class="line"></span><br><span class="line">//数据库操作</span><br><span class="line">dbsize</span><br><span class="line">flushdb</span><br><span class="line">dlushall</span><br></pre></td></tr></table></figure>
-
-<h2 id="String数据结构操作"><a href="#String数据结构操作" class="headerlink" title="String数据结构操作"></a>String数据结构操作</h2><p>String是线程安全的,最大为512MB</p>
-<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">get &lt;key&gt;</span><br><span class="line"><span class="built_in">set</span> &lt;key&gt; &lt;value&gt;</span><br><span class="line">mget k1 k2 k3</span><br><span class="line">mset k1 v1 k2 v2</span><br><span class="line">msernx k1 v1 k2 v2</span><br><span class="line"></span><br><span class="line"><span class="built_in">append</span> &lt;key&gt; &lt;abc&gt;</span><br><span class="line">strlen key</span><br><span class="line">setnx &lt;key&gt; &lt;value&gt;</span><br><span class="line">setex k1 &lt;expiretime&gt; v1</span><br><span class="line"></span><br><span class="line">//原子操作</span><br><span class="line">incr key </span><br><span class="line">decr key</span><br></pre></td></tr></table></figure>
-
-<h2 id="List数据结构"><a href="#List数据结构" class="headerlink" title="List数据结构"></a>List数据结构</h2><p>List底层是一个双向链表,通过索引取中间值会比较慢, k1代表链表</p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//这种数据结构会变成 v3 v2 v1</span><br><span class="line">lpush k1 v1 v2 v3</span><br><span class="line">lrange k1 <span class="number">0</span> -<span class="number">1</span></span><br><span class="line"></span><br><span class="line">//这种数据结果会变成v1 v2 v3</span><br><span class="line">rpush k1 v1 v2 v3</span><br><span class="line">lrange k1 <span class="number">0</span> -<span class="number">1</span></span><br><span class="line"></span><br><span class="line">lpop</span><br><span class="line">rpop</span><br><span class="line"></span><br><span class="line">//把k1的右边取出来,插到k2左边</span><br><span class="line">rpoplpush k1 k2</span><br><span class="line"></span><br><span class="line">lindex k1 &lt;index&gt;</span><br><span class="line">linsert k1 before &lt;v1&gt; &lt;newValue&gt;</span><br><span class="line">lrem k1 &lt;num&gt; v1 </span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="Set数据结构"><a href="#Set数据结构" class="headerlink" title="Set数据结构"></a>Set数据结构</h2><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">sadd k1 v1 v2 v3</span><br><span class="line">smembers</span><br><span class="line">sismember</span><br><span class="line"></span><br><span class="line">//返回集合元素个数</span><br><span class="line">scard k1</span><br><span class="line">srem k1 v1 v2</span><br><span class="line"></span><br><span class="line">//随机吐出一个值</span><br><span class="line">spopo k1</span><br><span class="line"></span><br><span class="line">//随机取出n个值,不会删除</span><br><span class="line">srandmember k1 &lt;num&gt;</span><br><span class="line"></span><br><span class="line">smove k1 k2 v1</span><br><span class="line"></span><br><span class="line">//取交集</span><br><span class="line">sinter</span><br><span class="line"></span><br><span class="line">//取并集</span><br><span class="line">sunion</span><br><span class="line"></span><br><span class="line">//取差集</span><br><span class="line">sdiff</span><br></pre></td></tr></table></figure>
-
-<h2 id="Hash数据结构操作"><a href="#Hash数据结构操作" class="headerlink" title="Hash数据结构操作"></a>Hash数据结构操作</h2><p>hash有点像key里面放Map</p>
-<p><img src="https://p.ipic.vip/v2o6mq.png" alt="image-20240923151445956"></p>
-<h3 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">hset user:<span class="number">1001</span> k1 v1 k2 v2</span><br><span class="line">hget user:<span class="number">1001</span> k1</span><br><span class="line">hget user:<span class="number">1001</span> k2</span><br><span class="line"></span><br><span class="line">//判断k1里面有没有k1</span><br><span class="line">hexists k1 v1</span><br><span class="line"></span><br><span class="line">hkeys</span><br><span class="line">hvals</span><br><span class="line">hincrby k1 v1 &lt;increment&gt;</span><br><span class="line"></span><br><span class="line">hsetnx</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="Zset数据结构"><a href="#Zset数据结构" class="headerlink" title="Zset数据结构"></a>Zset数据结构</h2>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/09/23/Redis%20Start/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
     </nav>
   
 

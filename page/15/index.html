@@ -146,6 +146,674 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-JS爬哔哩哔哩全部评论" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/04/07/JS%E7%88%AC%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E5%85%A8%E9%83%A8%E8%AF%84%E8%AE%BA/">JS爬哔哩哔哩全部评论</a>
+    </h1>
+  
+
+        
+        <a href="/2024/04/07/JS%E7%88%AC%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E5%85%A8%E9%83%A8%E8%AF%84%E8%AE%BA/" class="archive-article-date">
+  	<time datetime="2024-04-06T17:53:01.804Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="JS爬哔哩哔哩全部评论"><a href="#JS爬哔哩哔哩全部评论" class="headerlink" title="JS爬哔哩哔哩全部评论"></a>JS爬哔哩哔哩全部评论</h1><p>首先模拟浏览器滑动,不断划到最底</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义滚动到底部的函数</span></span><br><span class="line">function <span class="title function_">scrollToBottom</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 获取文档的高度</span></span><br><span class="line">    <span class="type">var</span> <span class="variable">documentHeight</span> <span class="operator">=</span> document.documentElement.scrollHeight;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取当前视口的高度</span></span><br><span class="line">    <span class="type">var</span> <span class="variable">viewportHeight</span> <span class="operator">=</span> window.innerHeight;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 计算需要滚动的距离</span></span><br><span class="line">    <span class="type">var</span> <span class="variable">scrollDistance</span> <span class="operator">=</span> documentHeight - viewportHeight;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 模拟滚动到页面底部</span></span><br><span class="line">    window.scrollTo(<span class="number">0</span>, scrollDistance);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 在滚动到底部后检查是否加载了新的评论</span></span><br><span class="line">    setTimeout(checkNewComments, <span class="number">1000</span>); <span class="comment">// 在滚动到底部后延迟1秒检查新评论</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 检查页面中是否加载了新的评论</span></span><br><span class="line">function <span class="title function_">checkNewComments</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 获取最后一个评论元素（假设最后一个评论元素的选择器为 .comment）</span></span><br><span class="line">    <span class="type">var</span> <span class="variable">lastComment</span> <span class="operator">=</span> document.querySelector(<span class="string">&#x27;.comment:last-child&#x27;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果最后一个评论元素存在，说明加载了新的评论，继续执行滚动操作</span></span><br><span class="line">    <span class="keyword">if</span> (lastComment) &#123;</span><br><span class="line">        scrollToBottom(); <span class="comment">// 继续执行滚动操作</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        clearInterval(scrollInterval); <span class="comment">// 如果最后一个评论元素不存在，停止执行滚动操作</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置定时器，每隔一段时间执行一次滚动操作</span></span><br><span class="line"><span class="type">var</span> <span class="variable">scrollInterval</span> <span class="operator">=</span> setInterval(scrollToBottom, <span class="number">2000</span>); <span class="comment">// 每隔2秒执行一次滚动操作</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>然后将所有的子评论展开</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">var</span> <span class="variable">btn</span> <span class="operator">=</span> document.getElementsByClassName(<span class="string">&quot;view-more-btn&quot;</span>)</span><br><span class="line"><span class="keyword">for</span>(<span class="type">var</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; btn.length;i++)&#123;</span><br><span class="line">    btn[i].click()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接着获取所有的评论</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">var</span> <span class="variable">comments</span> <span class="operator">=</span> document.getElementsByClassName(<span class="string">&quot;reply-content&quot;</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="type">var</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; comments.length; i++) &#123;</span><br><span class="line">    console.log(i + <span class="string">&quot;: &quot;</span> + comments[i].innerText);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>以上三步便可获得b站所有评论</p>
+<p>结合起来</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义滚动到底部的函数</span></span><br><span class="line">function <span class="title function_">scrollToBottom</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 获取文档的高度</span></span><br><span class="line">    <span class="type">var</span> <span class="variable">documentHeight</span> <span class="operator">=</span> document.documentElement.scrollHeight;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取当前视口的高度</span></span><br><span class="line">    <span class="type">var</span> <span class="variable">viewportHeight</span> <span class="operator">=</span> window.innerHeight;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 计算需要滚动的距离</span></span><br><span class="line">    <span class="type">var</span> <span class="variable">scrollDistance</span> <span class="operator">=</span> documentHeight - viewportHeight;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 模拟滚动到页面底部</span></span><br><span class="line">    window.scrollTo(<span class="number">0</span>, scrollDistance);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 在滚动到底部后检查是否加载了新的评论</span></span><br><span class="line">    setTimeout(checkNewComments, <span class="number">1000</span>); <span class="comment">// 在滚动到底部后延迟1秒检查新评论</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 检查页面中是否加载了新的评论</span></span><br><span class="line">function <span class="title function_">checkNewComments</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 获取最后一个评论元素（假设最后一个评论元素的选择器为 .comment）</span></span><br><span class="line">    <span class="type">var</span> <span class="variable">lastComment</span> <span class="operator">=</span> document.querySelector(<span class="string">&#x27;.comment:last-child&#x27;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果最后一个评论元素存在，说明加载了新的评论，继续执行滚动操作</span></span><br><span class="line">    <span class="keyword">if</span> (lastComment) &#123;</span><br><span class="line">        scrollToBottom(); <span class="comment">// 继续执行滚动操作</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="type">var</span> <span class="variable">btn</span> <span class="operator">=</span> document.getElementsByClassName(<span class="string">&quot;view-more-btn&quot;</span>)</span><br><span class="line"><span class="keyword">for</span>(<span class="type">var</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; btn.length;i++)&#123;</span><br><span class="line">    btn[i].click()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">var</span> <span class="variable">comments</span> <span class="operator">=</span> document.getElementsByClassName(<span class="string">&quot;reply-content&quot;</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="type">var</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; comments.length; i++) &#123;</span><br><span class="line">    console.log(i + <span class="string">&quot;: &quot;</span> + comments[i].innerText);</span><br><span class="line">&#125;</span><br><span class="line">        clearInterval(scrollInterval); <span class="comment">// 如果最后一个评论元素不存在，停止执行滚动操作</span></span><br><span class="line">      </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置定时器，每隔一段时间执行一次滚动操作</span></span><br><span class="line"><span class="type">var</span> <span class="variable">scrollInterval</span> <span class="operator">=</span> setInterval(scrollToBottom, <span class="number">2000</span>); <span class="comment">// 每隔2秒执行一次滚动操作</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>我们将其改进,滑动完毕再查看内容</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义滚动到底部的函数</span></span><br><span class="line">function <span class="title function_">scrollToBottom</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 获取文档的高度</span></span><br><span class="line">    <span class="type">var</span> <span class="variable">documentHeight</span> <span class="operator">=</span> document.documentElement.scrollHeight;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取当前视口的高度</span></span><br><span class="line">    <span class="type">var</span> <span class="variable">viewportHeight</span> <span class="operator">=</span> window.innerHeight;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 计算需要滚动的距离</span></span><br><span class="line">    <span class="type">var</span> <span class="variable">scrollDistance</span> <span class="operator">=</span> documentHeight - viewportHeight;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 模拟滚动到页面底部</span></span><br><span class="line">    window.scrollTo(<span class="number">0</span>, scrollDistance);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 在滚动到底部后检查是否加载了新的评论</span></span><br><span class="line">    setTimeout(checkNewComments, <span class="number">1000</span>); <span class="comment">// 在滚动到底部后延迟1秒检查新评论</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 检查页面中是否加载了新的评论</span></span><br><span class="line">function <span class="title function_">checkNewComments</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 获取最后一个评论元素（假设最后一个评论元素的选择器为 .comment）</span></span><br><span class="line">    <span class="type">var</span> <span class="variable">lastComment</span> <span class="operator">=</span> document.querySelector(<span class="string">&#x27;.comment:last-child&#x27;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果最后一个评论元素存在，说明加载了新的评论，继续执行滚动操作</span></span><br><span class="line">    <span class="keyword">if</span> (lastComment) &#123;</span><br><span class="line">        <span class="type">var</span> <span class="variable">btn</span> <span class="operator">=</span> document.getElementsByClassName(<span class="string">&quot;view-more-btn&quot;</span>)</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">var</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; btn.length; i++) &#123;</span><br><span class="line">            btn[i].click();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 等待一段时间再显示评论内容</span></span><br><span class="line">        setTimeout(showComments, <span class="number">2000</span>); <span class="comment">// 延迟2秒显示评论内容</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        clearInterval(scrollInterval); <span class="comment">// 如果最后一个评论元素不存在，停止执行滚动操作</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 显示评论内容的函数</span></span><br><span class="line">function <span class="title function_">showComments</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">var</span> <span class="variable">comments</span> <span class="operator">=</span> document.getElementsByClassName(<span class="string">&quot;reply-content&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">var</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; comments.length; i++) &#123;</span><br><span class="line">        console.log(i + <span class="string">&quot;: &quot;</span> + comments[i].innerText);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置定时器，每隔一段时间执行一次滚动操作</span></span><br><span class="line"><span class="type">var</span> <span class="variable">scrollInterval</span> <span class="operator">=</span> setInterval(scrollToBottom, <span class="number">2000</span>); <span class="comment">// 每隔2秒执行一次滚动操作</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/04/07/JS%E7%88%AC%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E5%85%A8%E9%83%A8%E8%AF%84%E8%AE%BA/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-JS脚本" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/04/07/JS%E8%84%9A%E6%9C%AC/">JS脚本</a>
+    </h1>
+  
+
+        
+        <a href="/2024/04/07/JS%E8%84%9A%E6%9C%AC/" class="archive-article-date">
+  	<time datetime="2024-04-06T17:53:01.804Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="JS脚本"><a href="#JS脚本" class="headerlink" title="JS脚本"></a>JS脚本</h1><p>这是展开b站的所有评论</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">var</span> <span class="variable">btn</span> <span class="operator">=</span> document.getElementsByClassName(<span class="string">&quot;view-more-btn&quot;</span>)</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">var</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; btn.length; i ++)&#123;</span><br><span class="line">            btn[i].click()</span><br><span class="line">        &#125;</span><br><span class="line"><span class="comment">//可以展开哔哩哔哩的所有评论</span></span><br></pre></td></tr></table></figure>
+
+<p>这是模拟向下滑动加载出所有的评论</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义滚动到底部的函数</span></span><br><span class="line">function <span class="title function_">scrollToBottom</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 获取文档的高度</span></span><br><span class="line">    <span class="type">var</span> <span class="variable">documentHeight</span> <span class="operator">=</span> document.documentElement.scrollHeight;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取当前视口的高度</span></span><br><span class="line">    <span class="type">var</span> <span class="variable">viewportHeight</span> <span class="operator">=</span> window.innerHeight;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 计算需要滚动的距离</span></span><br><span class="line">    <span class="type">var</span> <span class="variable">scrollDistance</span> <span class="operator">=</span> documentHeight - viewportHeight;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 模拟滚动到页面底部</span></span><br><span class="line">    window.scrollTo(<span class="number">0</span>, scrollDistance);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 在滚动到底部后检查是否加载了新的评论</span></span><br><span class="line">    setTimeout(checkNewComments, <span class="number">1000</span>); <span class="comment">// 在滚动到底部后延迟1秒检查新评论</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 检查页面中是否加载了新的评论</span></span><br><span class="line">function <span class="title function_">checkNewComments</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 获取最后一个评论元素（假设最后一个评论元素的选择器为 .comment）</span></span><br><span class="line">    <span class="type">var</span> <span class="variable">lastComment</span> <span class="operator">=</span> document.querySelector(<span class="string">&#x27;.comment:last-child&#x27;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果最后一个评论元素存在，说明加载了新的评论，继续执行滚动操作</span></span><br><span class="line">    <span class="keyword">if</span> (lastComment) &#123;</span><br><span class="line">        scrollToBottom(); <span class="comment">// 继续执行滚动操作</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        clearInterval(scrollInterval); <span class="comment">// 如果最后一个评论元素不存在，停止执行滚动操作</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置定时器，每隔一段时间执行一次滚动操作</span></span><br><span class="line"><span class="type">var</span> <span class="variable">scrollInterval</span> <span class="operator">=</span> setInterval(scrollToBottom, <span class="number">2000</span>); <span class="comment">// 每隔2秒执行一次滚动操作</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/04/07/JS%E8%84%9A%E6%9C%AC/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-JavaScript" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/04/07/JavaScript/">JavaScript</a>
+    </h1>
+  
+
+        
+        <a href="/2024/04/07/JavaScript/" class="archive-article-date">
+  	<time datetime="2024-04-06T17:53:01.804Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><p>JavaScript是浏览器的核心脚本,Css和JavaScript都是为HTML服务的,JS是按照事件驱动的,如鼠标点击就是一个事件,事件都会对应一个事件句柄,如事件Click的句柄就是onclick,事件句柄一般以属性存在,</p>
+<h2 id="第一种引用JS"><a href="#第一种引用JS" class="headerlink" title="第一种引用JS"></a>第一种引用JS</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;hello&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;_JSCode&quot;</span> /&gt;</span></span><br><span class="line"><span class="comment">&lt;!--页面打开JS不会执行,只是把JS注册到按钮,发生事件才会调用--&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p> JS有一个内置对象叫Window,window.alert(“_Content”)</p>
+</blockquote>
+<h2 id="第二种引用"><a href="#第二种引用" class="headerlink" title="第二种引用"></a>第二种引用</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"><span class="title function_">alert</span>(<span class="string">&quot;_Content&quot;</span>)</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在脚本块的JS代码不需要事件,直接执行,按照顺序执行,脚本块可以放在任何地方</p>
+<h2 id="第三种引用"><a href="#第三种引用" class="headerlink" title="第三种引用"></a>第三种引用</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">&quot;text/javascript&quot;</span> src=<span class="string">&quot;js/1.js&quot;</span>&gt; &lt;/script&gt;</span><br><span class="line"><span class="comment">//type在HTML5后可以不用写,默认了</span></span><br></pre></td></tr></table></figure>
+
+<p>在引入时,就会之间执行JS的代码,JS标签不是自闭和的,</p>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><p>java是右边的值赋给左边的变量,而JS是左边的变量赋给右边的值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> i = <span class="number">1</span>;</span><br><span class="line">i = <span class="literal">true</span>;</span><br><span class="line">i = <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p>java中的函数 修饰符+返回值+方法名(参数)+方法体,返回值,方法名和参数应该是关键,java中形参和实参必须一致,返回值也得符合,而JavaScript不需要返回值类型,所有有以下两个写法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">_Name</span>(<span class="params"></span>)&#123;</span><br><span class="line">	_Function_Body;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">_NAME = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">	_FUNCTION_BODY;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">_Name</span>(a,b)</span><br><span class="line"><span class="comment">//调用函数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> uu = <span class="keyword">new</span> <span class="title function_">_NAME</span>()</span><br><span class="line"><span class="comment">//new的时候就会调用</span></span><br><span class="line"><span class="title function_">alert</span>(uu)</span><br><span class="line"><span class="comment">//返回Object</span></span><br><span class="line"></span><br><span class="line">&lt;input type=<span class="string">&quot;button&quot;</span> value=<span class="string">&quot;hello&quot;</span> onclick=<span class="string">&quot;sayHello(&#x27;jack&#x27;)&quot;</span> /&gt;</span><br><span class="line"><span class="comment">//在onclick字符串就可以之间放入函数</span></span><br></pre></td></tr></table></figure>
+
+<p>当传入的参数不符合规定时,有NaN(Not a number),undfined几种情况,JS中出现方法名相同时,后面的函数会直接覆盖,JS中只靠函数名分辨函数,而不是参数,因为参数没有类型,只是一个名字</p>
+<p>虽然函数参数没有限制了,但我们还是希望输入特定的参数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">sum</span>(<span class="params">a,b</span>)&#123;</span><br><span class="line">  <span class="keyword">if</span>(<span class="keyword">typeof</span> a == <span class="string">&quot;number&quot;</span> &amp;&amp; <span class="keyword">typeof</span> b == <span class="string">&quot;number&quot;</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//if(isNaN(a) || isNaN(b))这样也可以</span></span><br><span class="line">  <span class="title function_">alert</span>(<span class="title class_">Warning</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><ul>
+<li><p>全局变量的会在浏览器的内存中,局部变量只在函数周期,访问变量时是就近原则,undefined是一个值,变量依旧不能为空,当变量没有赋值默认是undefined,Undefined只有一个值就是undefined,</p>
+</li>
+<li><p>Number代表所有的数字,以及NaN,Infinity(无穷大),</p>
+</li>
+<li><p>字符串为空的时候自动转换为false,否则就是true,数字1为true,0为false,null和NaN为false,undefined是false,Infinity是true,</p>
+</li>
+<li><p>大String属于Object,小String属于是原始类型,有点像包装类</p>
+</li>
+<li><p>Object含有prototype和constructor属性,toLocaleString,toString,valueOf方法</p>
+</li>
+</ul>
+<p>方法就是类,类里面有个属性prototype可以扩展,例如uu.prototype.getName &#x3D; function(){},这样uu对象就扩展了getName的方法,</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">User</span> = <span class="keyword">function</span>(<span class="params">username, password</span>)&#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">username</span> = username;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">password</span> = password;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> u = <span class="keyword">new</span> <span class="title class_">User</span>();</span><br><span class="line"><span class="comment">//不再需要额外写构造方法,类就是构造方法,两个构造参数,就会有三个构造方式</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="JS常用事件"><a href="#JS常用事件" class="headerlink" title="JS常用事件"></a>JS常用事件</h3><p>Blur click focus keydown keyup load mousedown mouseover mousemove mouseout reset select submit change </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//第一种是注册button按钮</span></span><br><span class="line">&lt;input type=<span class="string">&quot;button value=&quot;</span>hello<span class="string">&quot; id=&quot;</span>mybtn<span class="string">&quot; /&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">//第二种是JS代码完成事件,documenet是内置对象</span></span><br><span class="line"><span class="string">var button = document.getElementById(&quot;</span>mybtn<span class="string">&quot;);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">//不能加括号!!!!</span></span><br><span class="line"><span class="string">//onclick就是button的一个属性,这个属性类型是方法</span></span><br><span class="line"><span class="string">//因为类就是方法,这里的方法不能加(),不然就会直接执行方法,onclick是属性,也是方法</span></span><br><span class="line"><span class="string">button.onclick = sayHello;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">//sayHello=function()&#123;&#125;这也是为什么不能加();</span></span><br><span class="line"><span class="string">button.onclick = function()&#123;</span></span><br><span class="line"><span class="string">  alert();</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">//页面加载后再执行</span></span><br><span class="line"><span class="string">window.onload = ready;</span></span><br><span class="line"><span class="string">function ready()&#123;</span></span><br><span class="line"><span class="string">  var button = document.getElementById(&quot;</span>mybtn<span class="string">&quot;);</span></span><br><span class="line"><span class="string">  button.onclick = function()&#123;</span></span><br><span class="line"><span class="string">  alert();</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">  </span></span><br><span class="line"><span class="string">//同理,只是注册,页面先全部过一遍后再执行onload</span></span><br><span class="line"><span class="string">  window.onload=function ready()&#123;</span></span><br><span class="line"><span class="string">  var button = document.getElementById(&quot;</span>mybtn<span class="string">&quot;);</span></span><br><span class="line"><span class="string">  button.onclick = function()&#123;</span></span><br><span class="line"><span class="string">  alert();</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string"></span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>load是一种事件,加载完毕就会发生,不赋值就没有任何操作,和click一样,默认都会有这个属性,事件发生自动触发函数,函数可以再绑定另一个事件,不带括号是对象,带了就是执行函数,</p>
+<p>下面是获取回车键值事件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type=<span class="string">&quot;text&quot;</span> id=<span class="string">&quot;username&quot;</span> /&gt;</span><br><span class="line">  </span><br><span class="line"><span class="comment">//浏览器会自动传入参数,键盘对应的参数</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="property">onload</span> = <span class="keyword">function</span>(<span class="params">keyNum</span>)&#123;</span><br><span class="line">  <span class="comment">//键盘事件自带属性,浏览器传的是个对象</span></span><br><span class="line">  <span class="keyword">if</span>(keyNum.<span class="property">keyCode</span> === <span class="number">13</span>)&#123;</span><br><span class="line">    <span class="title function_">alert</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">sayHello</span>(<span class="params"></span>)</span><br></pre></td></tr></table></figure>
+
+<p>下面是超链接不跳转</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//javascript不开省略,告诉浏览器,这是代码,不然void当做地址了</span></span><br><span class="line">&lt;a href=<span class="string">&quot;javascript:void(0)&quot;</span> onclick=<span class="string">&quot;window.alert(&#x27;test&#x27;)&quot;</span>&gt;click &lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<p>javascript的数组非常厉害,就和集合一样,什么类型都可以放,还可以自动扩容</p>
+<p>下面是遍历的代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i <span class="keyword">in</span> arr)&#123;</span><br><span class="line">  <span class="title function_">alert</span>(arr[i]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//如果是对象可以这样,可直接访问属性</span></span><br><span class="line"><span class="title function_">with</span>(<span class="params">_Object</span>)&#123;</span><br><span class="line">  <span class="title function_">alert</span>(_username)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/04/07/JavaScript/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Shell" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/04/07/Shell/">Shell</a>
+    </h1>
+  
+
+        
+        <a href="/2024/04/07/Shell/" class="archive-article-date">
+  	<time datetime="2024-04-06T17:53:01.804Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Shell"><a href="#Shell" class="headerlink" title="Shell"></a>Shell</h1><p>下面会写记录一些我觉得有意思的知识</p>
+<ul>
+<li>$?可以表示上一次命令是否执行成功</li>
+<li>父子进程,每个变量当前进程有效</li>
+<li>bash变量默认是字符串</li>
+<li>单引号不识别特殊语法</li>
+<li>sh 操作完会自动退出</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/04/07/Shell/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-正则表达式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/04/07/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">正则表达式</a>
+    </h1>
+  
+
+        
+        <a href="/2024/04/07/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="archive-article-date">
+  	<time datetime="2024-04-06T17:53:01.804Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h1><p>正则表达式用于表示字符的一些格式以下是常见的一些正则表达式</p>
+<ul>
+<li><p>.匹配所有字符</p>
+</li>
+<li><p>\w匹配字母</p>
+</li>
+<li><p>\s匹配空格</p>
+</li>
+<li><p>\b匹配单词的开始和结束</p>
+</li>
+<li><p>*重复0次或多次</p>
+</li>
+<li><p>+重复一次或多次</p>
+</li>
+<li><p>?重复0次或一次</p>
+</li>
+<li><p>{n}重复n次</p>
+</li>
+<li><p>{n, }重复n次或更多次</p>
+</li>
+<li><p>{n, m}重复n次到m次</p>
+</li>
+<li><p>[1-9]表示1到9的一个任意数字</p>
+</li>
+<li><p>[^x]匹配除x以外任意字符</p>
+</li>
+</ul>
+<p>qq号的正则表达式可以写为</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^[<span class="number">1</span>-<span class="number">9</span>][<span class="number">0</span>-<span class="number">9</span>]&#123;<span class="number">4</span>,&#125;$</span><br></pre></td></tr></table></figure>
+
+<p>邮箱格式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">^[a-zA-Z0-<span class="number">9.</span>_%+-]+@[a-zA-Z0-<span class="number">9.</span>-]+\.[a-zA-Z]&#123;<span class="number">2</span>,&#125;$</span><br><span class="line"><span class="comment">//这个其实不太懂</span></span><br></pre></td></tr></table></figure>
+
+<p>重要的是JS如何操作</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var regExc = ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]&#123;2,&#125;$</span><br><span class="line">var _Boolean = reExc.<span class="built_in">test</span>(_String)</span><br><span class="line"><span class="keyword">if</span>(!_bollean)&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>javascript有个很方便的方法,_Data.toLocalString把时间转换格式</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/04/07/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-El表达式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/04/03/El%E8%A1%A8%E8%BE%BE%E5%BC%8F/">El表达式</a>
+    </h1>
+  
+
+        
+        <a href="/2024/04/03/El%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="archive-article-date">
+  	<time datetime="2024-04-03T04:53:28.809Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="El表达式"><a href="#El表达式" class="headerlink" title="El表达式"></a>El表达式</h1><p>什么是el表达式，其实el是JSp的一种，在jsp中前端代嵌入后端代码是这样的：</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=<span class="string">&quot;&lt;%=request.getContextPath()%&gt;&quot;</span>&gt;&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这看上去非常的乱，很不美观，所以我们可以使用更简洁的方式</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=<span class="string">&quot;$&#123;contextPath&#125;&quot;</span>&gt;&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这样看上去简洁许多，并且一眼看出这是一个变量，有意思的是，这里的contextPath其实是从get方法来的，而不是属性名，将get后面的变量首字母小写加入</p>
+<p>默认从最小的域开始取数据，并输出到浏览器，当然我们也可 可以指定从某个域里面取数据</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$&#123;requestScope.contextPath&#125;</span><br><span class="line">$&#123;pageScope.contextPath&#125;</span><br><span class="line">$&#123;sessionScope.contextPath&#125;</span><br><span class="line">$&#123;applicationScope.contextPath&#125;</span><br></pre></td></tr></table></figure>
+
+<p>el有一些影响参数可以直接使用</p>
+<ul>
+<li><pre><code class="java">pageContext
+//该参数可以调用Request
+pageContext.request.getContextPath
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">+ ```java</span><br><span class="line">  param</span><br><span class="line">  //该参数可以得到request里面的内容</span><br><span class="line">  param._aihao</span><br><span class="line">  //获取添加到request域里面的name=aihao&amp;value=?</span><br><span class="line">  request.getParamter(&quot;_name&quot;)</span><br><span class="line">  //等同于该jsp语句</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+<li><pre><code class="java">initparam
+//该参数可获取文本域内容，对应jsp里面的application
+initparam._pageSize 
+//获取到context里面的内容，xml文本里面的信息
+application.getInitparamter(&quot;_name&quot;)
+//等同于该JSP语句
+  
+request.getContext()
+//等同于该servlet语句
+  
+</code></pre>
+</li>
+</ul>
+<p>由于EL只解决了变量问题，让java变量更像html了，但是接受数据的代码还是得写在JSP中，为了更加简化所以我们引入了JSFL（JAVA STANDARD TAG LIB），用标签来代表大量的java代码</p>
+<p>el就像是在html里面取变量元素一样${_variblity_name}就可以拿到域中的对象或数据</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/04/03/El%E8%A1%A8%E8%BE%BE%E5%BC%8F/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Hello" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/04/03/Hello/">Hello</a>
+    </h1>
+  
+
+        
+        <a href="/2024/04/03/Hello/" class="archive-article-date">
+  	<time datetime="2024-04-03T04:53:28.809Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>　No one wants to die. Even people who want to go to heaven don’t want to die to get there. And yet death is the destination we all share. No one has ever escaped it. And that is as it should be, because Death is very likely the single best invention of Life. It is Life’s change agent. It clears out the old to make way for the new. Right now the new is you, but someday not too long from now, you will gradually become the old and be cleared away. Sorry to be so dramatic, but it is quite true.</p>
+<p>　　没有人愿意死, 即使人们想上天堂, 人们也不会为了去那里而死。但是死亡是我们每个人共同的终点。从来没有人能够逃脱它。也应该如此。 因为死亡就是生命中最最好的发明。它是生命变更的媒介。它将旧的清除以便给新的让路。你们现在是新的, 但是从现在开始不久以后, 你们将会逐渐的变成旧的然后被清除。我很抱歉这很戏剧性, 但是这十分的真实。</p>
+<p>　　Your time is limited, so don’t waste it living someone else’s life. Don’t be trapped by dogma - which is living with the results of other people’s thinking. Don’t let the noise of other’s opinions drown out your own inner voice. And most important, have the courage to follow your heart and intuition. They somehow already know what you truly want to become. Everything else is secondary.</p>
+<p>　　你们的时间是有限的，所以不要浪费时间在活成别人的生命上。不要被教条主义所困，教条主义是仅仅活在别人的思考结果的人。不要让别人的意见淹没掉你自己内心的声音。而最重要的是，要有勇气追随你自己的本心和直觉。他们已经知道你真正想成为什么样的人。其他事情都是次要的。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/04/03/Hello/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-IO流" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/04/03/IO%E6%B5%81/">IO流</a>
+    </h1>
+  
+
+        
+        <a href="/2024/04/03/IO%E6%B5%81/" class="archive-article-date">
+  	<time datetime="2024-04-03T04:53:28.809Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="I-O流"><a href="#I-O流" class="headerlink" title="I&#x2F;O流"></a>I&#x2F;O流</h1><h2 id="FileInPutStream-FileOutPutStream"><a href="#FileInPutStream-FileOutPutStream" class="headerlink" title="FileInPutStream&#x2F;FileOutPutStream"></a>FileInPutStream&#x2F;FileOutPutStream</h2><p>按照字节读取,一次读一个字节,所有类型文件都可以读,</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">InputStresm</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>();</span><br><span class="line"><span class="comment">//创建一个流,建立连接</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> in.read();</span><br><span class="line"><span class="comment">//读取文件字节</span></span><br><span class="line"><span class="comment">//当count=-1时,读取完毕</span></span><br><span class="line"></span><br><span class="line">in.read(<span class="string">&quot;byte[]&quot;</span>);</span><br><span class="line"><span class="comment">//表示往该数组输入数据</span></span><br><span class="line"></span><br><span class="line">String(<span class="type">byte</span>[]);</span><br><span class="line"><span class="comment">//转为字符串</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="FileReader-FileWriter"><a href="#FileReader-FileWriter" class="headerlink" title="FileReader&#x2F;FileWriter"></a>FileReader&#x2F;FileWriter</h2><p>按照字符串读取,</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">FileReader</span> <span class="variable">reader</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileReader</span>();</span><br><span class="line">reader.read(<span class="type">char</span>[]);</span><br><span class="line"><span class="comment">//同理,向字符串数组写入数据</span></span><br><span class="line"></span><br><span class="line"><span class="type">FileWriter</span> <span class="variable">writer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileWirter</span>();</span><br><span class="line">writer.wirte(<span class="type">char</span>[]);</span><br><span class="line"><span class="comment">//这个char可以直接是字符串,直接写入文字</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>( (count = reader.read(<span class="type">char</span>[])) != -<span class="number">1</span> )&#123;</span><br><span class="line">  writer.write(<span class="type">char</span>[], <span class="number">0</span>, count);</span><br><span class="line">&#125;<span class="comment">//拷贝文件就是一边读一边写</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="BufferedReader-BufferedWriter"><a href="#BufferedReader-BufferedWriter" class="headerlink" title="BufferedReader&#x2F;BufferedWriter"></a>BufferedReader&#x2F;BufferedWriter</h2><p>缓冲流,需要接受流的参数,更像是是一个包装,包原来的FileReader包装起来,提供更多的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">BufferedReader</span> <span class="variable">br</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedReader</span>(_FileReader);</span><br><span class="line"><span class="type">String</span> <span class="variable">firstLine</span> <span class="operator">=</span> br.readLine();</span><br><span class="line"><span class="comment">//直接可以返回字符串</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>((_string = _bufferedReader.readLine() != <span class="literal">null</span>)&#123;</span><br><span class="line">  System.out.println(_string);</span><br><span class="line">&#125;<span class="comment">//一个不错的遍历方法</span></span><br><span class="line">      </span><br><span class="line"><span class="type">InputStreamReader</span> <span class="variable">inputstreamreader</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">InputStreamReader</span>(_FileInputStram);</span><br><span class="line"><span class="comment">//通过InputStramReader可以把InputStream转换成字符流然后放入BufferedReader</span></span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/04/03/IO%E6%B5%81/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-JDBC封装类" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -308,730 +976,9 @@
 
 
   
-    <article id="post-JSTL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/04/03/JSTL/">JSTL</a>
-    </h1>
-  
-
-        
-        <a href="/2024/04/03/JSTL/" class="archive-article-date">
-  	<time datetime="2024-04-03T04:53:28.809Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="JSTL"><a href="#JSTL" class="headerlink" title="JSTL"></a>JSTL</h1><p>JSTL出现可以用标签来代替java程序，以一种类似于Html语言的方式，主要还是想要实现前后端分离</p>
-<p>这是一个foreach循环的tag</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">tag</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">description</span>&gt;</span></span><br><span class="line">           The basic iteration tag, accepting many different</span><br><span class="line">           collection types and supporting subsetting and other</span><br><span class="line">           functionality</span><br><span class="line">       <span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">name</span>&gt;</span>forEach<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">tag-class</span>&gt;</span>org.apache.taglibs.standard.tag.rt.core.ForEachTag<span class="tag">&lt;/<span class="name">tag-class</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">tei-class</span>&gt;</span>org.apache.taglibs.standard.tei.ForEachTEI<span class="tag">&lt;/<span class="name">tei-class</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">body-content</span>&gt;</span>JSP<span class="tag">&lt;/<span class="name">body-content</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">attribute</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">description</span>&gt;</span></span><br><span class="line">               Collection of items to iterate over.</span><br><span class="line">           <span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">name</span>&gt;</span>items<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">required</span>&gt;</span>false<span class="tag">&lt;/<span class="name">required</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">rtexprvalue</span>&gt;</span>true<span class="tag">&lt;/<span class="name">rtexprvalue</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">type</span>&gt;</span>java.lang.Object<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">deferred-value</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">type</span>&gt;</span>java.lang.Object<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;/<span class="name">deferred-value</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">attribute</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">attribute</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">description</span>&gt;</span></span><br><span class="line">               If items specified:</span><br><span class="line">               Iteration begins at the item located at the</span><br><span class="line">               specified index. First item of the collection has</span><br><span class="line">               index 0.</span><br><span class="line">               If items not specified:</span><br><span class="line">               Iteration begins with index set at the value</span><br><span class="line">               specified.</span><br><span class="line">           <span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">name</span>&gt;</span>begin<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">required</span>&gt;</span>false<span class="tag">&lt;/<span class="name">required</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">rtexprvalue</span>&gt;</span>true<span class="tag">&lt;/<span class="name">rtexprvalue</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">type</span>&gt;</span>int<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">attribute</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">attribute</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">description</span>&gt;</span></span><br><span class="line">               If items specified:</span><br><span class="line">               Iteration ends at the item located at the</span><br><span class="line">               specified index (inclusive).</span><br><span class="line">               If items not specified:</span><br><span class="line">               Iteration ends when index reaches the value</span><br><span class="line">               specified.</span><br><span class="line">           <span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">name</span>&gt;</span>end<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">required</span>&gt;</span>false<span class="tag">&lt;/<span class="name">required</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">rtexprvalue</span>&gt;</span>true<span class="tag">&lt;/<span class="name">rtexprvalue</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">type</span>&gt;</span>int<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">attribute</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">attribute</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">description</span>&gt;</span></span><br><span class="line">               Iteration will only process every step items of</span><br><span class="line">               the collection, starting with the first one.</span><br><span class="line">           <span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">name</span>&gt;</span>step<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">required</span>&gt;</span>false<span class="tag">&lt;/<span class="name">required</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">rtexprvalue</span>&gt;</span>true<span class="tag">&lt;/<span class="name">rtexprvalue</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">type</span>&gt;</span>int<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">attribute</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">attribute</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">description</span>&gt;</span></span><br><span class="line">               Name of the exported scoped variable for the</span><br><span class="line">               current item of the iteration. This scoped</span><br><span class="line">               variable has nested visibility. Its type depends</span><br><span class="line">               on the object of the underlying collection.</span><br><span class="line">           <span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">name</span>&gt;</span>var<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">required</span>&gt;</span>false<span class="tag">&lt;/<span class="name">required</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">rtexprvalue</span>&gt;</span>false<span class="tag">&lt;/<span class="name">rtexprvalue</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">attribute</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">attribute</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">description</span>&gt;</span></span><br><span class="line">               Name of the exported scoped variable for the</span><br><span class="line">               status of the iteration. Object exported is of type</span><br><span class="line">               javax.servlet.jsp.jstl.core.LoopTagStatus. This scoped variable has nested</span><br><span class="line">               visibility.</span><br><span class="line">           <span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">name</span>&gt;</span>varStatus<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">required</span>&gt;</span>false<span class="tag">&lt;/<span class="name">required</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">rtexprvalue</span>&gt;</span>false<span class="tag">&lt;/<span class="name">rtexprvalue</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">attribute</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">tag</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>在maven项目引入改依赖后可使用JSTL</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>jakarta.servlet.jsp.jstl<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jakarta.servlet.jsp.jstl-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.glassfish.web<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jakarta.servlet.jsp.jstl<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>这个真的搞得我听懵逼的，这是两个公司的？ JST L就是把java程序封装成标签，让代码更像前端代码，只要是三个，判断，else if，循环</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">c:if</span> <span class="attr">test</span>=<span class="string">&quot;empty _this variablility&quot;</span>&gt;</span></span><br><span class="line">  </span><br><span class="line"><span class="tag">&lt;/<span class="name">c:if</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--这是if语句--&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">c:foreach</span> <span class="attr">items</span>=<span class="string">&quot;_varability&quot;</span> <span class="attr">var</span>=<span class="string">&quot;_name&quot;</span>&gt;</span></span><br><span class="line">  _name.if or something else</span><br><span class="line"><span class="tag">&lt;/<span class="name">c:foreach</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">c:choose</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">c:when</span> <span class="attr">test</span>=<span class="string">&quot;_name&quot;</span>&gt;</span></span><br><span class="line">  </span><br><span class="line">  <span class="tag">&lt;/<span class="name">c:when</span>&gt;</span></span><br><span class="line">  </span><br><span class="line">  <span class="tag">&lt;<span class="name">c:otherwise</span>&gt;</span></span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">  <span class="tag">&lt;/<span class="name">c:otherwise</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">c:choose</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>这样应该可以完成一些基本功能了</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/04/03/JSTL/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-JVM" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/04/03/JVM/">JVM</a>
-    </h1>
-  
-
-        
-        <a href="/2024/04/03/JVM/" class="archive-article-date">
-  	<time datetime="2024-04-03T04:53:28.809Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h1><p>这实在是太有趣了,第一次接触到这么底层的东西,jvm讲述了java 是如何运行的,class文件到底是什么,接下来我们看看两个class文件的字节码</p>
-<p>![截屏2024-03-24 03.57.28](&#x2F;Users&#x2F;leojackasher&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;截屏2024-03-24 03.57.28.png)</p>
-<p>![截屏2024-03-24 03.57.48](&#x2F;Users&#x2F;leojackasher&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;截屏2024-03-24 03.57.48.png)</p>
-<p>这是随机挑选的类,可以看到前四个字节为固定的69 6D 70 6F,描述文件类型,魔数</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/04/03/JVM/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-README" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/04/03/README/">README</a>
-    </h1>
-  
-
-        
-        <a href="/2024/04/03/README/" class="archive-article-date">
-  	<time datetime="2024-04-03T04:53:28.809Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="markdown"><a href="#markdown" class="headerlink" title="markdown"></a>markdown</h1><p>JavaWeb的学习笔记，由markdown文本构成，最近很喜欢这个结构</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/04/03/README/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Servlet Request" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/04/03/Servlet%20Request/">Servlet Request</a>
-    </h1>
-  
-
-        
-        <a href="/2024/04/03/Servlet%20Request/" class="archive-article-date">
-  	<time datetime="2024-04-03T04:53:28.809Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Servlet-Request"><a href="#Servlet-Request" class="headerlink" title="Servlet Request"></a>Servlet Request</h1><ul>
-<li><p>servlet请求域对象只在每次请求生效（http协议内容），两次请求时想要第二个servlet请求使用第一个请求域需要使用转发器</p>
-</li>
-<li><pre><code class="java">RequestDispather dispather = request.getRequestDispather(&quot;/b&quot;);
-//Get dispather Object first
-dispather.forward(request,reponse);
-//use forward method in dispather sencondly
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">+ 注意到参数中传的是路径意味着所有资源都可以转发，至于路径从哪个根开始，还没搞清......</span><br><span class="line"></span><br><span class="line">+ 关于request的两个方法  </span><br><span class="line"></span><br><span class="line">  + ```java</span><br><span class="line">    String usrname = request.getParameter(&quot;username&quot;);</span><br><span class="line">    //uri?username=leo&amp;paawd=123&amp;sex=1</span><br><span class="line">    Object obj = request.getAttribute(&quot;name&quot;);</span><br><span class="line">    //After setAttribte</span><br><span class="line">    </span><br><span class="line">    //The first one is to get data from browser</span><br><span class="line">    //the second one is to get request attribute data</span><br></pre></td></tr></table></figure>
-</code></pre>
-</li>
-<li><p>Request底层是Map集合，一个key一个value，Tomcat帮我们封装，相应的http协议内容以封装好</p>
-</li>
-<li><p>如何解决Post乱码问题    </p>
-<ul>
-<li><pre><code class="java">request.setCharacterEncoding(&quot;UTF-8&quot;);
-response.setContext(&quot;text/html;charset=utf-8&quot;);
-//this is the soultion for post method only
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">+ ```java</span><br><span class="line">  request.setCharacterEncoding(&quot;UTF-8&quot;);</span><br><span class="line">  response.setContext(&quot;text/html;charset=utf-8&quot;);</span><br><span class="line">  //this is the soultion for post method only</span><br></pre></td></tr></table></figure>
-</code></pre>
-</li>
-</ul>
-</li>
-<li><p>request其他常用方法</p>
-<ul>
-<li><pre><code class="java">String method = request.getMethod();
-//Get http method
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">+ ```java</span><br><span class="line">  String requestURI = request.getRequestURI();</span><br><span class="line">  //Get request httpd  method (get/post)</span><br></pre></td></tr></table></figure>
-</code></pre>
-</li>
-<li><pre><code class="java">String servletPath = request.getServletPath();
-//Get servlet Project Path
-</code></pre>
-</li>
-</ul>
-<hr>
-</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/04/03/Servlet%20Request/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Servlet注解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/04/03/Servlet%E6%B3%A8%E8%A7%A3/">Servlet注解</a>
-    </h1>
-  
-
-        
-        <a href="/2024/04/03/Servlet%E6%B3%A8%E8%A7%A3/" class="archive-article-date">
-  	<time datetime="2024-04-03T04:53:28.809Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Servlet注解"><a href="#Servlet注解" class="headerlink" title="Servlet注解"></a>Servlet注解</h1><ul>
-<li>注解格式  @_注解名称(name &#x3D; value)</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@WebServlet(name = &quot;hello&quot;, urlpatterns = &#123;&quot;/hello&quot;&#125;, loadOnStartup = 1, initParams = &#123;@WebInitParam(name = &quot;driver&quot;, value = &quot;&quot;), @WebInitParam(name = &quot;driver&quot;, value = &quot;&quot;) )</span>;</span><br><span class="line">                                                                                       </span><br><span class="line">简单配置即可</span><br><span class="line">  <span class="meta">@WebServlet(name = &quot;list&quot;, urlpatterns&#123;&quot;/hello&quot;&#125;)</span>;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>有个更简单的</p>
-</li>
-<li><pre><code class="java">@WebServlet(&quot;/hello&quot;);
-</code></pre>
-</li>
-<li><h1 id="但本质其实都是web-xml"><a href="#但本质其实都是web-xml" class="headerlink" title="但本质其实都是web.xml"></a>但本质其实都是web.xml</h1></li>
-<li><p>但本质其实都是web.xml</p>
-</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/04/03/Servlet%E6%B3%A8%E8%A7%A3/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Session" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/04/03/Session/">Session</a>
-    </h1>
-  
-
-        
-        <a href="/2024/04/03/Session/" class="archive-article-date">
-  	<time datetime="2024-04-03T04:53:28.809Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h1><p>当我们创建session对象，浏览器第一次的请求和响应是这样的</p>
-<p>下面为请求头</p>
-<ul>
-<li><pre><code class="http">Accept:
-text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8
-Accept-Encoding:
-gzip, deflate, br
-Accept-Language:
-zh-CN,zh
-Connection:
-keep-alive
-Cookie:
-MM_WX_NOTIFY_STATE=1; MM_WX_SOUND_STATE=1
-Host:
-localhost:8080
-Sec-Ch-Ua:
-&quot;Chromium&quot;;v=&quot;122&quot;, &quot;Not(A:Brand&quot;;v=&quot;24&quot;, &quot;Brave&quot;;v=&quot;122&quot;
-Sec-Ch-Ua-Mobile:
-?0
-Sec-Ch-Ua-Platform:
-&quot;macOS&quot;
-Sec-Fetch-Dest:
-document
-Sec-Fetch-Mode:
-navigate
-Sec-Fetch-Site:
-none
-Sec-Fetch-User:
-?1
-Sec-Gpc:
-1
-Upgrade-Insecure-Requests:
-1
-User-Agent:
-Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36
-//这是请求头
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">下面为响应头：</span><br><span class="line"></span><br><span class="line">+ ```http</span><br><span class="line">  Connection:</span><br><span class="line">  keep-alive</span><br><span class="line">  Content-Length:</span><br><span class="line">  57</span><br><span class="line">  Date:</span><br><span class="line">  Mon, 18 Mar 2024 07:54:06 GMT</span><br><span class="line">  Keep-Alive:</span><br><span class="line">  timeout=20</span><br><span class="line">  Set-Cookie:</span><br><span class="line">  JSESSIONID=C8D3160AB2F26FC1A9625F1595159138; Path=/oa; HttpOnly</span><br><span class="line">  //这是响应头</span><br></pre></td></tr></table></figure>
-</code></pre>
-</li>
-</ul>
-<p>当我们第二次再向浏览器请求时，应该拿到的是的同一个session对象</p>
-<p>&#x2F;&#x2F;请求头：</p>
-<ul>
-<li><pre><code class="http">Accept:
-text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8
-Accept-Encoding:
-gzip, deflate, br
-Accept-Language:
-zh-CN,zh
-Connection:
-keep-alive
-Cookie:
-MM_WX_NOTIFY_STATE=1; MM_WX_SOUND_STATE=1; JSESSIONID=C8D3160AB2F26FC1A9625F1595159138
-Host:
-localhost:8080
-Sec-Ch-Ua:
-&quot;Chromium&quot;;v=&quot;122&quot;, &quot;Not(A:Brand&quot;;v=&quot;24&quot;, &quot;Brave&quot;;v=&quot;122&quot;
-Sec-Ch-Ua-Mobile:
-?0
-Sec-Ch-Ua-Platform:
-&quot;macOS&quot;
-Sec-Fetch-Dest:
-document
-Sec-Fetch-Mode:
-navigate
-Sec-Fetch-Site:
-none
-Sec-Fetch-User:
-?1
-Sec-Gpc:
-1
-Upgrade-Insecure-Requests:
-1
-User-Agent:
-Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">可以看到请求头多出一个东西</span><br><span class="line"></span><br><span class="line">+ ```http</span><br><span class="line">  Cookie:</span><br><span class="line">  MM_WX_NOTIFY_STATE=1; MM_WX_SOUND_STATE=1; JSESSIONID=C8D3160AB2F26FC1A9625F1595159138</span><br><span class="line">  Host:</span><br><span class="line">  localhost:8080</span><br><span class="line">  </span><br></pre></td></tr></table></figure>
-</code></pre>
-</li>
-</ul>
-<p>没错这就是Map集合里面的key，这个key被服务器传给浏览器记录了下来，我们再来看看响应头</p>
-<p>响应头：</p>
-<ul>
-<li><pre><code class="http">Connection:
-keep-alive
-
-Content-Length:
-57
-Date:
-Mon, 18 Mar 2024 07:57:13 GMT
-Keep-Alive:
-timeout=20
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">这个时候是没有返回cookie了，不得不说这个创意着实是完美，另外，session是存在浏览器缓存里面的，浏览器关闭，cookie就没有了</span><br><span class="line"></span><br><span class="line">这里有三个方法，各种域通用</span><br><span class="line"></span><br><span class="line">+ ```java</span><br><span class="line">  setAttrubute(&quot;&quot;,&quot;&quot;);</span><br><span class="line">  getAttribute(&quot;&quot;, &quot;&quot;);</span><br><span class="line">  removeAttribute(&quot;&quot;, &quot;&quot;);</span><br><span class="line">  //底层是Map，一个key对应应该value，里面的value是对象</span><br></pre></td></tr></table></figure>
-</code></pre>
-</li>
-<li></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/04/03/Session/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-UML" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/04/03/UML/">UML</a>
-    </h1>
-  
-
-        
-        <a href="/2024/04/03/UML/" class="archive-article-date">
-  	<time datetime="2024-04-03T04:53:28.809Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="UML建模"><a href="#UML建模" class="headerlink" title="UML建模"></a>UML建模</h2><p>一个项目的构建是公司与客户的交接，客户需求，文档，系统设计后再写程序，而组织不同的人，部门需要一个规范，这个规范是UML，现在我们开始学习UMl的规范</p>
-<h3 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h3><ul>
-<li>用于描述类的文件，类的属性方法等，同时还有类的各种关系</li>
-<li>属性:（public +), (private -), (protected #)</li>
-<li>关系<ul>
-<li><strong>继承</strong>：子类指向父类，类与接口都能用</li>
-<li><strong>实现</strong>：类实现接口，由类指向接口</li>
-<li><strong>依赖</strong>：类A使用类B但局部生效，如类B作为函数参数传入，A指向B，A依赖B</li>
-<li><strong>关联</strong>：与依赖相似，但不是局部生效，如类B作为成员变量在类A中，A指向B，A关联B</li>
-<li><strong>聚合</strong>：与关联相似，但生命周期不同？？？  &#x2F;&#x2F;球员和球队</li>
-<li><strong>组合</strong>：与关联相似，生命周期相同   &#x2F;&#x2F;人和心脏</li>
-</ul>
-</li>
-</ul>
-<h3 id="用例图"><a href="#用例图" class="headerlink" title="用例图"></a>用例图</h3><ul>
-<li>官方表述：<strong>参与者，用例，边界</strong>关系构成</li>
-<li>我的理解：用例（use cause）将程序包装为功能描述，参与者是与这些功能交互的角色，边界可把不同功能包装在一起</li>
-<li>用例图也有四种类型<ul>
-<li><strong>关联：</strong> 参与者与用例的关系</li>
-<li><strong>泛化：</strong>参与者之间或用例之间，就是继承关系，所以只在相同类型里面</li>
-<li><strong>包含：</strong>用例之间，将复杂的用例拆解，如维修拆解为维修哪些？删除，添加，修改</li>
-<li><strong>扩展：</strong>用例之间，A extends B A延展B功能，所以A指向B，B还拥有A的功能</li>
-</ul>
-</li>
-</ul>
-<h3 id="状态图"><a href="#状态图" class="headerlink" title="状态图"></a>状态图</h3><ul>
-<li>官方表述：描述对象可能的状态，以及改变状态的事务</li>
-</ul>
-<p>![Screenshot 2024-03-13 at 03.01.05](&#x2F;Users&#x2F;leojackasher&#x2F;Downloads&#x2F;Screenshot 2024-03-13 at 03.01.05.jpeg)</p>
-<h3 id="活动图"><a href="#活动图" class="headerlink" title="活动图"></a>活动图</h3><ul>
-<li>有点类似与高中计算机学的那种流程图</li>
-</ul>
-<img src="/Users/leojackasher/Downloads/Screenshot 2024-03-13 at 03.05.08.jpeg" alt="Screenshot 2024-03-13 at 03.05.08" style="zoom:50%;" />
-
-<h3 id="时序图（顺序图）"><a href="#时序图（顺序图）" class="headerlink" title="时序图（顺序图）"></a>时序图（顺序图）</h3><ul>
-<li>描述各模块调用，方法，程序执行流程</li>
-<li>以JavaEE MVC分层为例</li>
-</ul>
-<p>![Screenshot 2024-03-13 at 03.10.46](&#x2F;Users&#x2F;leojackasher&#x2F;Downloads&#x2F;Screenshot 2024-03-13 at 03.10.46.jpeg)</p>
-<ul>
-<li>这张图很好描述了这种程序模块的调用</li>
-<li>那么展示一下时序图是什么样子的</li>
-</ul>
-<p><img src="/Users/leojackasher/Downloads/IMG_0164.jpg" alt="IMG_0164"></p>
-<h3 id="组件图"><a href="#组件图" class="headerlink" title="组件图"></a>组件图</h3><ul>
-<li>直接上图</li>
-</ul>
-<p>![Screenshot 2024-03-13 at 03.25.05](&#x2F;Users&#x2F;leojackasher&#x2F;Downloads&#x2F;Screenshot 2024-03-13 at 03.25.05.jpeg)</p>
-<h3 id="部署图"><a href="#部署图" class="headerlink" title="部署图"></a>部署图</h3><ul>
-<li>用的很少</li>
-<li>和这组件图差不多，变成服务器的样子了</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/04/03/UML/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-css引用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/04/03/css%E5%BC%95%E7%94%A8/">css引用</a>
-    </h1>
-  
-
-        
-        <a href="/2024/04/03/css%E5%BC%95%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2024-04-03T04:53:28.809Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>偶然发现一个不错的css代码引用</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* styles.css */</span></span><br><span class="line"></span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">font-family</span>: Arial, sans-serif;</span><br><span class="line">    <span class="attribute">text-align</span>: center;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#f9f9f9</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">h1</span> &#123;</span><br><span class="line">    <span class="attribute">margin-top</span>: <span class="number">20px</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#333</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">form</span> &#123;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">    <span class="attribute">max-width</span>: <span class="number">400px</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">20px</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#ddd</span>;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">5px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#f9f9f9</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">label</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">margin-bottom</span>: <span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">text-align</span>: left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=<span class="string">&quot;text&quot;</span>]</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="built_in">calc</span>(<span class="number">100%</span> - <span class="number">20px</span>);</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">8px</span>;</span><br><span class="line">    <span class="attribute">margin-bottom</span>: <span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#ccc</span>;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">3px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=<span class="string">&quot;submit&quot;</span>]</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#007bff</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">    <span class="attribute">border</span>: none;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">5px</span>;</span><br><span class="line">    <span class="attribute">cursor</span>: pointer;</span><br><span class="line">    <span class="attribute">transition</span>: background-color <span class="number">0.3s</span> ease;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=<span class="string">&quot;submit&quot;</span>]</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#0056b3</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<p>调用时使用</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attr">href</span>=<span class="string">&quot;styles.css&quot;</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/04/03/css%E5%BC%95%E7%94%A8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/14/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/16/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/14/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/16/">Next &raquo;</a>
     </nav>
   
 

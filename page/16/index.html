@@ -146,6 +146,727 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-JSTL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/04/03/JSTL/">JSTL</a>
+    </h1>
+  
+
+        
+        <a href="/2024/04/03/JSTL/" class="archive-article-date">
+  	<time datetime="2024-04-03T04:53:28.809Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="JSTL"><a href="#JSTL" class="headerlink" title="JSTL"></a>JSTL</h1><p>JSTL出现可以用标签来代替java程序，以一种类似于Html语言的方式，主要还是想要实现前后端分离</p>
+<p>这是一个foreach循环的tag</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">tag</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">description</span>&gt;</span></span><br><span class="line">           The basic iteration tag, accepting many different</span><br><span class="line">           collection types and supporting subsetting and other</span><br><span class="line">           functionality</span><br><span class="line">       <span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">name</span>&gt;</span>forEach<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">tag-class</span>&gt;</span>org.apache.taglibs.standard.tag.rt.core.ForEachTag<span class="tag">&lt;/<span class="name">tag-class</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">tei-class</span>&gt;</span>org.apache.taglibs.standard.tei.ForEachTEI<span class="tag">&lt;/<span class="name">tei-class</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">body-content</span>&gt;</span>JSP<span class="tag">&lt;/<span class="name">body-content</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">attribute</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">description</span>&gt;</span></span><br><span class="line">               Collection of items to iterate over.</span><br><span class="line">           <span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">name</span>&gt;</span>items<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">required</span>&gt;</span>false<span class="tag">&lt;/<span class="name">required</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">rtexprvalue</span>&gt;</span>true<span class="tag">&lt;/<span class="name">rtexprvalue</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">type</span>&gt;</span>java.lang.Object<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">deferred-value</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">type</span>&gt;</span>java.lang.Object<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;/<span class="name">deferred-value</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">attribute</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">attribute</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">description</span>&gt;</span></span><br><span class="line">               If items specified:</span><br><span class="line">               Iteration begins at the item located at the</span><br><span class="line">               specified index. First item of the collection has</span><br><span class="line">               index 0.</span><br><span class="line">               If items not specified:</span><br><span class="line">               Iteration begins with index set at the value</span><br><span class="line">               specified.</span><br><span class="line">           <span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">name</span>&gt;</span>begin<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">required</span>&gt;</span>false<span class="tag">&lt;/<span class="name">required</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">rtexprvalue</span>&gt;</span>true<span class="tag">&lt;/<span class="name">rtexprvalue</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">type</span>&gt;</span>int<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">attribute</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">attribute</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">description</span>&gt;</span></span><br><span class="line">               If items specified:</span><br><span class="line">               Iteration ends at the item located at the</span><br><span class="line">               specified index (inclusive).</span><br><span class="line">               If items not specified:</span><br><span class="line">               Iteration ends when index reaches the value</span><br><span class="line">               specified.</span><br><span class="line">           <span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">name</span>&gt;</span>end<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">required</span>&gt;</span>false<span class="tag">&lt;/<span class="name">required</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">rtexprvalue</span>&gt;</span>true<span class="tag">&lt;/<span class="name">rtexprvalue</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">type</span>&gt;</span>int<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">attribute</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">attribute</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">description</span>&gt;</span></span><br><span class="line">               Iteration will only process every step items of</span><br><span class="line">               the collection, starting with the first one.</span><br><span class="line">           <span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">name</span>&gt;</span>step<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">required</span>&gt;</span>false<span class="tag">&lt;/<span class="name">required</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">rtexprvalue</span>&gt;</span>true<span class="tag">&lt;/<span class="name">rtexprvalue</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">type</span>&gt;</span>int<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">attribute</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">attribute</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">description</span>&gt;</span></span><br><span class="line">               Name of the exported scoped variable for the</span><br><span class="line">               current item of the iteration. This scoped</span><br><span class="line">               variable has nested visibility. Its type depends</span><br><span class="line">               on the object of the underlying collection.</span><br><span class="line">           <span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">name</span>&gt;</span>var<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">required</span>&gt;</span>false<span class="tag">&lt;/<span class="name">required</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">rtexprvalue</span>&gt;</span>false<span class="tag">&lt;/<span class="name">rtexprvalue</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">attribute</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">attribute</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">description</span>&gt;</span></span><br><span class="line">               Name of the exported scoped variable for the</span><br><span class="line">               status of the iteration. Object exported is of type</span><br><span class="line">               javax.servlet.jsp.jstl.core.LoopTagStatus. This scoped variable has nested</span><br><span class="line">               visibility.</span><br><span class="line">           <span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">name</span>&gt;</span>varStatus<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">required</span>&gt;</span>false<span class="tag">&lt;/<span class="name">required</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">rtexprvalue</span>&gt;</span>false<span class="tag">&lt;/<span class="name">rtexprvalue</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">attribute</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">tag</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在maven项目引入改依赖后可使用JSTL</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>jakarta.servlet.jsp.jstl<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jakarta.servlet.jsp.jstl-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.glassfish.web<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jakarta.servlet.jsp.jstl<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这个真的搞得我听懵逼的，这是两个公司的？ JST L就是把java程序封装成标签，让代码更像前端代码，只要是三个，判断，else if，循环</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">c:if</span> <span class="attr">test</span>=<span class="string">&quot;empty _this variablility&quot;</span>&gt;</span></span><br><span class="line">  </span><br><span class="line"><span class="tag">&lt;/<span class="name">c:if</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--这是if语句--&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">c:foreach</span> <span class="attr">items</span>=<span class="string">&quot;_varability&quot;</span> <span class="attr">var</span>=<span class="string">&quot;_name&quot;</span>&gt;</span></span><br><span class="line">  _name.if or something else</span><br><span class="line"><span class="tag">&lt;/<span class="name">c:foreach</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">c:choose</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">c:when</span> <span class="attr">test</span>=<span class="string">&quot;_name&quot;</span>&gt;</span></span><br><span class="line">  </span><br><span class="line">  <span class="tag">&lt;/<span class="name">c:when</span>&gt;</span></span><br><span class="line">  </span><br><span class="line">  <span class="tag">&lt;<span class="name">c:otherwise</span>&gt;</span></span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">  <span class="tag">&lt;/<span class="name">c:otherwise</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">c:choose</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这样应该可以完成一些基本功能了</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/04/03/JSTL/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-JVM" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/04/03/JVM/">JVM</a>
+    </h1>
+  
+
+        
+        <a href="/2024/04/03/JVM/" class="archive-article-date">
+  	<time datetime="2024-04-03T04:53:28.809Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h1><p>这实在是太有趣了,第一次接触到这么底层的东西,jvm讲述了java 是如何运行的,class文件到底是什么,接下来我们看看两个class文件的字节码</p>
+<p>![截屏2024-03-24 03.57.28](&#x2F;Users&#x2F;leojackasher&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;截屏2024-03-24 03.57.28.png)</p>
+<p>![截屏2024-03-24 03.57.48](&#x2F;Users&#x2F;leojackasher&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;截屏2024-03-24 03.57.48.png)</p>
+<p>这是随机挑选的类,可以看到前四个字节为固定的69 6D 70 6F,描述文件类型,魔数</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/04/03/JVM/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-README" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/04/03/README/">README</a>
+    </h1>
+  
+
+        
+        <a href="/2024/04/03/README/" class="archive-article-date">
+  	<time datetime="2024-04-03T04:53:28.809Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="markdown"><a href="#markdown" class="headerlink" title="markdown"></a>markdown</h1><p>JavaWeb的学习笔记，由markdown文本构成，最近很喜欢这个结构</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/04/03/README/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Servlet Request" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/04/03/Servlet%20Request/">Servlet Request</a>
+    </h1>
+  
+
+        
+        <a href="/2024/04/03/Servlet%20Request/" class="archive-article-date">
+  	<time datetime="2024-04-03T04:53:28.809Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Servlet-Request"><a href="#Servlet-Request" class="headerlink" title="Servlet Request"></a>Servlet Request</h1><ul>
+<li><p>servlet请求域对象只在每次请求生效（http协议内容），两次请求时想要第二个servlet请求使用第一个请求域需要使用转发器</p>
+</li>
+<li><pre><code class="java">RequestDispather dispather = request.getRequestDispather(&quot;/b&quot;);
+//Get dispather Object first
+dispather.forward(request,reponse);
+//use forward method in dispather sencondly
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">+ 注意到参数中传的是路径意味着所有资源都可以转发，至于路径从哪个根开始，还没搞清......</span><br><span class="line"></span><br><span class="line">+ 关于request的两个方法  </span><br><span class="line"></span><br><span class="line">  + ```java</span><br><span class="line">    String usrname = request.getParameter(&quot;username&quot;);</span><br><span class="line">    //uri?username=leo&amp;paawd=123&amp;sex=1</span><br><span class="line">    Object obj = request.getAttribute(&quot;name&quot;);</span><br><span class="line">    //After setAttribte</span><br><span class="line">    </span><br><span class="line">    //The first one is to get data from browser</span><br><span class="line">    //the second one is to get request attribute data</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+<li><p>Request底层是Map集合，一个key一个value，Tomcat帮我们封装，相应的http协议内容以封装好</p>
+</li>
+<li><p>如何解决Post乱码问题    </p>
+<ul>
+<li><pre><code class="java">request.setCharacterEncoding(&quot;UTF-8&quot;);
+response.setContext(&quot;text/html;charset=utf-8&quot;);
+//this is the soultion for post method only
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">+ ```java</span><br><span class="line">  request.setCharacterEncoding(&quot;UTF-8&quot;);</span><br><span class="line">  response.setContext(&quot;text/html;charset=utf-8&quot;);</span><br><span class="line">  //this is the soultion for post method only</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p>request其他常用方法</p>
+<ul>
+<li><pre><code class="java">String method = request.getMethod();
+//Get http method
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">+ ```java</span><br><span class="line">  String requestURI = request.getRequestURI();</span><br><span class="line">  //Get request httpd  method (get/post)</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+<li><pre><code class="java">String servletPath = request.getServletPath();
+//Get servlet Project Path
+</code></pre>
+</li>
+</ul>
+<hr>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/04/03/Servlet%20Request/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Servlet注解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/04/03/Servlet%E6%B3%A8%E8%A7%A3/">Servlet注解</a>
+    </h1>
+  
+
+        
+        <a href="/2024/04/03/Servlet%E6%B3%A8%E8%A7%A3/" class="archive-article-date">
+  	<time datetime="2024-04-03T04:53:28.809Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Servlet注解"><a href="#Servlet注解" class="headerlink" title="Servlet注解"></a>Servlet注解</h1><ul>
+<li>注解格式  @_注解名称(name &#x3D; value)</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@WebServlet(name = &quot;hello&quot;, urlpatterns = &#123;&quot;/hello&quot;&#125;, loadOnStartup = 1, initParams = &#123;@WebInitParam(name = &quot;driver&quot;, value = &quot;&quot;), @WebInitParam(name = &quot;driver&quot;, value = &quot;&quot;) )</span>;</span><br><span class="line">                                                                                       </span><br><span class="line">简单配置即可</span><br><span class="line">  <span class="meta">@WebServlet(name = &quot;list&quot;, urlpatterns&#123;&quot;/hello&quot;&#125;)</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>有个更简单的</p>
+</li>
+<li><pre><code class="java">@WebServlet(&quot;/hello&quot;);
+</code></pre>
+</li>
+<li><h1 id="但本质其实都是web-xml"><a href="#但本质其实都是web-xml" class="headerlink" title="但本质其实都是web.xml"></a>但本质其实都是web.xml</h1></li>
+<li><p>但本质其实都是web.xml</p>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/04/03/Servlet%E6%B3%A8%E8%A7%A3/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Session" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/04/03/Session/">Session</a>
+    </h1>
+  
+
+        
+        <a href="/2024/04/03/Session/" class="archive-article-date">
+  	<time datetime="2024-04-03T04:53:28.809Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h1><p>当我们创建session对象，浏览器第一次的请求和响应是这样的</p>
+<p>下面为请求头</p>
+<ul>
+<li><pre><code class="http">Accept:
+text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8
+Accept-Encoding:
+gzip, deflate, br
+Accept-Language:
+zh-CN,zh
+Connection:
+keep-alive
+Cookie:
+MM_WX_NOTIFY_STATE=1; MM_WX_SOUND_STATE=1
+Host:
+localhost:8080
+Sec-Ch-Ua:
+&quot;Chromium&quot;;v=&quot;122&quot;, &quot;Not(A:Brand&quot;;v=&quot;24&quot;, &quot;Brave&quot;;v=&quot;122&quot;
+Sec-Ch-Ua-Mobile:
+?0
+Sec-Ch-Ua-Platform:
+&quot;macOS&quot;
+Sec-Fetch-Dest:
+document
+Sec-Fetch-Mode:
+navigate
+Sec-Fetch-Site:
+none
+Sec-Fetch-User:
+?1
+Sec-Gpc:
+1
+Upgrade-Insecure-Requests:
+1
+User-Agent:
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36
+//这是请求头
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">下面为响应头：</span><br><span class="line"></span><br><span class="line">+ ```http</span><br><span class="line">  Connection:</span><br><span class="line">  keep-alive</span><br><span class="line">  Content-Length:</span><br><span class="line">  57</span><br><span class="line">  Date:</span><br><span class="line">  Mon, 18 Mar 2024 07:54:06 GMT</span><br><span class="line">  Keep-Alive:</span><br><span class="line">  timeout=20</span><br><span class="line">  Set-Cookie:</span><br><span class="line">  JSESSIONID=C8D3160AB2F26FC1A9625F1595159138; Path=/oa; HttpOnly</span><br><span class="line">  //这是响应头</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+<p>当我们第二次再向浏览器请求时，应该拿到的是的同一个session对象</p>
+<p>&#x2F;&#x2F;请求头：</p>
+<ul>
+<li><pre><code class="http">Accept:
+text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8
+Accept-Encoding:
+gzip, deflate, br
+Accept-Language:
+zh-CN,zh
+Connection:
+keep-alive
+Cookie:
+MM_WX_NOTIFY_STATE=1; MM_WX_SOUND_STATE=1; JSESSIONID=C8D3160AB2F26FC1A9625F1595159138
+Host:
+localhost:8080
+Sec-Ch-Ua:
+&quot;Chromium&quot;;v=&quot;122&quot;, &quot;Not(A:Brand&quot;;v=&quot;24&quot;, &quot;Brave&quot;;v=&quot;122&quot;
+Sec-Ch-Ua-Mobile:
+?0
+Sec-Ch-Ua-Platform:
+&quot;macOS&quot;
+Sec-Fetch-Dest:
+document
+Sec-Fetch-Mode:
+navigate
+Sec-Fetch-Site:
+none
+Sec-Fetch-User:
+?1
+Sec-Gpc:
+1
+Upgrade-Insecure-Requests:
+1
+User-Agent:
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">可以看到请求头多出一个东西</span><br><span class="line"></span><br><span class="line">+ ```http</span><br><span class="line">  Cookie:</span><br><span class="line">  MM_WX_NOTIFY_STATE=1; MM_WX_SOUND_STATE=1; JSESSIONID=C8D3160AB2F26FC1A9625F1595159138</span><br><span class="line">  Host:</span><br><span class="line">  localhost:8080</span><br><span class="line">  </span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+<p>没错这就是Map集合里面的key，这个key被服务器传给浏览器记录了下来，我们再来看看响应头</p>
+<p>响应头：</p>
+<ul>
+<li><pre><code class="http">Connection:
+keep-alive
+
+Content-Length:
+57
+Date:
+Mon, 18 Mar 2024 07:57:13 GMT
+Keep-Alive:
+timeout=20
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">这个时候是没有返回cookie了，不得不说这个创意着实是完美，另外，session是存在浏览器缓存里面的，浏览器关闭，cookie就没有了</span><br><span class="line"></span><br><span class="line">这里有三个方法，各种域通用</span><br><span class="line"></span><br><span class="line">+ ```java</span><br><span class="line">  setAttrubute(&quot;&quot;,&quot;&quot;);</span><br><span class="line">  getAttribute(&quot;&quot;, &quot;&quot;);</span><br><span class="line">  removeAttribute(&quot;&quot;, &quot;&quot;);</span><br><span class="line">  //底层是Map，一个key对应应该value，里面的value是对象</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+<li></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/04/03/Session/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-UML" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/04/03/UML/">UML</a>
+    </h1>
+  
+
+        
+        <a href="/2024/04/03/UML/" class="archive-article-date">
+  	<time datetime="2024-04-03T04:53:28.809Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="UML建模"><a href="#UML建模" class="headerlink" title="UML建模"></a>UML建模</h2><p>一个项目的构建是公司与客户的交接，客户需求，文档，系统设计后再写程序，而组织不同的人，部门需要一个规范，这个规范是UML，现在我们开始学习UMl的规范</p>
+<h3 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h3><ul>
+<li>用于描述类的文件，类的属性方法等，同时还有类的各种关系</li>
+<li>属性:（public +), (private -), (protected #)</li>
+<li>关系<ul>
+<li><strong>继承</strong>：子类指向父类，类与接口都能用</li>
+<li><strong>实现</strong>：类实现接口，由类指向接口</li>
+<li><strong>依赖</strong>：类A使用类B但局部生效，如类B作为函数参数传入，A指向B，A依赖B</li>
+<li><strong>关联</strong>：与依赖相似，但不是局部生效，如类B作为成员变量在类A中，A指向B，A关联B</li>
+<li><strong>聚合</strong>：与关联相似，但生命周期不同？？？  &#x2F;&#x2F;球员和球队</li>
+<li><strong>组合</strong>：与关联相似，生命周期相同   &#x2F;&#x2F;人和心脏</li>
+</ul>
+</li>
+</ul>
+<h3 id="用例图"><a href="#用例图" class="headerlink" title="用例图"></a>用例图</h3><ul>
+<li>官方表述：<strong>参与者，用例，边界</strong>关系构成</li>
+<li>我的理解：用例（use cause）将程序包装为功能描述，参与者是与这些功能交互的角色，边界可把不同功能包装在一起</li>
+<li>用例图也有四种类型<ul>
+<li><strong>关联：</strong> 参与者与用例的关系</li>
+<li><strong>泛化：</strong>参与者之间或用例之间，就是继承关系，所以只在相同类型里面</li>
+<li><strong>包含：</strong>用例之间，将复杂的用例拆解，如维修拆解为维修哪些？删除，添加，修改</li>
+<li><strong>扩展：</strong>用例之间，A extends B A延展B功能，所以A指向B，B还拥有A的功能</li>
+</ul>
+</li>
+</ul>
+<h3 id="状态图"><a href="#状态图" class="headerlink" title="状态图"></a>状态图</h3><ul>
+<li>官方表述：描述对象可能的状态，以及改变状态的事务</li>
+</ul>
+<p>![Screenshot 2024-03-13 at 03.01.05](&#x2F;Users&#x2F;leojackasher&#x2F;Downloads&#x2F;Screenshot 2024-03-13 at 03.01.05.jpeg)</p>
+<h3 id="活动图"><a href="#活动图" class="headerlink" title="活动图"></a>活动图</h3><ul>
+<li>有点类似与高中计算机学的那种流程图</li>
+</ul>
+<img src="/Users/leojackasher/Downloads/Screenshot 2024-03-13 at 03.05.08.jpeg" alt="Screenshot 2024-03-13 at 03.05.08" style="zoom:50%;" />
+
+<h3 id="时序图（顺序图）"><a href="#时序图（顺序图）" class="headerlink" title="时序图（顺序图）"></a>时序图（顺序图）</h3><ul>
+<li>描述各模块调用，方法，程序执行流程</li>
+<li>以JavaEE MVC分层为例</li>
+</ul>
+<p>![Screenshot 2024-03-13 at 03.10.46](&#x2F;Users&#x2F;leojackasher&#x2F;Downloads&#x2F;Screenshot 2024-03-13 at 03.10.46.jpeg)</p>
+<ul>
+<li>这张图很好描述了这种程序模块的调用</li>
+<li>那么展示一下时序图是什么样子的</li>
+</ul>
+<p><img src="/Users/leojackasher/Downloads/IMG_0164.jpg" alt="IMG_0164"></p>
+<h3 id="组件图"><a href="#组件图" class="headerlink" title="组件图"></a>组件图</h3><ul>
+<li>直接上图</li>
+</ul>
+<p>![Screenshot 2024-03-13 at 03.25.05](&#x2F;Users&#x2F;leojackasher&#x2F;Downloads&#x2F;Screenshot 2024-03-13 at 03.25.05.jpeg)</p>
+<h3 id="部署图"><a href="#部署图" class="headerlink" title="部署图"></a>部署图</h3><ul>
+<li>用的很少</li>
+<li>和这组件图差不多，变成服务器的样子了</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/04/03/UML/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-css引用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/04/03/css%E5%BC%95%E7%94%A8/">css引用</a>
+    </h1>
+  
+
+        
+        <a href="/2024/04/03/css%E5%BC%95%E7%94%A8/" class="archive-article-date">
+  	<time datetime="2024-04-03T04:53:28.809Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>偶然发现一个不错的css代码引用</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* styles.css */</span></span><br><span class="line"></span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">font-family</span>: Arial, sans-serif;</span><br><span class="line">    <span class="attribute">text-align</span>: center;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#f9f9f9</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">h1</span> &#123;</span><br><span class="line">    <span class="attribute">margin-top</span>: <span class="number">20px</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#333</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">form</span> &#123;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">    <span class="attribute">max-width</span>: <span class="number">400px</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">20px</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#ddd</span>;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">5px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#f9f9f9</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">label</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">margin-bottom</span>: <span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">text-align</span>: left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=<span class="string">&quot;text&quot;</span>]</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="built_in">calc</span>(<span class="number">100%</span> - <span class="number">20px</span>);</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">8px</span>;</span><br><span class="line">    <span class="attribute">margin-bottom</span>: <span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#ccc</span>;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">3px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=<span class="string">&quot;submit&quot;</span>]</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#007bff</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">    <span class="attribute">border</span>: none;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">5px</span>;</span><br><span class="line">    <span class="attribute">cursor</span>: pointer;</span><br><span class="line">    <span class="attribute">transition</span>: background-color <span class="number">0.3s</span> ease;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=<span class="string">&quot;submit&quot;</span>]</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#0056b3</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>调用时使用</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attr">href</span>=<span class="string">&quot;styles.css&quot;</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/04/03/css%E5%BC%95%E7%94%A8/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-request.getAttribute(name,attribute);" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -284,816 +1005,9 @@
 
 
   
-    <article id="post-各类图模板" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/04/03/%E5%90%84%E7%B1%BB%E5%9B%BE%E6%A8%A1%E6%9D%BF/">各类图模板</a>
-    </h1>
-  
-
-        
-        <a href="/2024/04/03/%E5%90%84%E7%B1%BB%E5%9B%BE%E6%A8%A1%E6%9D%BF/" class="archive-article-date">
-  	<time datetime="2024-04-03T04:53:28.809Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="用例图："><a href="#用例图：" class="headerlink" title="用例图："></a>用例图：</h2><p>![image-20240321170301008](&#x2F;Users&#x2F;leojackasher&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20240321170301008.png)</p>
-<h2 id="类图："><a href="#类图：" class="headerlink" title="类图："></a>类图：</h2><p>![image-20240321170443615](&#x2F;Users&#x2F;leojackasher&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20240321170443615.png)</p>
-<h2 id="顺序图："><a href="#顺序图：" class="headerlink" title="顺序图："></a>顺序图：<img src="/Users/leojackasher/Downloads/IMG_0164.jpg" alt="IMG_0164"></h2><h2 id="活动图："><a href="#活动图：" class="headerlink" title="活动图："></a>活动图：</h2><img src="/Users/leojackasher/Downloads/Screenshot 2024-03-13 at 03.05.08.jpeg" alt="Screenshot 2024-03-13 at 03.05.08" style="zoom:50%;" />
-
-<h2 id="状态图："><a href="#状态图：" class="headerlink" title="状态图："></a>状态图：</h2><p>![Screenshot 2024-03-13 at 03.01.05](&#x2F;Users&#x2F;leojackasher&#x2F;Downloads&#x2F;Screenshot 2024-03-13 at 03.01.05.jpeg)</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/04/03/%E5%90%84%E7%B1%BB%E5%9B%BE%E6%A8%A1%E6%9D%BF/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-图书管理项目" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/04/03/%E5%9B%BE%E4%B9%A6%E7%AE%A1%E7%90%86%E9%A1%B9%E7%9B%AE/">图书管理项目</a>
-    </h1>
-  
-
-        
-        <a href="/2024/04/03/%E5%9B%BE%E4%B9%A6%E7%AE%A1%E7%90%86%E9%A1%B9%E7%9B%AE/" class="archive-article-date">
-  	<time datetime="2024-04-03T04:53:28.809Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="第1章-绪论"><a href="#第1章-绪论" class="headerlink" title="第1章 绪论"></a>第1章 绪论</h1><h2 id="1-1-引言"><a href="#1-1-引言" class="headerlink" title="1.1 引言"></a>1.1 引言</h2><p>图书馆作为知识传播和文化传承的重要场所,其管理和服务一直是大家关注的重点。随着信息技术的快速发展,图书馆管理系统的建立变得越来越重要。该系统可以实现图书信息的管理、读者信息的管理、图书的借还流程自动化等,大幅提升图书馆的运营效率,为读者提供更优质的服务。</p>
-<h2 id="1-2-内容"><a href="#1-2-内容" class="headerlink" title="1.2 内容"></a>1.2 内容</h2><p>该图书馆管理系统主要包括以下功能模块:</p>
-<ol>
-<li>图书信息管理:包括图书的录入、查询、修改和删除等功能。</li>
-<li>读者信息管理:包括读者的注册、查询、信息修改等功能,同时管理读者的借还记录。</li>
-<li>借还管理:实现图书的自动化借还,记录借还信息。</li>
-<li>统计分析:对图书借阅情况、读者分布等进行统计分析,为管理决策提供数据支持。</li>
-<li>系统设置:包括权限管理、系统参数配置等功能。</li>
-</ol>
-<h2 id="1-3-本文结构"><a href="#1-3-本文结构" class="headerlink" title="1.3 本文结构"></a>1.3 本文结构</h2><p>本文先对图书馆管理系统的功能需求和性能需求进行分析,然后采用UML建模方法对系统进行设计与分析,包括用例图、类图、顺序图、状态图等。最后,总结系统的设计方案和实现思路。</p>
-<h1 id="第2章-需求分析"><a href="#第2章-需求分析" class="headerlink" title="第2章 需求分析"></a>第2章 需求分析</h1><h2 id="2-1-功能需求"><a href="#2-1-功能需求" class="headerlink" title="2.1 功能需求"></a>2.1 功能需求</h2><p>2.1.1 图书信息管理</p>
-<ol>
-<li>图书信息录入:允许管理员录入新图书的基本信息,如书名、作者、出版社、ISBN等。</li>
-<li>图书信息查询:读者和管理员可以根据书名、作者、出版社等信息查询图书。</li>
-<li>图书信息修改:管理员可以修改图书信息,如更新图书状态、库存等。</li>
-<li>图书信息删除:管理员可以删除图书信息。</li>
-</ol>
-<p>2.1.2 读者信息管理</p>
-<ol>
-<li>读者注册:读者可以在系统中注册账号,录入个人信息。</li>
-<li>读者查询:管理员可以查询读者的个人信息和借还记录。</li>
-<li>读者信息修改:读者和管理员可以修改读者的个人信息。</li>
-</ol>
-<p>2.1.3 借还管理</p>
-<ol>
-<li>图书借阅:读者可以查询并借阅图书,系统自动记录借阅信息。</li>
-<li>图书归还:读者可以将已借阅的图书归还,系统自动更新图书状态和读者借还记录。</li>
-<li>逾期提醒:系统自动检测已借阅图书的到期时间,向读者发送逾期提醒。</li>
-</ol>
-<p>2.1.4 统计分析</p>
-<ol>
-<li>图书借阅统计:系统可以统计各图书的借阅情况,包括借阅量、热门程度等。</li>
-<li>读者借阅统计:系统可以统计各读者的借阅情况,包括借阅量、偏好等。</li>
-<li>报表生成:系统可以根据统计结果生成相关报表,为图书馆决策提供数据支持。</li>
-</ol>
-<p>2.1.5 系统设置</p>
-<ol>
-<li>权限管理:系统可以对不同用户角色(管理员、读者)设置不同的操作权限。</li>
-<li>参数配置:系统可以对图书借还时间限制、逾期罚款标准等参数进行配置。</li>
-</ol>
-<h2 id="2-2-性能需求"><a href="#2-2-性能需求" class="headerlink" title="2.2 性能需求"></a>2.2 性能需求</h2><p>2.2.1 可靠性<br>系统需要确保图书信息和读者信息的安全性和完整性,避免因系统故障而造成数据丢失。同时,系统应具有容错性,在发生故障时能够快速恢复。</p>
-<p>2.2.2 响应速度<br>系统应能快速响应用户的各种操作请求,提供良好的用户体验。关键业务流程的响应时间应控制在3秒以内。</p>
-<p>2.2.3 扩展性<br>系统架构应具有良好的扩展性,能够根据图书馆规模的增长及业务需求的变化而进行扩展,满足未来的发展需求。</p>
-<p>2.2.4 易用性<br>系统界面应简洁明了,操作流程合理顺畅,使用户(包括管理员和读者)能够快速掌握系统的使用方法。</p>
-<h1 id="第3章-建模分析"><a href="#第3章-建模分析" class="headerlink" title="第3章 建模分析"></a>第3章 建模分析</h1><h3 id="3-1-用例图分析与设计"><a href="#3-1-用例图分析与设计" class="headerlink" title="3.1 用例图分析与设计"></a>3.1 用例图分析与设计</h3><p>根据功能需求,我们可以识别出以下主要参与者和用例:</p>
-<p>图3.1 图书馆管理系统用例图:</p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">left to right direction</span><br><span class="line">actor 读者 as 读者</span><br><span class="line">actor 管理员 as 管理员</span><br><span class="line"></span><br><span class="line">rectangle 图书馆管理系统 &#123;</span><br><span class="line">  (注册读者) --&gt; 读者</span><br><span class="line">  (查询图书) --&gt; 读者</span><br><span class="line">  (借阅图书) --&gt; 读者 </span><br><span class="line">  (归还图书) --&gt; 读者</span><br><span class="line">  (管理图书) --&gt; 管理员</span><br><span class="line">  (管理读者) --&gt; 管理员</span><br><span class="line">  (生成统计报表) --&gt; 管理员</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="3-2-类图分析与设计"><a href="#3-2-类图分析与设计" class="headerlink" title="3.2 类图分析与设计"></a>3.2 类图分析与设计</h3><p>根据系统功能,我们可以设计以下主要类:</p>
-<p>图3.2 图书馆管理系统类图</p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">class Book &#123;</span><br><span class="line">  - 书号</span><br><span class="line">  - 书名</span><br><span class="line">  - 作者</span><br><span class="line">  - 出版社</span><br><span class="line">  - ISBN</span><br><span class="line">  - 库存量</span><br><span class="line">  - 状态</span><br><span class="line">  + 添加图书()</span><br><span class="line">  + 查询图书()</span><br><span class="line">  + 修改图书信息()</span><br><span class="line">  + 删除图书()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Reader &#123;</span><br><span class="line">  - 读者ID</span><br><span class="line">  - 姓名</span><br><span class="line">  - 性别</span><br><span class="line">  - 联系方式</span><br><span class="line">  - 注册时间</span><br><span class="line">  + 注册读者()</span><br><span class="line">  + 查询读者信息()</span><br><span class="line">  + 修改读者信息()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Borrow &#123;</span><br><span class="line">  - 借书ID</span><br><span class="line">  - 读者ID</span><br><span class="line">  - 书号</span><br><span class="line">  - 借书时间</span><br><span class="line">  - 还书时间</span><br><span class="line">  - 逾期天数</span><br><span class="line">  + 借书()</span><br><span class="line">  + 还书()</span><br><span class="line">  + 查询借还记录()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class SystemAdmin &#123;</span><br><span class="line">  - 管理员ID</span><br><span class="line">  - 账号</span><br><span class="line">  - 密码</span><br><span class="line">  + 登录系统()</span><br><span class="line">  + 管理图书信息()</span><br><span class="line">  + 管理读者信息()</span><br><span class="line">  + 生成统计报表()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Book &quot;<span class="number">1</span>&quot; -- &quot;*&quot; Borrow</span><br><span class="line">Reader &quot;<span class="number">1</span>&quot; -- &quot;*&quot; Borrow</span><br><span class="line">SystemAdmin &quot;<span class="number">1</span>&quot; -- &quot;*&quot; Book </span><br><span class="line">SystemAdmin &quot;<span class="number">1</span>&quot; -- &quot;*&quot; Reader</span><br><span class="line">SystemAdmin &quot;<span class="number">1</span>&quot; -- &quot;*&quot; Borrow</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="3-3-顺序图分析与设计"><a href="#3-3-顺序图分析与设计" class="headerlink" title="3.3 顺序图分析与设计"></a>3.3 顺序图分析与设计</h3><p>我们重点设计以下几个关键业务场景的顺序图:</p>
-<p>3.3.1 读者借书顺序图:</p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">读者 -&gt; 系统: 查询图书</span><br><span class="line">系统 -&gt; 图书: 查询图书信息</span><br><span class="line">图书 -&gt; 系统: 返回图书信息</span><br><span class="line">系统 -&gt; 读者: 显示图书信息</span><br></pre></td></tr></table></figure>
-
-
-
-<p>图3.3 读者借书顺序图:</p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">读者 -&gt; 系统: 申请借阅</span><br><span class="line">系统 -&gt; 图书: 借出图书</span><br><span class="line">图书 -&gt; 系统: 更新图书状态</span><br><span class="line">系统 -&gt; 读者: 借阅成功</span><br></pre></td></tr></table></figure>
-
-
-
-<p>3.3.2 管理员查询统计报表顺序图</p>
-<h3 id="3-4-状态图分析与设计"><a href="#3-4-状态图分析与设计" class="headerlink" title="3.4 状态图分析与设计"></a>3.4 状态图分析与设计</h3><p>我们可以对Book类和Borrow类设计状态图:</p>
-<p>图3.5 Book类状态图:</p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[*] --&gt; 在馆</span><br><span class="line"></span><br><span class="line">在馆 --&gt; 借出 : 借阅</span><br><span class="line">借出 --&gt; 在馆 : 归还</span><br></pre></td></tr></table></figure>
-
-<p>图3.6 Borrow类状态图:</p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">借出 --&gt; 逾期 : 逾期</span><br><span class="line">逾期 --&gt; 在馆 : 归还</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="3-5-活动图分析与设计"><a href="#3-5-活动图分析与设计" class="headerlink" title="3.5 活动图分析与设计"></a>3.5 活动图分析与设计</h3><p>我们可以绘制读者借书流程和管理员生成统计报表流程的活动图:</p>
-<p>图3.7 读者借书活动图</p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">start</span></span><br><span class="line">:读者查询图书;</span><br><span class="line">:读者选择图书;</span><br><span class="line">:读者申请借阅;</span><br><span class="line"><span class="keyword">if</span> (图书可借?) then (yes)</span><br><span class="line">  :系统更新图书状态;</span><br><span class="line">  :系统记录借阅信息;</span><br><span class="line">  :系统通知借阅成功;</span><br><span class="line"><span class="keyword">else</span> (no)</span><br><span class="line">  :系统提示图书不可借;</span><br><span class="line">endif</span><br><span class="line">stop</span><br></pre></td></tr></table></figure>
-
-
-
-<p>图3.8 管理员生成统计报表活动图</p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">:管理员登录系统;</span><br><span class="line">:选择统计分析功能;</span><br><span class="line">:选择生成报表;</span><br><span class="line">:选择统计维度(图书借阅、读者借阅等);</span><br><span class="line">:系统查询并汇总统计数据;</span><br><span class="line">:系统生成统计报表;</span><br><span class="line">:管理员预览并确认报表;</span><br><span class="line">:系统提供报表导出功能;</span><br><span class="line">:管理员选择导出格式并导出报表;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>通过上述建模分析,我们全面地描述了图书馆管理系统的功能需求和系统结构,为后续的系统设计和实现提供良好基础。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/04/03/%E5%9B%BE%E4%B9%A6%E7%AE%A1%E7%90%86%E9%A1%B9%E7%9B%AE/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-浏览器jquery代码" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/04/03/%E6%B5%8F%E8%A7%88%E5%99%A8jquery%E4%BB%A3%E7%A0%81/">浏览器jquery代码</a>
-    </h1>
-  
-
-        
-        <a href="/2024/04/03/%E6%B5%8F%E8%A7%88%E5%99%A8jquery%E4%BB%A3%E7%A0%81/" class="archive-article-date">
-  	<time datetime="2024-04-03T04:53:28.809Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="浏览器jquery代码"><a href="#浏览器jquery代码" class="headerlink" title="浏览器jquery代码"></a>浏览器jquery代码</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入jQuery</span></span><br><span class="line"><span class="keyword">var</span> script = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;script&#x27;</span>);</span><br><span class="line">script.<span class="property">src</span> = <span class="string">&#x27;https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js&#x27;</span>;</span><br><span class="line"><span class="variable language_">document</span>.<span class="property">head</span>.<span class="title function_">appendChild</span>(script);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 等待jQuery加载完成后执行代码</span></span><br><span class="line">script.<span class="property">onload</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 使用jQuery选择器遍历元素并输出索引到控制台</span></span><br><span class="line">    <span class="title function_">jQuery</span>(<span class="string">&quot;.user-info .user-name&quot;</span>).<span class="title function_">each</span>(<span class="keyword">function</span>(<span class="params">index, item</span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(index);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/04/03/%E6%B5%8F%E8%A7%88%E5%99%A8jquery%E4%BB%A3%E7%A0%81/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-用例建模" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/04/03/%E7%94%A8%E4%BE%8B%E5%BB%BA%E6%A8%A1/">用例建模</a>
-    </h1>
-  
-
-        
-        <a href="/2024/04/03/%E7%94%A8%E4%BE%8B%E5%BB%BA%E6%A8%A1/" class="archive-article-date">
-  	<time datetime="2024-04-03T04:53:28.809Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ol>
-<li><ol>
-<li><h1 id="用例建模"><a href="#用例建模" class="headerlink" title="用例建模"></a>用例建模</h1><h2 id="需求陈述"><a href="#需求陈述" class="headerlink" title="需求陈述"></a>需求陈述</h2><p>小明先注册成为图书馆的读者,通过手机APP完成了简单的注册流程,填写了个人信息,顺利获得了借阅权限。接下来,他开始在系统中查找自己需要的教材和参考书。系统提供了强大的检索功能,小明可以根据书名、作者、出版社等信息快速找到心仪的图书。</p>
-<p>当小明找到感兴趣的书籍后,只需要在系统上点击”借阅”按钮,图书馆管理系统就会自动完成借阅手续,并在小明的账户中记录下这笔借阅记录。有时,小明也会临时有事需要提前归还图书,系统会及时提醒他即将到期的图书,他只需要在指定的还书点完成归还即可。</p>
-<p>除了个人借还,作为图书馆的管理员,小明的同事小王也需要定期对图书馆的藏书进行管理。通过系统,小王可以轻松录入新进的图书信息,并对现有的藏书进行查询、修改和删除操作。同时,系统还会根据往期的借阅数据,为小王生成各类统计报表,为图书馆的资源配置提供有力支持。</p>
-<p>此外,图书馆还设置了灵活的权限管理,系统管理员可以根据不同用户的角色,为他们分配相应的操作权限,确保系统的安全性和稳定性。</p>
-<p>通过图书馆管理系统的支持,小明和小王的工作变得更加高效和便捷。他们可以更专注于提升图书馆的服务质量,为广大师生提供优质的文献资源支持。</p>
-<h2 id="用户角色分析"><a href="#用户角色分析" class="headerlink" title="用户角色分析"></a>用户角色分析</h2><ul>
-<li>读者用户:主要包括学生、教师等图书馆使用者,他们需要进行注册、查找图书、借阅图书、归还图书等操作。</li>
-<li>管理员用户:负责图书馆系统的日常运营和维护,需要对图书信息、读者信息、借还记录等进行管理。</li>
-</ul>
-<h2 id="识别用例"><a href="#识别用例" class="headerlink" title="识别用例"></a>识别用例</h2><p>图书馆管理系统主要包括以下功能需求:</p>
-<ul>
-<li>图书信息管理: 包括图书信息的录入、查询、修改和删除。</li>
-<li>读者信息管理: 包括读者信息的注册、查询、修改,以及借还记录的管理。</li>
-<li>借还管理: 包括图书的借阅、归还以及逾期提醒等功能。</li>
-<li>统计分析: 包括图书借阅情况、读者借阅情况的统计分析,以及报表生成功能。</li>
-<li>系统设置: 包括权限管理、系统参数配置等功能。</li>
-</ul>
-<h2 id="识别参与者"><a href="#识别参与者" class="headerlink" title="识别参与者"></a>识别参与者</h2><p>通过分析需求,我们可以识别出以下系统参与者:</p>
-<ul>
-<li>读者: 使用图书馆服务的普通读者。</li>
-<li>系统管理员: 负责图书馆管理系统的运营和维护。</li>
-</ul>
-<h2 id="确定系统边界"><a href="#确定系统边界" class="headerlink" title="确定系统边界"></a>确定系统边界</h2><p>通过分析参与者和用例,我们可以确定图书馆管理系统的边界,如下图所示:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">&quot;图书馆管理系统&quot; &#123;</span><br><span class="line">    (注册读者) --&gt; 读者</span><br><span class="line">    (查询图书) &lt;-- 读者</span><br><span class="line">    (借阅图书) --&gt; 读者</span><br><span class="line">    (归还图书) --&gt; 读者</span><br><span class="line">    (管理图书信息) --&gt; 管理员</span><br><span class="line">    (管理读者信息) --&gt; 管理员</span><br><span class="line">    (生成统计报表) --&gt; 管理员</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="接着进行扩展"><a href="#接着进行扩展" class="headerlink" title="接着进行扩展:"></a>接着进行扩展:</h3><p><img src="https://p.ipic.vip/nx4rh8.bmp" alt="02需求模型-用例图"></p>
-<h2 id="用例描述"><a href="#用例描述" class="headerlink" title="用例描述"></a>用例描述</h2><h3 id="读者用例描述"><a href="#读者用例描述" class="headerlink" title="读者用例描述:"></a>读者用例描述:</h3><ol>
-<li><p><strong>用例名称: 注册读者</strong><br>用例描述: 新读者通过系统注册自己的账号,提供个人信息。<br>参与者: 读者<br>前置条件: 读者访问图书馆管理系统并选择注册。<br>后置条件: 读者成功注册,可以使用图书借阅等功能。<br>基本流程:</p>
-<ol>
-<li>读者选择”注册”选项</li>
-<li>系统提示读者输入必要的注册信息,如姓名、联系方式等</li>
-<li>读者填写并提交注册信息</li>
-<li>系统验证注册信息的有效性,检查是否存在必填项遗漏或格式错误</li>
-<li>系统检查用户名是否已存在</li>
-<li>系统创建新的读者账号</li>
-<li>系统显示注册成功的提示<br>扩展流程:</li>
-</ol>
-<ul>
-<li>读者在填写注册信息时遗漏必填项,系统提示补全信息</li>
-<li>读者提交的注册信息格式有误(如电话号码格式错误),系统提示重新填写</li>
-<li>注册的用户名已存在,系统提示用户更换用户名</li>
-</ul>
-</li>
-<li><p><strong>用例名称: 查询图书</strong><br>用例描述: 读者或管理员可以根据图书信息进行查询。<br>参与者: 读者、系统管理员<br>前置条件: 用户访问图书馆管理系统<br>后置条件: 用户获得查询结果<br>基本流程:</p>
-<ol>
-<li>用户选择”图书查询”功能</li>
-<li>用户输入查询条件,如书名、作者、出版社等</li>
-<li>系统根据查询条件搜索图书信息</li>
-<li>系统返回符合条件的图书列表<br>扩展流程:</li>
-</ol>
-<ul>
-<li>用户未输入任何查询条件,系统提示用户输入查询条件</li>
-<li>系统无法找到符合条件的图书,提示用户未查询到结果</li>
-</ul>
-</li>
-<li><p><strong>用例名称: 借阅图书</strong><br>用例描述: 读者可以查找并借阅图书。<br>参与者: 读者<br>前置条件: 读者已注册并登录系统<br>后置条件: 读者成功借阅图书,系统记录借阅信息<br>基本流程:</p>
-<ol>
-<li>读者查找并选择想要借阅的图书</li>
-<li>读者提出借阅请求</li>
-<li>系统验证读者身份是否合法</li>
-<li>系统检查图书是否可借,如果已被借出则提示用户</li>
-<li>系统更新图书状态为”借出”</li>
-<li>系统记录本次借阅信息,包括借阅时间等</li>
-<li>系统提示借阅成功<br>扩展流程:</li>
-</ol>
-<ul>
-<li>读者账号异常(如被冻结),系统提示用户无法借阅</li>
-<li>图书已被借出,系统提示用户图书暂时无法借阅</li>
-</ul>
-</li>
-<li><p><strong>用例名称: 归还图书</strong><br>用例描述: 读者可以将已借阅的图书归还。<br>参与者: 读者<br>前置条件: 读者已借阅图书<br>后置条件: 图书归还成功,系统更新借还记录<br>基本流程:</p>
-<ol>
-<li><p>读者提出归还请求</p>
-</li>
-<li><p>系统验证图书状态是否为”借出”,以及归还位置是否合法</p>
-</li>
-<li><p>系统更新图书状态为”在馆”</p>
-</li>
-<li><p>系统记录本次归还信息,包括归还时间等</p>
-</li>
-<li><p>系统提示归还成功<br>  扩展流程:</p>
-</li>
-</ol>
-<ul>
-<li><p>图书未到期但读者提出归还,系统提示用户可以继续借阅</p>
-</li>
-<li><p>图书归还位置不合法(如归还到禁止区域),系统提示归还失败并要求用户更换归还地点</p>
-</li>
-</ul>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-<ul>
-<li><h2 id="管理员用例描述"><a href="#管理员用例描述" class="headerlink" title="管理员用例描述"></a>管理员用例描述</h2></li>
-</ul>
-<ol>
-<li><strong>用例名称: 管理图书信息</strong><ul>
-<li>参与者: 系统管理员</li>
-<li>关系:<ul>
-<li>扩展用例:<ul>
-<li>管理员输入的图书信息有误,系统提示重新输入</li>
-<li>系统无法更新图书信息,提示操作失败</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>用例名称: 管理读者信息</strong><ul>
-<li>参与者: 系统管理员</li>
-<li>关系:<ul>
-<li>扩展用例:<ul>
-<li>管理员输入的读者信息有误,系统提示重新输入</li>
-<li>系统无法更新读者信息,提示操作失败</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>用例名称: 生成统计报表</strong><ul>
-<li>参与者: 系统管理员</li>
-<li>关系:<ul>
-<li>扩展用例:<ul>
-<li>管理员未选择任何报表类型,系统提示选择</li>
-<li>系统无法查询到足够的统计数据,提示无法生成报表</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-<p>具体描述如下:</p>
-<p><strong>用例名称: 管理图书信息</strong><br>用例描述: 系统管理员可以对图书信息进行管理,包括录入、查询、修改和删除。<br>参与者: 系统管理员<br>前置条件: 管理员已登录系统<br>后置条件: 图书信息被管理员操作<br>基本流程:</p>
-<ol>
-<li>管理员选择”图书管理”功能</li>
-<li>管理员执行图书信息的录入、查询、修改或删除操作</li>
-<li>系统验证并更新图书信息</li>
-<li>系统提示操作成功<br>扩展流程:<br>2a. 管理员输入的图书信息有误,系统提示重新输入 &lt;<extends>&gt;<br>3a. 系统无法更新图书信息,提示操作失败 &lt;<extends>&gt;</li>
-</ol>
-<p><strong>用例名称: 管理读者信息</strong><br>用例描述: 系统管理员可以对读者信息进行管理,包括查询、修改等。<br>参与者: 系统管理员<br>前置条件: 管理员已登录系统<br>后置条件: 读者信息被管理员操作<br>基本流程:</p>
-<ol>
-<li>管理员选择”读者管理”功能</li>
-<li>管理员执行读者信息的查询、修改操作</li>
-<li>系统验证并更新读者信息</li>
-<li>系统提示操作成功<br>扩展流程:<ul>
-<li>管理员输入的读者信息有误,系统提示重新输入 &lt;<extends>&gt;</li>
-<li>系统无法更新读者信息,提示操作失败 &lt;<extends>&gt;</li>
-</ul>
-</li>
-</ol>
-<p><strong>用例名称: 生成统计报表</strong><br>用例描述: 系统管理员可以生成图书借阅和读者借阅的统计报表。<br>参与者: 系统管理员<br>前置条件: 管理员已登录系统<br>后置条件: 统计报表生成并可供查看<br>基本流程:</p>
-<ol>
-<li><p>管理员选择”统计分析”功能</p>
-</li>
-<li><p>管理员选择需要生成的统计报表类型,如图书借阅、读者借阅</p>
-</li>
-<li><p>系统查询并汇总相关数据</p>
-</li>
-<li><p>系统生成统计报表</p>
-</li>
-<li><p>系统提供报表预览和导出功能<br>扩展流程:</p>
-<ul>
-<li><p>管理员未选择任何报表类型,系统提示选择 &lt;<extends>&gt;</p>
-</li>
-<li><p>系统无法查询到足够的统计数据,提示无法生成报表 &lt;<extends>&gt;</p>
-</li>
-</ul>
-</li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/04/03/%E7%94%A8%E4%BE%8B%E5%BB%BA%E6%A8%A1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-解决类爆炸" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/04/03/%E8%A7%A3%E5%86%B3%E7%B1%BB%E7%88%86%E7%82%B8/">解决类爆炸</a>
-    </h1>
-  
-
-        
-        <a href="/2024/04/03/%E8%A7%A3%E5%86%B3%E7%B1%BB%E7%88%86%E7%82%B8/" class="archive-article-date">
-  	<time datetime="2024-04-03T04:53:28.809Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="解决类爆炸"><a href="#解决类爆炸" class="headerlink" title="解决类爆炸"></a>解决类爆炸</h1><p>通常来说如果所有的uri映射都在web.xml文件里面，面对成百上千的配置，看上去非常乱，我们可以采取类注解的方式，但一个一个类注解还不够简洁，我们可以采用一个模版方法来设计</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@WebServlet(&quot;uri&quot;)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//我们可以采取多个uri在一个注解</span></span><br><span class="line"><span class="meta">@WebServlet(&#123;&quot;dept/list&quot;,&quot;dept/save&quot;,&quot;dept/add&quot;,&quot;dept/edit&quot;,&quot;dept/detail&quot;&#125;)</span>;</span><br><span class="line"><span class="comment">//可以采取多个路径，浏览器进入不同的路径，执行不同的方法</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">service</span><span class="params">()</span>&#123;&#125;</span><br><span class="line"><span class="comment">//重写service方法，父类的service方法本质就是处理不同请求的方法，会报405错误</span></span><br><span class="line"></span><br><span class="line">request.getServletPath();</span><br><span class="line"><span class="comment">//获取浏览器访问的哪个路径</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="string">&quot;dept/list&quot;</span>.equals(ServletPath))</span><br><span class="line"><span class="comment">//进行判断，根据不同的路径走不同的方法</span></span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line"><span class="comment">//这样我们就实现了所有文件都在一行配置里面了  </span></span><br></pre></td></tr></table></figure>
-
-<p>JSP里面的内容都会被直接打印，如果想要写java程序需要使用&lt;%java程序%&gt;， java程序都在jsp类里面的service方法，注意语法错误，于是有了新的方法，</p>
-<p>&lt;%!java程序%&gt;这里面的程序会写在方法外面，在类的成员变量级别</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/04/03/%E8%A7%A3%E5%86%B3%E7%B1%BB%E7%88%86%E7%82%B8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-重定向和转发的区别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/04/03/%E9%87%8D%E5%AE%9A%E5%90%91%E5%92%8C%E8%BD%AC%E5%8F%91%E7%9A%84%E5%8C%BA%E5%88%AB/">重定向和转发的区别</a>
-    </h1>
-  
-
-        
-        <a href="/2024/04/03/%E9%87%8D%E5%AE%9A%E5%90%91%E5%92%8C%E8%BD%AC%E5%8F%91%E7%9A%84%E5%8C%BA%E5%88%AB/" class="archive-article-date">
-  	<time datetime="2024-04-03T04:53:28.809Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="重定向和转发的区别"><a href="#重定向和转发的区别" class="headerlink" title="重定向和转发的区别"></a>重定向和转发的区别</h1><ul>
-<li><p>请求是转发req和resp，只有一次请求，共享一个req，resp对象，用于绑定了req数据的情况</p>
-</li>
-<li><p>重定向是Tomcat返回重定向的地址交给浏览器，浏览器重新发送请求，用于返回原网页</p>
-</li>
-<li><blockquote>
-<p>类似于找A借钱，A去找B借钱给你，或者A告诉你B的地址你去找B借钱</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">request.getRequestDispathcher.forward(<span class="string">&quot;重定向的地址&quot;</span>);</span><br><span class="line">request.sendRedirect(<span class="string">&quot;重定向地址&quot;</span>);</span><br><span class="line"><span class="comment">//只要是浏览器都要输入项目地址全程</span></span><br></pre></td></tr></table></figure>
-</li>
-<li></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/04/03/%E9%87%8D%E5%AE%9A%E5%90%91%E5%92%8C%E8%BD%AC%E5%8F%91%E7%9A%84%E5%8C%BA%E5%88%AB/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-项目各实现类图" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/04/03/%E9%A1%B9%E7%9B%AE%E5%90%84%E5%AE%9E%E7%8E%B0%E7%B1%BB%E5%9B%BE/">项目各实现类图</a>
-    </h1>
-  
-
-        
-        <a href="/2024/04/03/%E9%A1%B9%E7%9B%AE%E5%90%84%E5%AE%9E%E7%8E%B0%E7%B1%BB%E5%9B%BE/" class="archive-article-date">
-  	<time datetime="2024-04-03T04:53:28.809Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="项目各实现类图"><a href="#项目各实现类图" class="headerlink" title="项目各实现类图"></a>项目各实现类图</h1><h2 id="用例图："><a href="#用例图：" class="headerlink" title="用例图："></a>用例图：</h2><p><img src="/Users/leojackasher/Pictures/%E7%94%A8%E4%BE%8B%E5%9B%BE.bmp" alt="用例图"></p>
-<h2 id="类图："><a href="#类图：" class="headerlink" title="类图："></a>类图：</h2><p><img src="/Users/leojackasher/Pictures/%E7%B1%BB%E5%9B%BE.bmp" alt="类图"></p>
-<h2 id="顺序图："><a href="#顺序图：" class="headerlink" title="顺序图："></a>顺序图：</h2><p><img src="/Users/leojackasher/Pictures/%E9%A1%BA%E5%BA%8F%E5%9B%BE.bmp" alt="顺序图"></p>
-<h2 id="状态图："><a href="#状态图：" class="headerlink" title="状态图："></a>状态图：</h2><p><img src="/Users/leojackasher/Pictures/%E7%8A%B6%E6%80%81%E5%9B%BE.bmp" alt="状态图"></p>
-<h2 id="活动图："><a href="#活动图：" class="headerlink" title="活动图："></a>活动图：</h2><p><img src="/Users/leojackasher/Pictures/%E6%B4%BB%E5%8A%A8%E5%9B%BE.bmp" alt="活动图"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/04/03/%E9%A1%B9%E7%9B%AE%E5%90%84%E5%AE%9E%E7%8E%B0%E7%B1%BB%E5%9B%BE/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-For-you" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/04/02/For-you/">For you</a>
-    </h1>
-  
-
-        
-        <a href="/2024/04/02/For-you/" class="archive-article-date">
-  	<time datetime="2024-04-01T21:39:54.114Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>　No one wants to die. Even people who want to go to heaven don’t want to die to get there. And yet death is the destination we all share. No one has ever escaped it. And that is as it should be, because Death is very likely the single best invention of Life. It is Life’s change agent. It clears out the old to make way for the new. Right now the new is you, but someday not too long from now, you will gradually become the old and be cleared away. Sorry to be so dramatic, but it is quite true.</p>
-<p>　　没有人愿意死, 即使人们想上天堂, 人们也不会为了去那里而死。但是死亡是我们每个人共同的终点。从来没有人能够逃脱它。也应该如此。 因为死亡就是生命中最最好的发明。它是生命变更的媒介。它将旧的清除以便给新的让路。你们现在是新的, 但是从现在开始不久以后, 你们将会逐渐的变成旧的然后被清除。我很抱歉这很戏剧性, 但是这十分的真实。</p>
-<p>　　Your time is limited, so don’t waste it living someone else’s life. Don’t be trapped by dogma - which is living with the results of other people’s thinking. Don’t let the noise of other’s opinions drown out your own inner voice. And most important, have the courage to follow your heart and intuition. They somehow already know what you truly want to become. Everything else is secondary.</p>
-<p>　　你们的时间是有限的，所以不要浪费时间在活成别人的生命上。不要被教条主义所困，教条主义是仅仅活在别人的思考结果的人。不要让别人的意见淹没掉你自己内心的声音。而最重要的是，要有勇气追随你自己的本心和直觉。他们已经知道你真正想成为什么样的人。其他事情都是次要的。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/04/02/For-you/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/15/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span>
+      <a class="extend prev" rel="prev" href="/page/15/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/17/">Next &raquo;</a>
     </nav>
   
 

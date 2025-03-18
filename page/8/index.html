@@ -146,6 +146,736 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Vue-computed" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/07/12/Vue-computed/">Vue-computed</a>
+    </h1>
+  
+
+        
+        <a href="/2024/07/12/Vue-computed/" class="archive-article-date">
+  	<time datetime="2024-07-12T10:44:01.619Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-07-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-07-12 Friday 18:44:01<br>Author: Jackasher</p>
+<h1 id="Vue-computed"><a href="#Vue-computed" class="headerlink" title="Vue-computed"></a>Vue-computed</h1><p>这是Vue的计算属性,与Method的区别在于,计算属性的get方法只会调用一次,提高效率,</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> myVue = <span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line"></span><br><span class="line">           <span class="attr">data</span>: &#123;</span><br><span class="line">               <span class="attr">name</span>: <span class="string">&quot;jack&quot;</span>,</span><br><span class="line">               <span class="attr">age</span>: <span class="number">22</span>,</span><br><span class="line">               <span class="attr">lead</span>: &#123;</span><br><span class="line">                   <span class="attr">name</span>: <span class="string">&#x27;高启强&#x27;</span>,</span><br><span class="line">                   <span class="attr">age</span>: <span class="number">41</span></span><br><span class="line">               &#125;,</span><br><span class="line">               <span class="attr">info</span>: <span class="string">&quot;&quot;</span></span><br><span class="line">           &#125;,</span><br><span class="line">           <span class="attr">methods</span>: &#123;</span><br><span class="line">               <span class="title function_">reverseInfo</span>(<span class="params"></span>) &#123;</span><br><span class="line">                   <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;method被调用&quot;</span>);</span><br><span class="line">                   <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">info</span>.<span class="title function_">split</span>(<span class="string">&#x27;&#x27;</span>).<span class="title function_">reverse</span>().<span class="title function_">join</span>(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">                  </span><br><span class="line">               &#125;</span><br><span class="line">           &#125;,</span><br><span class="line"></span><br><span class="line">           <span class="attr">computed</span>: &#123;</span><br><span class="line">             <span class="comment">//这是一个计算属性,使用属性时自动调用get方法</span></span><br><span class="line">               <span class="attr">reverseInfo2</span>: &#123;</span><br><span class="line">                   <span class="title function_">get</span>(<span class="params"></span>)&#123;</span><br><span class="line">                       <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;computed被调用&quot;</span>);</span><br><span class="line">                       <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">info</span>.<span class="title function_">split</span>(<span class="string">&#x27;&#x27;</span>).<span class="title function_">reverse</span>().<span class="title function_">join</span>(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">                       </span><br><span class="line">                   &#125;,</span><br><span class="line">               </span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">       &#125;)</span><br><span class="line">       myVue.$mount(<span class="string">&#x27;#app&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这是一个代理机制,让我们再回顾一下代理机制,</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(proxy,<span class="string">&#x27;name&#x27;</span>,&#123;</span><br><span class="line">  <span class="attr">get</span>: <span class="title function_">funtion</span>(<span class="params"></span>)&#123;</span><br><span class="line">		</span><br><span class="line">	&#125;,</span><br><span class="line">  <span class="attr">set</span>: <span class="keyword">function</span>(<span class="params">val</span>)&#123;</span><br><span class="line">  	</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>该例子是将<code>name</code>属性添加到proxy对象中,访问proxy对象,实则会调用<code>get</code>方法,是不是有异曲同工之妙,同时还有一种简写方式</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">computed</span>: &#123;</span><br><span class="line">  <span class="title function_">reserveInfo2</span>(<span class="params"></span>)&#123;</span><br><span class="line">  	<span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">info</span>.<span class="title function_">split</span>(<span class="string">&#x27;&#x27;</span>).<span class="title function_">reverse</span>().<span class="title function_">join</span>(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br></pre></td></tr></table></figure>
+
+<p>但是记住,计算属性时属性,不是方法,这只是一种 简写机制</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/07/12/Vue-computed/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-mysql运维(CentOS7)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/07/12/mysql%E8%BF%90%E7%BB%B4(CentOS7)/">mysql运维(CentOS7)</a>
+    </h1>
+  
+
+        
+        <a href="/2024/07/12/mysql%E8%BF%90%E7%BB%B4(CentOS7)/" class="archive-article-date">
+  	<time datetime="2024-07-12T10:44:01.565Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-07-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-07-12 Friday 18:44:01<br>Author: Jackasher</p>
+<h1 id="mysql运维-CentOS7"><a href="#mysql运维-CentOS7" class="headerlink" title="mysql运维(CentOS7)"></a>mysql运维(CentOS7)</h1><p>首先获取mysql的仓库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget http://dev.mysql.com/get/mysql80-community-release-el7-5.noarch.rpm</span><br><span class="line">rpm -ivh mysql80-community-release-el7-5.noarch.rpm</span><br><span class="line">yum install mysql-community-server</span><br></pre></td></tr></table></figure>
+
+<p>然后下载</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install mysql-server --nogpgcheck</span><br></pre></td></tr></table></figure>
+
+<p>找到密码启动</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat /var/log/mysqld.log | grep password</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>启动后</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> 输入以下语句，进入mysql库：</span><br><span class="line"></span><br><span class="line">use mysql</span><br><span class="line">3. 更新域属性，’%’表示允许任意IP地址访问：</span><br><span class="line"></span><br><span class="line">update user set host=&#x27;%&#x27; where user =&#x27;root&#x27;;</span><br><span class="line">4. 执行以上语句之后再执行：</span><br><span class="line"></span><br><span class="line">FLUSH PRIVILEGES;</span><br><span class="line">5. 再执行授权语句：</span><br><span class="line"></span><br><span class="line">GRANT ALL PRIVILEGES ON *.* TO &#x27;root&#x27;@&#x27;%&#x27;WITH GRANT OPTION;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/07/12/mysql%E8%BF%90%E7%BB%B4(CentOS7)/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-jwt认证" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/07/12/jwt%E8%AE%A4%E8%AF%81/">jwt认证</a>
+    </h1>
+  
+
+        
+        <a href="/2024/07/12/jwt%E8%AE%A4%E8%AF%81/" class="archive-article-date">
+  	<time datetime="2024-07-12T10:44:01.507Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-07-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-07-12 Friday 18:44:01<br>Author: Jackasher</p>
+<h1 id="Jwt认证"><a href="#Jwt认证" class="headerlink" title="Jwt认证"></a>Jwt认证</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 导入 express 模块</span></span><br><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);</span><br><span class="line"><span class="comment">// 创建 express 的服务器实例</span></span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// TODO_01：安装并导入 JWT 相关的两个包，分别是 jsonwebtoken 和 express-jwt</span></span><br><span class="line"><span class="keyword">const</span> jwt = <span class="built_in">require</span>(<span class="string">&quot;jsonwebtoken&quot;</span>);</span><br><span class="line"><span class="keyword">const</span>  &#123;expressjwt&#125;  = <span class="built_in">require</span>(<span class="string">&quot;express-jwt&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 允许跨域资源共享</span></span><br><span class="line"><span class="keyword">const</span> cors = <span class="built_in">require</span>(<span class="string">&quot;cors&quot;</span>);</span><br><span class="line">app.<span class="title function_">use</span>(<span class="title function_">cors</span>());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 解析 post 表单数据的中间件</span></span><br><span class="line"><span class="keyword">const</span> bodyParser = <span class="built_in">require</span>(<span class="string">&quot;body-parser&quot;</span>);</span><br><span class="line">app.<span class="title function_">use</span>(bodyParser.<span class="title function_">urlencoded</span>(&#123; <span class="attr">extended</span>: <span class="literal">false</span> &#125;));</span><br><span class="line"></span><br><span class="line"><span class="comment">// TODO_02：定义 secret 密钥，建议将密钥命名为 secretKey</span></span><br><span class="line"><span class="keyword">const</span> secretKey = <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// TODO_04：注册将 JWT 字符串解析还原成 JSON 对象的中间件</span></span><br><span class="line"><span class="comment">// 注意：只要配置成功了 express-jwt 这个中间件，就可以把解析出来的用户信息，挂载到 req.user 属性上</span></span><br><span class="line">app.<span class="title function_">use</span>(</span><br><span class="line">  <span class="title function_">expressjwt</span>(&#123; <span class="attr">secret</span>: secretKey, <span class="attr">algorithms</span>: [<span class="string">&quot;HS256&quot;</span>] &#125;).<span class="title function_">unless</span>(&#123;</span><br><span class="line">    <span class="attr">path</span>: [<span class="regexp">/^\/api\//</span>],</span><br><span class="line">  &#125;)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 登录接口</span></span><br><span class="line">app.<span class="title function_">post</span>(<span class="string">&quot;/api/login&quot;</span>, <span class="keyword">function</span> (<span class="params">req, res</span>) &#123;</span><br><span class="line">  <span class="comment">// 将 req.body 请求体中的数据，转存为 userinfo 常量</span></span><br><span class="line">  <span class="keyword">const</span> userinfo = req.<span class="property">body</span>;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(req.<span class="property">body</span>.<span class="property">username</span>, userinfo.<span class="property">password</span>);</span><br><span class="line">  <span class="comment">// 登录失败</span></span><br><span class="line"><span class="comment">//   if (userinfo.username !== &quot;admin&quot; || userinfo.password !== &quot;000000&quot;) &#123;</span></span><br><span class="line"><span class="comment">//     return res.send(&#123;</span></span><br><span class="line"><span class="comment">//       status: 400,</span></span><br><span class="line"><span class="comment">//       message: &quot;登录失败！&quot;,</span></span><br><span class="line"><span class="comment">//     &#125;);</span></span><br><span class="line"><span class="comment">//   &#125;</span></span><br><span class="line">  <span class="comment">// 登录成功</span></span><br><span class="line">  <span class="comment">// TODO_03：在登录成功之后，调用 jwt.sign() 方法生成 JWT 字符串。并通过 token 属性发送给客户端</span></span><br><span class="line">  <span class="comment">// 参数1：用户的信息对象</span></span><br><span class="line">  <span class="comment">// 参数2：加密的秘钥</span></span><br><span class="line">  <span class="comment">// 参数3：配置对象，可以配置当前 token 的有效期</span></span><br><span class="line">  <span class="comment">// 记住：千万不要把密码加密到 token 字符中</span></span><br><span class="line">  <span class="keyword">const</span> tokenStr = jwt.<span class="title function_">sign</span>(&#123; <span class="attr">username</span>: userinfo.<span class="property">username</span> &#125;, secretKey, &#123;</span><br><span class="line">    <span class="attr">expiresIn</span>: <span class="string">&quot;3000s&quot;</span>,</span><br><span class="line">    <span class="attr">algorithm</span>: <span class="string">&quot;HS256&quot;</span>, <span class="comment">// 指定算法为 HS256，这是默认算法，可根据需要修改</span></span><br><span class="line">  &#125;);</span><br><span class="line">  </span><br><span class="line">  res.<span class="title function_">send</span>(&#123;</span><br><span class="line">    <span class="attr">status</span>: <span class="number">200</span>,</span><br><span class="line">    <span class="attr">message</span>: <span class="string">&quot;登录成功！&quot;</span>,</span><br><span class="line">    <span class="attr">token</span>: tokenStr, <span class="comment">// 要发送给客户端的 token 字符串</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这是一个有权限的 API 接口</span></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&quot;/admin/getinfo&quot;</span>, <span class="keyword">function</span> (<span class="params">req, res</span>) &#123;</span><br><span class="line">  <span class="comment">// TODO_05：使用 req.user 获取用户信息，并使用 data 属性将用户信息发送给客户端</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(req.<span class="property">user</span>);</span><br><span class="line">  res.<span class="title function_">send</span>(&#123;</span><br><span class="line">    <span class="attr">status</span>: <span class="number">200</span>,</span><br><span class="line">    <span class="attr">message</span>: <span class="string">&quot;获取用户信息成功！&quot;</span>,</span><br><span class="line">    <span class="attr">data</span>: req.<span class="property">auth</span>, <span class="comment">// 要发送给客户端的用户信息</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用 app.listen 方法，指定端口号并启动web服务器</span></span><br><span class="line">app.<span class="title function_">listen</span>(<span class="number">3000</span>, <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Express server running at http://127.0.0.1:3000&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/07/12/jwt%E8%AE%A4%E8%AF%81/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-鸿蒙开发QuickStart" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/07/04/%E9%B8%BF%E8%92%99%E5%BC%80%E5%8F%91QuickStart/">鸿蒙开发QuickStart</a>
+    </h1>
+  
+
+        
+        <a href="/2024/07/04/%E9%B8%BF%E8%92%99%E5%BC%80%E5%8F%91QuickStart/" class="archive-article-date">
+  	<time datetime="2024-07-03T19:16:01.853Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-07-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-07-04 Thursday 03:16:01<br>Author: Jackasher</p>
+<h1 id="鸿蒙开发QuickStart"><a href="#鸿蒙开发QuickStart" class="headerlink" title="鸿蒙开发QuickStart"></a>鸿蒙开发QuickStart</h1><p>基础的一个登入注册页面,比HTML好太多,已经配好了样式,其实手机系统已经决定了,软件的美观</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@Entry</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line">struct <span class="title class_">Index</span> &#123;</span><br><span class="line">  <span class="meta">@State</span> <span class="attr">message</span>: <span class="built_in">string</span> = <span class="string">&#x27;Huawei..&#x27;</span>;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">build</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="title class_">Column</span>(&#123;<span class="attr">space</span>: <span class="number">15</span>&#125;) &#123;</span><br><span class="line"></span><br><span class="line">      <span class="title class_">Image</span>(<span class="string">&quot;http://jackasher.com/img/jack.png&quot;</span>)</span><br><span class="line">        .<span class="title function_">width</span>(<span class="number">100</span>)</span><br><span class="line">      <span class="title class_">TextInput</span>(&#123;</span><br><span class="line">        <span class="attr">placeholder</span>: <span class="string">&quot;请输入用户名&quot;</span></span><br><span class="line">      &#125;)</span><br><span class="line"></span><br><span class="line">      <span class="title class_">TextInput</span>(&#123;</span><br><span class="line">        <span class="attr">placeholder</span>: <span class="string">&quot;密码&quot;</span></span><br><span class="line">      &#125;).<span class="title function_">type</span>(<span class="title class_">InputType</span>.<span class="property">Password</span>)</span><br><span class="line"></span><br><span class="line">      <span class="title class_">Button</span>(<span class="string">&quot;登入&quot;</span>)</span><br><span class="line">        .<span class="title function_">width</span>(<span class="number">200</span>)</span><br><span class="line"></span><br><span class="line">      <span class="title class_">Row</span>(&#123;<span class="attr">space</span>: <span class="number">15</span>&#125;)&#123;</span><br><span class="line">        <span class="title class_">Text</span>(<span class="string">&quot;注册&quot;</span>)</span><br><span class="line">        <span class="title class_">Text</span>(<span class="string">&quot;忘记密码&quot;</span>)</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    .<span class="title function_">padding</span>(<span class="number">30</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/07/04/%E9%B8%BF%E8%92%99%E5%BC%80%E5%8F%91QuickStart/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-阿里云短信发送模版" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/06/20/%E9%98%BF%E9%87%8C%E4%BA%91%E7%9F%AD%E4%BF%A1%E5%8F%91%E9%80%81%E6%A8%A1%E7%89%88/">阿里云短信发送模版</a>
+    </h1>
+  
+
+        
+        <a href="/2024/06/20/%E9%98%BF%E9%87%8C%E4%BA%91%E7%9F%AD%E4%BF%A1%E5%8F%91%E9%80%81%E6%A8%A1%E7%89%88/" class="archive-article-date">
+  	<time datetime="2024-06-20T03:28:02.082Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-06-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-06-20 Thursday 11:28:02<br>Author: Jackasher</p>
+<h1 id="阿里云短信发送模版"><a href="#阿里云短信发送模版" class="headerlink" title="阿里云短信发送模版"></a>阿里云短信发送模版</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.springbootredis;<span class="comment">// This file is auto-generated, don&#x27;t edit it. Thanks.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.aliyun.tea.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Sample</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 使用AK&amp;SK初始化账号Client</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> Client</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> com.aliyun.dysmsapi20170525.Client <span class="title function_">createClient</span><span class="params">()</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">// 工程代码泄露可能会导致 AccessKey 泄露，并威胁账号下所有资源的安全性。以下代码示例仅供参考。</span></span><br><span class="line">        <span class="comment">// 建议使用更安全的 STS 方式，更多鉴权访问方式请参见：https://help.aliyun.com/document_detail/378657.html。</span></span><br><span class="line">        com.aliyun.teaopenapi.models.<span class="type">Config</span> <span class="variable">config</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">com</span>.aliyun.teaopenapi.models.Config()</span><br><span class="line">                <span class="comment">// 必填，请确保代码运行环境设置了环境变量 ALIBABA_CLOUD_ACCESS_KEY_ID。</span></span><br><span class="line">                .setAccessKeyId(System.getenv(<span class="string">&quot;ALIBABA_CLOUD_ACCESS_KEY_ID&quot;</span>))</span><br><span class="line">                <span class="comment">// 必填，请确保代码运行环境设置了环境变量 ALIBABA_CLOUD_ACCESS_KEY_SECRET。</span></span><br><span class="line">                .setAccessKeySecret(System.getenv(<span class="string">&quot;ALIBABA_CLOUD_ACCESS_KEY_SECRET&quot;</span>));</span><br><span class="line">        <span class="comment">// Endpoint 请参考 https://api.aliyun.com/product/Dysmsapi</span></span><br><span class="line">        config.endpoint = <span class="string">&quot;dysmsapi.aliyuncs.com&quot;</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">com</span>.aliyun.dysmsapi20170525.Client(config);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args_)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        java.util.List&lt;String&gt; args = java.util.Arrays.asList(args_);</span><br><span class="line">        com.aliyun.dysmsapi20170525.<span class="type">Client</span> <span class="variable">client</span> <span class="operator">=</span> Sample.createClient();</span><br><span class="line">        com.aliyun.dysmsapi20170525.models.<span class="type">SendSmsRequest</span> <span class="variable">sendSmsRequest</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">com</span>.aliyun.dysmsapi20170525.models.SendSmsRequest()</span><br><span class="line">                .setPhoneNumbers(<span class="string">&quot;15756299567&quot;</span>)</span><br><span class="line">                .setSignName(<span class="string">&quot;学校网站设计&quot;</span>);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 复制代码运行请自行打印 API 的返回值</span></span><br><span class="line">            client.sendSmsWithOptions(sendSmsRequest, <span class="keyword">new</span> <span class="title class_">com</span>.aliyun.teautil.models.RuntimeOptions());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (TeaException error) &#123;</span><br><span class="line">            <span class="comment">// 此处仅做打印展示，请谨慎对待异常处理，在工程项目中切勿直接忽略异常。</span></span><br><span class="line">            <span class="comment">// 错误 message</span></span><br><span class="line">            System.out.println(error.getMessage());</span><br><span class="line">            <span class="comment">// 诊断地址</span></span><br><span class="line">            System.out.println(error.getData().get(<span class="string">&quot;Recommend&quot;</span>));</span><br><span class="line">            com.aliyun.teautil.Common.assertAsString(error.message);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception _error) &#123;</span><br><span class="line">            <span class="type">TeaException</span> <span class="variable">error</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TeaException</span>(_error.getMessage(), _error);</span><br><span class="line">            <span class="comment">// 此处仅做打印展示，请谨慎对待异常处理，在工程项目中切勿直接忽略异常。</span></span><br><span class="line">            <span class="comment">// 错误 message</span></span><br><span class="line">            System.out.println(error.getMessage());</span><br><span class="line">            <span class="comment">// 诊断地址</span></span><br><span class="line">            System.out.println(error.getData().get(<span class="string">&quot;Recommend&quot;</span>));</span><br><span class="line">            com.aliyun.teautil.Common.assertAsString(error.message);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/06/20/%E9%98%BF%E9%87%8C%E4%BA%91%E7%9F%AD%E4%BF%A1%E5%8F%91%E9%80%81%E6%A8%A1%E7%89%88/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-SpringAMQP" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/06/20/SpringAMQP/">SpringAMQP</a>
+    </h1>
+  
+
+        
+        <a href="/2024/06/20/SpringAMQP/" class="archive-article-date">
+  	<time datetime="2024-06-20T03:28:01.988Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-06-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-06-20 Thursday 11:28:01<br>Author: Jackasher</p>
+<h1 id="SpringAMQP"><a href="#SpringAMQP" class="headerlink" title="SpringAMQP"></a>SpringAMQP</h1><p>基于<code>Spring</code>实现的MQ消息队列发送与接受,首先要配置<code>MQ</code>的信息,端口,用户,密码,主机,和虚拟<code>Host</code>,</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">rabbitmq:</span></span><br><span class="line">    <span class="attr">host:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">5672</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">itcast</span></span><br><span class="line">    <span class="attr">password:</span> <span class="number">123321</span></span><br><span class="line">    <span class="attr">virtual-host:</span> <span class="string">/</span></span><br></pre></td></tr></table></figure>
+
+<p>接下来是生产者,很简单,主要是<code>rabbitTemplate</code>类,使用<code>convertSend</code>方法传入交换机的名字和<code>key</code>,以及消息</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">fountSend2</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">exchangeName</span> <span class="operator">=</span> <span class="string">&quot;itcast_direct&quot;</span>;</span><br><span class="line">    <span class="type">String</span> <span class="variable">msg</span> <span class="operator">=</span> <span class="string">&quot;Hello everyone!!!&quot;</span>;</span><br><span class="line">    rabbitTemplate.convertAndSend(exchangeName,<span class="string">&quot;red&quot;</span>,msg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>那么这个交换机哪里来的,一种是<code>Spring</code>的<code>Bean</code>的配置,二是采用注解,首先是<code>Bean</code>的配置</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建队列 </span></span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"> <span class="keyword">public</span> FanoutExchange <span class="title function_">fanoutExchange</span><span class="params">()</span>&#123;</span><br><span class="line">     <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">FanoutExchange</span>(<span class="string">&quot;itcast.fanout&quot;</span>);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="meta">@Bean</span></span><br><span class="line"> <span class="keyword">public</span> Queue <span class="title function_">queue1</span><span class="params">()</span>&#123;</span><br><span class="line">     <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Queue</span>(<span class="string">&quot;fanout.queue1&quot;</span>);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="comment">//交换机绑定队列,自动注入队列</span></span><br><span class="line"> <span class="meta">@Bean</span></span><br><span class="line"> <span class="keyword">public</span> Binding <span class="title function_">fanoutBinding1</span><span class="params">(Queue queue1, FanoutExchange fanoutExchange)</span>&#123;</span><br><span class="line">     <span class="keyword">return</span> BindingBuilder.bind(queue1).to(fanoutExchange);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>接下来是注解形式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RabbitListener(bindings = @QueueBinding(</span></span><br><span class="line"><span class="meta">                //创建队列</span></span><br><span class="line"><span class="meta">                value = @Queue(&quot;direct_queue1&quot;),</span></span><br><span class="line"><span class="meta">                //创建并绑定交换机和key</span></span><br><span class="line"><span class="meta">                exchange = @Exchange(name = &quot;itcast_direct&quot;, </span></span><br><span class="line"><span class="meta">                                     type = ExchangeTypes.DIRECT),</span></span><br><span class="line"><span class="meta">                                     key = &#123;&quot;red&quot;,&quot;blue&quot;&#125;</span></span><br><span class="line"><span class="meta">   ))</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">listenSimpleQueue5</span><span class="params">(String msg)</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">       System.out.println(<span class="string">&quot;consumer5 has received:&quot;</span> +  msg + LocalDateTime.now());</span><br><span class="line"></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/06/20/SpringAMQP/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Redis配置模版" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/06/20/Redis%E9%85%8D%E7%BD%AE%E6%A8%A1%E7%89%88/">Redis配置模版</a>
+    </h1>
+  
+
+        
+        <a href="/2024/06/20/Redis%E9%85%8D%E7%BD%AE%E6%A8%A1%E7%89%88/" class="archive-article-date">
+  	<time datetime="2024-06-20T03:28:01.978Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-06-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-06-20 Thursday 11:28:01<br>Author: Jackasher</p>
+<h1 id="Redis配置模版"><a href="#Redis配置模版" class="headerlink" title="Redis配置模版"></a>Redis配置模版</h1><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring.data.redis.host</span>=<span class="string">127.0.0.1</span></span><br><span class="line"><span class="attr">spring.data.redis.port</span>=<span class="string">6379</span></span><br><span class="line"><span class="attr">spring.data.redis.lettuce.pool.max-active</span>=<span class="string">8</span></span><br><span class="line"><span class="attr">spring.data.redis.lettuce.pool.max-idle</span>=<span class="string">8</span></span><br><span class="line"><span class="attr">spring.data.redis.lettuce.pool.min-idle</span>=<span class="string">0</span></span><br><span class="line"><span class="attr">spring.data.redis.lettuce.pool.max-wait</span>=<span class="string">100ms</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/06/20/Redis%E9%85%8D%E7%BD%AE%E6%A8%A1%E7%89%88/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Mybatis逆向工程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/06/20/Mybatis%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B/">Mybatis逆向工程</a>
+    </h1>
+  
+
+        
+        <a href="/2024/06/20/Mybatis%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B/" class="archive-article-date">
+  	<time datetime="2024-06-20T03:28:01.958Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-06-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-06-20 Thursday 11:28:01<br>Author: Jackasher</p>
+<h1 id="Mybatis逆向工程"><a href="#Mybatis逆向工程" class="headerlink" title="Mybatis逆向工程"></a>Mybatis逆向工程</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.generator.AutoGenerator;</span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.generator.config.*;</span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.generator.config.rules.DbType;</span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CodeGenerator</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 全局配置</span></span><br><span class="line">        <span class="type">GlobalConfig</span> <span class="variable">globalConfig</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">GlobalConfig</span>();</span><br><span class="line">        globalConfig.setOutputDir(System.getProperty(<span class="string">&quot;user.dir&quot;</span>) + <span class="string">&quot;/src/main/java&quot;</span>) <span class="comment">// 设置输出目录</span></span><br><span class="line">                .setAuthor(<span class="string">&quot;Your Name&quot;</span>) <span class="comment">// 设置作者</span></span><br><span class="line">                .setOpen(<span class="literal">false</span>) <span class="comment">// 设置生成后是否自动打开目录</span></span><br><span class="line">                .setFileOverride(<span class="literal">true</span>) <span class="comment">// 设置文件存在时是否覆盖</span></span><br><span class="line">                .setServiceName(<span class="string">&quot;%sService&quot;</span>) <span class="comment">// 设置Service接口名后缀</span></span><br><span class="line">                .setIdType(IdType.AUTO) <span class="comment">// 设置主键生成策略</span></span><br><span class="line">                .setSwagger2(<span class="literal">true</span>); <span class="comment">// 设置是否生成Swagger注解</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 数据源配置</span></span><br><span class="line">        <span class="type">DataSourceConfig</span> <span class="variable">dataSourceConfig</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DataSourceConfig</span>();</span><br><span class="line">        dataSourceConfig.setDbType(DbType.MYSQL) <span class="comment">// 设置数据库类型</span></span><br><span class="line">                .setUrl(<span class="string">&quot;jdbc:mysql://localhost:3306/mybatis_plus?useSSL=false&amp;serverTimezone=UTC&quot;</span>) <span class="comment">// 数据库连接URL</span></span><br><span class="line">                .setUsername(<span class="string">&quot;root&quot;</span>) <span class="comment">// 数据库用户名</span></span><br><span class="line">                .setPassword(<span class="string">&quot;password&quot;</span>) <span class="comment">// 数据库密码</span></span><br><span class="line">                .setDriverName(<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>); <span class="comment">// 数据库驱动类名</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 策略配置</span></span><br><span class="line">        <span class="type">StrategyConfig</span> <span class="variable">strategyConfig</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StrategyConfig</span>();</span><br><span class="line">        strategyConfig.setInclude(<span class="string">&quot;user&quot;</span>, <span class="string">&quot;order&quot;</span>) <span class="comment">// 指定需要生成代码的表名</span></span><br><span class="line">                .setNaming(NamingStrategy.underline_to_camel) <span class="comment">// 设置表名转类名策略</span></span><br><span class="line">                .setColumnNaming(NamingStrategy.underline_to_camel) <span class="comment">// 设置列名转属性名策略</span></span><br><span class="line">                .setEntityLombokModel(<span class="literal">true</span>) <span class="comment">// 设置实体类使用Lombok模型</span></span><br><span class="line">                .setRestControllerStyle(<span class="literal">true</span>) <span class="comment">// 设置Controller使用REST风格</span></span><br><span class="line">                .setTablePrefix(<span class="keyword">new</span> <span class="title class_">String</span>[]&#123;<span class="string">&quot;tbl_&quot;</span>&#125;); <span class="comment">// 设置表名前缀</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 包配置</span></span><br><span class="line">        <span class="type">PackageConfig</span> <span class="variable">packageConfig</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PackageConfig</span>();</span><br><span class="line">        packageConfig.setParent(<span class="string">&quot;com.example&quot;</span>) <span class="comment">// 设置父包名</span></span><br><span class="line">                .setMapper(<span class="string">&quot;mapper&quot;</span>) <span class="comment">// 设置Mapper接口所在的子包名</span></span><br><span class="line">                .setEntity(<span class="string">&quot;entity&quot;</span>) <span class="comment">// 设置实体类所在的子包名</span></span><br><span class="line">                .setController(<span class="string">&quot;controller&quot;</span>) <span class="comment">// 设置Controller所在的子包名</span></span><br><span class="line">                .setService(<span class="string">&quot;service&quot;</span>) <span class="comment">// 设置Service所在的子包名</span></span><br><span class="line">                .setXml(<span class="string">&quot;mapper&quot;</span>); <span class="comment">// 设置Mapper XML文件所在的子包名</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 模板配置</span></span><br><span class="line">        <span class="type">TemplateConfig</span> <span class="variable">templateConfig</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TemplateConfig</span>();</span><br><span class="line">        templateConfig.setXml(<span class="literal">null</span>) <span class="comment">// 不生成XML文件</span></span><br><span class="line">                .setController(<span class="string">&quot;templates/controller.java.vm&quot;</span>) <span class="comment">// 设置Controller模板路径</span></span><br><span class="line">                .setEntity(<span class="string">&quot;templates/entity.java.vm&quot;</span>) <span class="comment">// 设置实体类模板路径</span></span><br><span class="line">                .setMapper(<span class="string">&quot;templates/mapper.java.vm&quot;</span>); <span class="comment">// 设置Mapper接口模板路径</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 整合配置</span></span><br><span class="line">        <span class="type">AutoGenerator</span> <span class="variable">autoGenerator</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">AutoGenerator</span>();</span><br><span class="line">        autoGenerator.setGlobalConfig(globalConfig)</span><br><span class="line">                .setDataSource(dataSourceConfig)</span><br><span class="line">                .setStrategy(strategyConfig)</span><br><span class="line">                .setPackageInfo(packageConfig)</span><br><span class="line">                .setTemplate(templateConfig);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 执行生成</span></span><br><span class="line">        autoGenerator.execute();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>SpringBoot3</code>配置<code>pom</code></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus-spring-boot3-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.5.6<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus-generator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.4.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.velocity<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>velocity-engine-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span>        </span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/06/20/Mybatis%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-325Forum模版" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -324,793 +1054,9 @@
 
 
   
-    <article id="post-SpringBoot-Interceptor" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/06/02/SpringBoot-Interceptor/">SpringBoot-Interceptor</a>
-    </h1>
-  
-
-        
-        <a href="/2024/06/02/SpringBoot-Interceptor/" class="archive-article-date">
-  	<time datetime="2024-06-01T20:37:01.711Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-06-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-06-02 Sunday 04:37:01<br>Author: Jackasher</p>
-<h1 id="SpringBoot-Interceptor"><a href="#SpringBoot-Interceptor" class="headerlink" title="SpringBoot-Interceptor"></a>SpringBoot-Interceptor</h1><p>这个类被用于配置<code>SPringMVC</code>的内容</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AppConfig</span> <span class="keyword">implements</span> <span class="title class_">WebMvcConfigurer</span> &#123;</span><br><span class="line">  <span class="comment">//配置拦截器</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> &#123;</span><br><span class="line">        <span class="type">LoginInterceptor</span> <span class="variable">loginInterceptor</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">LoginInterceptor</span>();</span><br><span class="line">        registry.addInterceptor(loginInterceptor).addPathPatterns(<span class="string">&quot;/user&quot;</span>).excludePathPatterns(<span class="string">&quot;/test&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>其实我不理解的是,为什么已经实现了mvc的接口,还要配置声明这个类</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/06/02/SpringBoot-Interceptor/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-ServerSocket" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/06/02/ServerSocket/">ServerSocket</a>
-    </h1>
-  
-
-        
-        <a href="/2024/06/02/ServerSocket/" class="archive-article-date">
-  	<time datetime="2024-06-01T20:37:01.699Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-06-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-06-02 Sunday 04:37:01<br>Author: Jackasher</p>
-<h1 id="ServerSocket"><a href="#ServerSocket" class="headerlink" title="ServerSocket"></a>ServerSocket</h1><p>关于<code>FileInputStream</code>的效率,我们先使用该字节流传一个图片文件,用时<code>5.8秒</code>,</p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">正在等待连接</span><br><span class="line">连接成功</span><br><span class="line">该方法耗时<span class="number">5873</span>ms</span><br></pre></td></tr></table></figure>
-
-<p>未使用字节数组时,而全部采用<code>BufferedStream</code>时效率大幅提升</p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">正在等待连接</span><br><span class="line">连接成功</span><br><span class="line">该方法耗时<span class="number">435</span>ms</span><br></pre></td></tr></table></figure>
-
-<p>用了字节数组后没有太大区别</p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">正在等待连接</span><br><span class="line">连接成功</span><br><span class="line">该方法耗时<span class="number">395</span>ms</span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/06/02/ServerSocket/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Mybatis-SpringMVC" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/06/02/Mybatis-SpringMVC/">Mybatis-SpringMVC</a>
-    </h1>
-  
-
-        
-        <a href="/2024/06/02/Mybatis-SpringMVC/" class="archive-article-date">
-  	<time datetime="2024-06-01T20:37:01.684Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-06-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-06-02 Sunday 04:37:01<br>Author: Jackasher</p>
-<h1 id="Mybatis-SpringMVC"><a href="#Mybatis-SpringMVC" class="headerlink" title="Mybatis-SpringMVC"></a>Mybatis-SpringMVC</h1><h2 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h2><p>我犯了个错误,<code>namespace</code>的地方我后缀加了java,</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span> ?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">mapper</span></span></span><br><span class="line"><span class="meta">        <span class="keyword">PUBLIC</span> <span class="string">&quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span></span></span><br><span class="line"><span class="meta">        <span class="string">&quot;https://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">&quot;com.example.springboot.dao.StudentDao&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;selectById&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;com.example.springboot.pojo.User&quot;</span>&gt;</span></span><br><span class="line">        select * from users where id = #&#123;id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p><code>boot</code>的起步依赖会加载mybatis类,连代理类都不用自己生成,在<code>boot</code>配置文件配好数据源,会自动完成数据库连接,实在是厉害</p>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring.application.name</span>=<span class="string">springboot</span></span><br><span class="line"><span class="attr">jdbc.url</span>=<span class="string">jdbc:mysql://localhost:3306</span></span><br><span class="line"><span class="attr">jdbc.driver</span>=<span class="string">com.jdbc.cj.mysql.Driver</span></span><br><span class="line"><span class="attr">jdbc.username</span>=<span class="string">root</span></span><br><span class="line"><span class="attr">jdbc.password</span>=<span class="string">casio233.</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spring.datasource.driver-class-name</span>=<span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line"><span class="attr">spring.datasource.url</span>=<span class="string">jdbc:mysql://localhost:3306/jack</span></span><br><span class="line"><span class="attr">spring.datasource.username</span>=<span class="string">root</span></span><br><span class="line"><span class="attr">spring.datasource.password</span>=<span class="string">casio233.</span></span><br><span class="line"></span><br><span class="line"><span class="attr">//指定mapper位置</span></span><br><span class="line"><span class="attr">mybatis.mapper-locations</span>=<span class="string">classpath:mapper/*.xml</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/06/02/Mybatis-SpringMVC/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-关于从数据库提取信息到前端" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/05/27/%E5%85%B3%E4%BA%8E%E4%BB%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8F%90%E5%8F%96%E4%BF%A1%E6%81%AF%E5%88%B0%E5%89%8D%E7%AB%AF/">关于从数据库提取信息到前端</a>
-    </h1>
-  
-
-        
-        <a href="/2024/05/27/%E5%85%B3%E4%BA%8E%E4%BB%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8F%90%E5%8F%96%E4%BF%A1%E6%81%AF%E5%88%B0%E5%89%8D%E7%AB%AF/" class="archive-article-date">
-  	<time datetime="2024-05-27T14:12:29.801Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-05-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-05-27 星期一 22:12:29<br>Author: Jackasher</p>
-<h1 id="关于从数据库提取信息到前端"><a href="#关于从数据库提取信息到前端" class="headerlink" title="关于从数据库提取信息到前端"></a>关于从数据库提取信息到前端</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">table</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">thead</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">th</span>&gt;</span>编号<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">th</span>&gt;</span>名字<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">th</span>&gt;</span>年龄<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">thead</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">tr</span> <span class="attr">th:each</span>=<span class="string">&quot;user : $&#123;users&#125;&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;user.id&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;user.username&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;user.age&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;users&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>thymeleaf似乎可以从session域中取出数据</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/05/27/%E5%85%B3%E4%BA%8E%E4%BB%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8F%90%E5%8F%96%E4%BF%A1%E6%81%AF%E5%88%B0%E5%89%8D%E7%AB%AF/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-SpringMVC过滤器" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/05/27/SpringMVC%E8%BF%87%E6%BB%A4%E5%99%A8/">SpringMVC过滤器</a>
-    </h1>
-  
-
-        
-        <a href="/2024/05/27/SpringMVC%E8%BF%87%E6%BB%A4%E5%99%A8/" class="archive-article-date">
-  	<time datetime="2024-05-27T14:12:29.777Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-05-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-05-27 星期一 22:12:29<br>Author: Jackasher</p>
-<h1 id="SpringMVC过滤器"><a href="#SpringMVC过滤器" class="headerlink" title="SpringMVC过滤器"></a>SpringMVC过滤器</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">filter</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>hiddenHttpMethodFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-class</span>&gt;</span>org.springframework.web.filter.HiddenHttpMethodFilter<span class="tag">&lt;/<span class="name">filter-class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">filter-mapping</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>hiddenHttpMethodFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/*<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">filter-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<p>这个配置是用于在Spring框架中启用HiddenHttpMethodFilter过滤器的。HiddenHttpMethodFilter是Spring提供的一个过滤器，它允许你通过HTML表单发送除GET和POST之外的其他HTTP请求方法（如PUT、DELETE）。</p>
-<p>具体来说，这是如何工作的：</p>
-<ol>
-<li><p><strong>HTML表单限制</strong>：标准的HTML表单只支持GET和POST请求方法。如果你想在表单中发送PUT或DELETE请求，浏览器本身不支持这些方法。</p>
-<ol start="2">
-<li>   <strong>隐藏字段</strong>：为了绕过这个限制，你可以在表单中添加一个隐藏的输入字段，名称为_method，其值设置为你想要的HTTP方法（PUT、DELETE等）。_</li>
-<li>   _<strong>过滤器工作原理</strong>：当表单提交时，HiddenHttpMethodFilter会拦截请求并检查是否存在名为_method的隐藏字段。如果存在，它会把这个字段的值作为真正的HTTP方法来处理，并相应地修改请求的方法。</li>
-</ol>
-</li>
-</ol>
-<p>​	•filter标签定义了一个名为hiddenHttpMethodFilter的过滤器，它的实现类是org.springframework.web.filter.HiddenHttpMethodFilter。</p>
-<p>​	•filter-mapping标签将这个过滤器映射到所有URL模式（&#x2F;*），这意味着它会拦截所有进入的请求。</p>
-<p>在这种情况下，当表单提交时，HiddenHttpMethodFilter会将请求的方法从POST修改为PUT，这样Spring MVC的控制器就可以正确地处理PUT请求。</p>
-<p>通过使用这个过滤器，你可以方便地在HTML表单中使用PUT和DELETE方法，而不需要依赖JavaScript或其他客户端技术来实现这些HTTP方法的提交。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/05/27/SpringMVC%E8%BF%87%E6%BB%A4%E5%99%A8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-GitHub ReadME" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/05/27/GitHub%20ReadME/">GitHub ReadME</a>
-    </h1>
-  
-
-        
-        <a href="/2024/05/27/GitHub%20ReadME/" class="archive-article-date">
-  	<time datetime="2024-05-27T14:12:29.733Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-05-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-05-27 星期一 22:12:29<br>Author: Jackasher</p>
-<h1 id="GitHub-ReadME-md"><a href="#GitHub-ReadME-md" class="headerlink" title="GitHub ReadME.md"></a>GitHub ReadME.md</h1><h1 id="项目名称"><a href="#项目名称" class="headerlink" title="项目名称"></a>项目名称</h1><p>325的集成化网站系统</p>
-<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>springmvc的初始架构,基本框架和配置文件,可以拿来直接使用,包含了pom文件,可以直接maven获取依赖</p>
-<h2 id="功能特点"><a href="#功能特点" class="headerlink" title="功能特点"></a>功能特点</h2><p>列出你的项目的主要功能和特点。可以使用列表或表格。</p>
-<ul>
-<li>功能1：提供学校论坛功能</li>
-<li>功能2：拥有评论系统,审核后方可发布</li>
-<li>功能3：同时具有二手交易,生活分享等功能</li>
-</ul>
-<h2 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h2><ul>
-<li>Java:17</li>
-<li>Spring Framework：6.3.3</li>
-<li>Spring MVC：3.0.2</li>
-<li>Hibernate：版本号</li>
-<li>MySQL：8.0.20</li>
-</ul>
-<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><p>以下是如何在本地运行该项目的快速开始指南：</p>
-<ol>
-<li>克隆项目到本地：<code>git clone https://github.com/jackasher36/Forum-325.git</code></li>
-<li>导入项目到IDE（例如Eclipse或IntelliJ IDEA）。</li>
-<li>修改数据库配置文件（例如application.properties或application.yml），将数据库连接信息改为你本地的配置。</li>
-<li>运行项目：在IDE中运行项目，或者使用构建工具（例如Maven或Gradle）运行项目。</li>
-<li>准备tomcat服务器版本为10</li>
-<li>在浏览器中访问项目：打开浏览器，输入URL <code>http://localhost:8080</code>，可以访问项目的首页。</li>
-</ol>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><ul>
-<li>数据库配置：提供数据库连接信息和其他相关配置。</li>
-<li>日志配置：日志还未额外配置</li>
-<li>第三方服务配置：无其他配置</li>
-</ul>
-<h2 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h2><p>无文档</p>
-<h2 id="贡献"><a href="#贡献" class="headerlink" title="贡献"></a>贡献</h2><ul>
-<li>如何报告问题</li>
-<li>如何提交特性请求</li>
-<li>贡献流程和准则</li>
-</ul>
-<h2 id="版权和许可"><a href="#版权和许可" class="headerlink" title="版权和许可"></a>版权和许可</h2><p>可自由使用</p>
-<h2 id="鸣谢"><a href="#鸣谢" class="headerlink" title="鸣谢"></a>鸣谢</h2><p>这里感谢和致谢与你的项目相关的人或组织。</p>
-<p>如果你需要更多的部分，可以根据项目需求进行添加和修改。祝项目大获成功！</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"># 项目名称</span><br><span class="line"></span><br><span class="line">325的集成化网站系统</span><br><span class="line"></span><br><span class="line">## 项目简介</span><br><span class="line"></span><br><span class="line">springmvc的初始架构,基本框架和配置文件,可以拿来直接使用,包含了pom文件,可以直接maven获取依赖</span><br><span class="line"></span><br><span class="line">## 功能特点</span><br><span class="line"></span><br><span class="line">列出你的项目的主要功能和特点。可以使用列表或表格。</span><br><span class="line"></span><br><span class="line">- 功能1：提供学校论坛功能</span><br><span class="line">- 功能2：拥有评论系统,审核后方可发布</span><br><span class="line">- 功能3：同时具有二手交易,生活分享等功能</span><br><span class="line"></span><br><span class="line">## 技术栈</span><br><span class="line"></span><br><span class="line">- Java:17</span><br><span class="line">- Spring Framework：6.3.3</span><br><span class="line">- Spring MVC：3.0.2</span><br><span class="line">- Hibernate：版本号</span><br><span class="line">- MySQL：8.0.20</span><br><span class="line"></span><br><span class="line">## 快速开始</span><br><span class="line"></span><br><span class="line">以下是如何在本地运行该项目的快速开始指南：</span><br><span class="line"></span><br><span class="line">1. 克隆项目到本地：`git clone https://github.com/jackasher36/Forum-325.git`</span><br><span class="line">2. 导入项目到IDE（例如Eclipse或IntelliJ IDEA）。</span><br><span class="line">3. 修改数据库配置文件（例如application.properties或application.yml），将数据库连接信息改为你本地的配置。</span><br><span class="line">4. 运行项目：在IDE中运行项目，或者使用构建工具（例如Maven或Gradle）运行项目。</span><br><span class="line">5. 准备tomcat服务器版本为10</span><br><span class="line">6. 在浏览器中访问项目：打开浏览器，输入URL `http://localhost:8080`，可以访问项目的首页。</span><br><span class="line"></span><br><span class="line">## 配置</span><br><span class="line"></span><br><span class="line">- 数据库配置：提供数据库连接信息和其他相关配置。</span><br><span class="line">- 日志配置：日志还未额外配置</span><br><span class="line">- 第三方服务配置：无其他配置</span><br><span class="line"></span><br><span class="line">## 文档</span><br><span class="line"></span><br><span class="line">无文档</span><br><span class="line"></span><br><span class="line">## 贡献</span><br><span class="line"></span><br><span class="line">- 如何报告问题</span><br><span class="line">- 如何提交特性请求</span><br><span class="line">- 贡献流程和准则</span><br><span class="line"></span><br><span class="line">## 版权和许可</span><br><span class="line"></span><br><span class="line">可自由使用</span><br><span class="line"></span><br><span class="line">## 鸣谢</span><br><span class="line"></span><br><span class="line">这里感谢和致谢与你的项目相关的人或组织。</span><br><span class="line"></span><br><span class="line">如果你需要更多的部分，可以根据项目需求进行添加和修改。祝项目大获成功！</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/05/27/GitHub%20ReadME/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-请求转发" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/05/26/%E8%AF%B7%E6%B1%82%E8%BD%AC%E5%8F%91/">请求转发</a>
-    </h1>
-  
-
-        
-        <a href="/2024/05/26/%E8%AF%B7%E6%B1%82%E8%BD%AC%E5%8F%91/" class="archive-article-date">
-  	<time datetime="2024-05-25T18:34:02.022Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-05-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-05-26 Sunday 02:34:02<br>Author: Jackasher</p>
-<h1 id="请求转发"><a href="#请求转发" class="headerlink" title="请求转发"></a>请求转发</h1><p>这个thymeleaf有个很厉害的地方,居然可以直接获取Request域里面的内容,不知道怎么做到的,springmvc默认跳转策略是转发</p>
-<p>通过Request存入数据</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(&quot;/a&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">loginTest</span><span class="params">(HttpServletRequest request)</span>&#123;</span><br><span class="line">    request.setAttribute(<span class="string">&quot;jack&quot;</span>, <span class="string">&quot;这是一个测试的共享数据&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;a.html&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>然后就可以直接交互数据</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;jack&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>接下来演示如何从一个Servlet转发到另一个</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(&quot;/c&quot;)</span></span><br><span class="line">  <span class="keyword">public</span> String <span class="title function_">SessionTest</span><span class="params">(ModelMap modelMap)</span>&#123;</span><br><span class="line">      modelMap.addAttribute(<span class="string">&quot;jack&quot;</span>,<span class="string">&quot;afeewour8923742309&quot;</span>);</span><br><span class="line">      </span><br><span class="line">    <span class="comment">//没错就是这个</span></span><br><span class="line">      <span class="keyword">return</span> <span class="string">&quot;forward:/d&quot;</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/05/26/%E8%AF%B7%E6%B1%82%E8%BD%AC%E5%8F%91/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-SpringMVC视图解析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/05/26/SpringMVC%E8%A7%86%E5%9B%BE%E8%A7%A3%E6%9E%90/">SpringMVC视图解析</a>
-    </h1>
-  
-
-        
-        <a href="/2024/05/26/SpringMVC%E8%A7%86%E5%9B%BE%E8%A7%A3%E6%9E%90/" class="archive-article-date">
-  	<time datetime="2024-05-25T18:34:01.982Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-05-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-05-26 Sunday 02:34:01<br>Author: Jackasher</p>
-<h1 id="SpringMVC视图解析"><a href="#SpringMVC视图解析" class="headerlink" title="SpringMVC视图解析"></a>SpringMVC视图解析</h1><p>这是一个最简单的视图解析,能够帮你找到文件</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;prefix&quot;</span> <span class="attr">value</span>=<span class="string">&quot;/WEB-INF/jsp/&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;suffix&quot;</span> <span class="attr">value</span>=<span class="string">&quot;.jsp&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>如果没有业务代码不用谢Controller了</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mvc:view-controller</span> <span class="attr">path</span>=<span class="string">&quot;/e&quot;</span> <span class="attr">view-name</span>=<span class="string">&quot;c.html&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>但是会使组件扫描失效,需要重新使用组件扫描</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mvc:annotation-driven</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>然后我们可以通过一下配置可以处理静态资源直接访问</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mvc:default-servlet-handler</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/05/26/SpringMVC%E8%A7%86%E5%9B%BE%E8%A7%A3%E6%9E%90/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/7/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/9/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/7/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/9/">Next &raquo;</a>
     </nav>
   
 

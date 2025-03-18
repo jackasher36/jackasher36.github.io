@@ -146,6 +146,733 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-JDK动态代理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/05/16/JDK%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/">JDK动态代理</a>
+    </h1>
+  
+
+        
+        <a href="/2024/05/16/JDK%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/" class="archive-article-date">
+  	<time datetime="2024-05-16T03:02:01.269Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-05-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-05-16 Thursday 11:02:01<br>Author: Jackasher</p>
+<h1 id="JDK动态代理"><a href="#JDK动态代理" class="headerlink" title="JDK动态代理"></a>JDK动态代理</h1><p>代理主程序</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">ProxyTest</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">       <span class="type">OrderServiceImpl</span> <span class="variable">target</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">OrderServiceImpl</span>();</span><br><span class="line"></span><br><span class="line">     <span class="comment">//传入代理类</span></span><br><span class="line">       <span class="type">MyinvokationHander</span> <span class="variable">myinvokationHander</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MyinvokationHander</span>(target);</span><br><span class="line">     </span><br><span class="line">     <span class="comment">//转型为接口,接口可以得到方法</span></span><br><span class="line">       <span class="type">OrderService</span> <span class="variable">orderService</span> <span class="operator">=</span> (OrderService) Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(), myinvokationHander);</span><br><span class="line"></span><br><span class="line">       orderService.detail();</span><br><span class="line">       orderService.modify();</span><br><span class="line">       orderService.generate();</span><br><span class="line"></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>InvocationHander</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.example.sercice;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Jackasher</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@version</span> 1.0</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@className</span> MyinvokationHander</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 1.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyinvokationHander</span> <span class="keyword">implements</span> <span class="title class_">InvocationHandler</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//接口接受实现类</span></span><br><span class="line">    <span class="keyword">private</span> OrderService orderService;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MyinvokationHander</span><span class="params">(OrderService orderService)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.orderService = orderService;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">long</span> <span class="variable">begin</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">      </span><br><span class="line">      <span class="comment">//方法四要素,对象,参数,返回值,哪个方法</span></span><br><span class="line">        <span class="type">Object</span> <span class="variable">value</span> <span class="operator">=</span> method.invoke(orderService, args);</span><br><span class="line">        <span class="type">long</span> <span class="variable">end</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">        System.out.println(<span class="string">&quot;该方法用时:&quot;</span> + (end - begin) + <span class="string">&quot;ms&quot;</span>);</span><br><span class="line">        System.out.println();</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/05/16/JDK%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-数据源" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/05/15/%E6%95%B0%E6%8D%AE%E6%BA%90/">数据源</a>
+    </h1>
+  
+
+        
+        <a href="/2024/05/15/%E6%95%B0%E6%8D%AE%E6%BA%90/" class="archive-article-date">
+  	<time datetime="2024-05-15T15:20:01.450Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-05-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-05-15 Wednesday 23:20:01<br>Author: Jackasher</p>
+<h1 id="Spring数据源"><a href="#Spring数据源" class="headerlink" title="Spring数据源"></a>Spring数据源</h1><p>数据源:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;driver&quot;</span> <span class="attr">value</span>=<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;url&quot;</span> <span class="attr">value</span>=<span class="string">&quot;jdbc:mysql://localhost&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">value</span>=<span class="string">&quot;root&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span> <span class="attr">value</span>=<span class="string">&quot;casio233.&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>jdbcTemplate</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;jdbcTemplate&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.jdbc.core.JdbcTemplate&quot;</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;dataSource&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;myDataSource&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>使用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">insertTest</span><span class="params">()</span>&#123;</span><br><span class="line">       <span class="type">ClassPathXmlApplicationContext</span> <span class="variable">applicationContext</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ClassPathXmlApplicationContext</span>(<span class="string">&quot;spring.xml&quot;</span>);</span><br><span class="line">       <span class="type">JdbcTemplate</span> <span class="variable">jdbcTemplate</span> <span class="operator">=</span> applicationContext.getBean(<span class="string">&quot;jdbcTemplate&quot;</span>, JdbcTemplate.class);</span><br><span class="line">       <span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;insert into users values(null,?,?)&quot;</span>;</span><br><span class="line">       <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> jdbcTemplate.update(sql, <span class="string">&quot;Jackasher&quot;</span>, <span class="number">21</span>);</span><br><span class="line">       System.out.println(i);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="meta">@Test</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">updateTest</span><span class="params">()</span>&#123;</span><br><span class="line">       <span class="type">ClassPathXmlApplicationContext</span> <span class="variable">applicationContext</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ClassPathXmlApplicationContext</span>(<span class="string">&quot;spring.xml&quot;</span>);</span><br><span class="line">       <span class="type">JdbcTemplate</span> <span class="variable">jdbcTemplate</span> <span class="operator">=</span> applicationContext.getBean(<span class="string">&quot;jdbcTemplate&quot;</span>, JdbcTemplate.class);</span><br><span class="line">       <span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;update users set name = ? where id = ?&quot;</span>;</span><br><span class="line">       <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> jdbcTemplate.update(sql, <span class="string">&quot;Flp&quot;</span>, <span class="number">2</span>);</span><br><span class="line">       System.out.println(i);</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="meta">@Test</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">deleteTest</span><span class="params">()</span>&#123;</span><br><span class="line">       <span class="type">ClassPathXmlApplicationContext</span> <span class="variable">applicationContext</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ClassPathXmlApplicationContext</span>(<span class="string">&quot;spring.xml&quot;</span>);</span><br><span class="line">       <span class="type">JdbcTemplate</span> <span class="variable">jdbcTemplate</span> <span class="operator">=</span> applicationContext.getBean(<span class="string">&quot;jdbcTemplate&quot;</span>, JdbcTemplate.class);</span><br><span class="line">       <span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;delete from users where id = ?&quot;</span>;</span><br><span class="line">       <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> jdbcTemplate.update(sql,  <span class="number">2</span>);</span><br><span class="line">       System.out.println(i);</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="meta">@Test</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">selectTest</span><span class="params">()</span>&#123;</span><br><span class="line">       <span class="type">ClassPathXmlApplicationContext</span> <span class="variable">applicationContext</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ClassPathXmlApplicationContext</span>(<span class="string">&quot;spring.xml&quot;</span>);</span><br><span class="line">       <span class="type">JdbcTemplate</span> <span class="variable">jdbcTemplate</span> <span class="operator">=</span> applicationContext.getBean(<span class="string">&quot;jdbcTemplate&quot;</span>, JdbcTemplate.class);</span><br><span class="line">       <span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;select * from users where id = ?&quot;</span>;</span><br><span class="line">       <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> jdbcTemplate.queryForObject(sql, <span class="keyword">new</span> <span class="title class_">BeanPropertyRowMapper</span>&lt;&gt;(User.class), <span class="number">1</span>);</span><br><span class="line">       System.out.println(user);</span><br><span class="line"></span><br><span class="line">       <span class="type">String</span> <span class="variable">sql2</span> <span class="operator">=</span> <span class="string">&quot;select * from users;&quot;</span>;</span><br><span class="line">       List&lt;User&gt; users = jdbcTemplate.query(sql2, <span class="keyword">new</span> <span class="title class_">BeanPropertyRowMapper</span>&lt;&gt;(User.class));</span><br><span class="line">       users.forEach(user1 -&gt; &#123;</span><br><span class="line">           System.out.println(user1);</span><br><span class="line">       &#125;);</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/05/15/%E6%95%B0%E6%8D%AE%E6%BA%90/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-MyInvocationHander" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/05/15/MyInvocationHander/">MyInvocationHander</a>
+    </h1>
+  
+
+        
+        <a href="/2024/05/15/MyInvocationHander/" class="archive-article-date">
+  	<time datetime="2024-05-15T15:20:01.428Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-05-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-05-15 Wednesday 23:20:01<br>Author: Jackasher</p>
+<h1 id="MyInvocationHander"><a href="#MyInvocationHander" class="headerlink" title="MyInvocationHander"></a>MyInvocationHander</h1><p>这是JDK代理的切面操作</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.example.sercice;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Jackasher</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@version</span> 1.0</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@className</span> MyinvokationHander</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 1.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyinvokationHander</span> <span class="keyword">implements</span> <span class="title class_">InvocationHandler</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> OrderService orderService;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MyinvokationHander</span><span class="params">(OrderService orderService)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.orderService = orderService;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">long</span> <span class="variable">begin</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">        <span class="type">Object</span> <span class="variable">value</span> <span class="operator">=</span> method.invoke(orderService, args);</span><br><span class="line">        <span class="type">long</span> <span class="variable">end</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">        System.out.println(<span class="string">&quot;该方法用时:&quot;</span> + (end - begin) + <span class="string">&quot;ms&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>测试调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">ProxyTest</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">      <span class="type">OrderServiceImpl</span> <span class="variable">target</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">OrderServiceImpl</span>();</span><br><span class="line"></span><br><span class="line">      <span class="type">MyinvokationHander</span> <span class="variable">myinvokationHander</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MyinvokationHander</span>(target);</span><br><span class="line">      <span class="type">OrderService</span> <span class="variable">orderService</span> <span class="operator">=</span> (OrderService) Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(), myinvokationHander);</span><br><span class="line"></span><br><span class="line">      orderService.detail();</span><br><span class="line">      orderService.modify();</span><br><span class="line">      orderService.generate();</span><br><span class="line"></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/05/15/MyInvocationHander/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-无理智" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/05/15/%E6%97%A0%E7%90%86%E6%99%BA/">无理智</a>
+    </h1>
+  
+
+        
+        <a href="/2024/05/15/%E6%97%A0%E7%90%86%E6%99%BA/" class="archive-article-date">
+  	<time datetime="2024-05-15T07:12:01.733Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-05-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-05-15 Wednesday 15:12:01<br>Author: Jackasher</p>
+<h1 id="无理智"><a href="#无理智" class="headerlink" title="无理智"></a>无理智</h1><p>这真的是很有意思的事情,得知李玟抑郁症而死,我是疑惑的,舞台上魅力四射,风光无限,不缺钱,有美国国籍,中国国籍,可以去全世界大多数地方旅游,热爱音乐,演技高超,随便拿一个特点出来,都是多少人梦寐以求,一辈子得不到的价值和财富,为什么会寻死?这样的案例不是一个两个,是非常多的,<strong>能寻死,一定是非常有勇气和绝望的事,</strong></p>
+<p>常说人红是非多,在如今的互联网下,优秀的人得以依靠互联网曝光出来,这时难以理解的事情就会发生,没有任何根据和理由的网暴,网暴这个词听上去,很常见,似乎不是一个大事,可是只有真正经历过的人,才会理解网暴的威力,网暴会让人感受到,人类最恐怖的人性之恶,一种纯粹的,具有毁灭性的,毫无理性的恶**,网暴的威力,不在于受到谩骂,而是传递人性的恶,这种恶意让人恐惧和难以承受**…….</p>
+<blockquote>
+<p>更多内容需展开</p>
+</blockquote>
+        
+          <a class="article-more-a" href="/2024/05/15/%E6%97%A0%E7%90%86%E6%99%BA/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/05/15/%E6%97%A0%E7%90%86%E6%99%BA/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-组件扫描" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/05/15/%E7%BB%84%E4%BB%B6%E6%89%AB%E6%8F%8F/">组件扫描</a>
+    </h1>
+  
+
+        
+        <a href="/2024/05/15/%E7%BB%84%E4%BB%B6%E6%89%AB%E6%8F%8F/" class="archive-article-date">
+  	<time datetime="2024-05-15T04:21:01.942Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-05-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-05-15 Wednesday 12:21:01<br>Author: Jackasher</p>
+<h1 id="组件扫描"><a href="#组件扫描" class="headerlink" title="组件扫描"></a>组件扫描</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.example.client;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.example.annoation.Component;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Constructor;</span><br><span class="line"><span class="keyword">import</span> java.net.URL;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ComponentScan</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        HashMap&lt;String, Object&gt; beanMap = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        <span class="type">String</span> <span class="variable">packageName</span> <span class="operator">=</span> <span class="string">&quot;org.example.pojo&quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">packagePath</span> <span class="operator">=</span> packageName.replaceAll(<span class="string">&quot;\\.&quot;</span>, <span class="string">&quot;/&quot;</span>);</span><br><span class="line">        System.out.println(packagePath);</span><br><span class="line">        <span class="type">URL</span> <span class="variable">url</span> <span class="operator">=</span> ClassLoader.getSystemClassLoader().getResource(packagePath);</span><br><span class="line">        <span class="type">String</span> <span class="variable">path</span> <span class="operator">=</span> url.getPath();</span><br><span class="line">        System.out.println(path);</span><br><span class="line">        <span class="type">File</span> <span class="variable">file</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(path);</span><br><span class="line">        File[] files = file.listFiles();</span><br><span class="line">        Arrays.stream(files).forEach(f -&gt;&#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                System.out.println(f.getName().split(<span class="string">&quot;\\.&quot;</span>)[<span class="number">0</span>]);</span><br><span class="line">                <span class="type">String</span> <span class="variable">className</span> <span class="operator">=</span> packageName + <span class="string">&quot;.&quot;</span> + f.getName().split(<span class="string">&quot;\\.&quot;</span>)[<span class="number">0</span>];</span><br><span class="line">                Class&lt;?&gt; aClass = Class.forName(className);</span><br><span class="line">                <span class="keyword">if</span> (aClass.isAnnotationPresent(Component.class)) &#123;</span><br><span class="line">                    <span class="type">Component</span> <span class="variable">annotation</span> <span class="operator">=</span> aClass.getAnnotation(Component.class);</span><br><span class="line">                    <span class="type">String</span> <span class="variable">id</span> <span class="operator">=</span> annotation.value();</span><br><span class="line">                    <span class="type">Object</span> <span class="variable">o</span> <span class="operator">=</span> aClass.newInstance();</span><br><span class="line">                    beanMap.put(id,o);</span><br><span class="line"></span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        System.out.println(beanMap);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/05/15/%E7%BB%84%E4%BB%B6%E6%89%AB%E6%8F%8F/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-注解配置与解析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/05/15/%E6%B3%A8%E8%A7%A3%E9%85%8D%E7%BD%AE%E4%B8%8E%E8%A7%A3%E6%9E%90/">注解配置与解析</a>
+    </h1>
+  
+
+        
+        <a href="/2024/05/15/%E6%B3%A8%E8%A7%A3%E9%85%8D%E7%BD%AE%E4%B8%8E%E8%A7%A3%E6%9E%90/" class="archive-article-date">
+  	<time datetime="2024-05-15T04:21:01.934Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-05-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-05-15 Wednesday 12:21:01<br>Author: Jackasher</p>
+<h1 id="注解配置与解析"><a href="#注解配置与解析" class="headerlink" title="注解配置与解析"></a>注解配置与解析</h1><p>注解的配置:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.example.annoation;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.ElementType;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Retention;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.RetentionPolicy;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Target;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Target(ElementType.TYPE)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Component &#123;</span><br><span class="line">    String <span class="title function_">value</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>注解的取值:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.example;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.example.annoation.Component;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,</span></span><br><span class="line"><span class="comment">// then press Enter. You can now see whitespace characters in your code.</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException &#123;</span><br><span class="line">        Class&lt;?&gt; aClass = Class.forName(<span class="string">&quot;org.example.pojo.User&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (aClass.isAnnotationPresent(Component.class)) &#123;</span><br><span class="line">            <span class="type">Component</span> <span class="variable">annotation</span> <span class="operator">=</span> aClass.getAnnotation(Component.class);</span><br><span class="line">            <span class="type">String</span> <span class="variable">value</span> <span class="operator">=</span> annotation.value();</span><br><span class="line">            System.out.println(value);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/05/15/%E6%B3%A8%E8%A7%A3%E9%85%8D%E7%BD%AE%E4%B8%8E%E8%A7%A3%E6%9E%90/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-注解开发" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/05/15/%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/">注解开发</a>
+    </h1>
+  
+
+        
+        <a href="/2024/05/15/%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/" class="archive-article-date">
+  	<time datetime="2024-05-15T04:21:01.925Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-05-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-05-15 Wednesday 12:21:01<br>Author: Jackasher</p>
+<h1 id="注解开发"><a href="#注解开发" class="headerlink" title="注解开发"></a>注解开发</h1><p>让注解全部失效:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">&quot;org.example.pojo&quot;</span> <span class="attr">use-default-filters</span>=<span class="string">&quot;false&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">context:component-scan</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>只有Compotent生效</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">&quot;org.example.pojo&quot;</span> <span class="attr">use-default-filters</span>=<span class="string">&quot;false&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">context:include-filter</span> <span class="attr">type</span>=<span class="string">&quot;annotation&quot;</span> <span class="attr">expression</span>=<span class="string">&quot;org.springframework.stereotype.Component&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">context:component-scan</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/05/15/%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-手写Spring框架" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/05/14/%E6%89%8B%E5%86%99Spring%E6%A1%86%E6%9E%B6/">手写Spring框架</a>
+    </h1>
+  
+
+        
+        <a href="/2024/05/14/%E6%89%8B%E5%86%99Spring%E6%A1%86%E6%9E%B6/" class="archive-article-date">
+  	<time datetime="2024-05-14T08:06:01.882Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-05-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Time: 2024-05-14 Tuesday 16:06:01<br>Author: Jackasher</p>
+<h1 id="手写Spring框架"><a href="#手写Spring框架" class="headerlink" title="手写Spring框架"></a>手写Spring框架</h1><p>注意使用该框架时,Spring.xml不要上约束</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.myspringframework.core;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.dom4j.Attribute;</span><br><span class="line"><span class="keyword">import</span> org.dom4j.Document;</span><br><span class="line"><span class="keyword">import</span> org.dom4j.DocumentException;</span><br><span class="line"><span class="keyword">import</span> org.dom4j.Element;</span><br><span class="line"><span class="keyword">import</span> org.dom4j.io.SAXReader;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Constructor;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ClassPathXmlApplication</span> <span class="keyword">implements</span> <span class="title class_">ApplicationContext</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Logger</span> <span class="variable">logger</span> <span class="operator">=</span> LoggerFactory.getLogger(ClassPathXmlApplication.class);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Map&lt;String, Object&gt; singletonObjects = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 解析spring配置文件,初始化所有bean对象</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> configLocation spring配置文件路径</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">ClassPathXmlApplication</span><span class="params">(String configLocation)</span> <span class="keyword">throws</span> DocumentException &#123;</span><br><span class="line">        <span class="type">SAXReader</span> <span class="variable">saxReader</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SAXReader</span>();</span><br><span class="line">        <span class="type">InputStream</span> <span class="variable">resourceAsStream</span> <span class="operator">=</span> ClassLoader.getSystemClassLoader().getResourceAsStream(configLocation);</span><br><span class="line">        <span class="type">Document</span> <span class="variable">document</span> <span class="operator">=</span> saxReader.read(resourceAsStream);</span><br><span class="line">        <span class="type">List</span> <span class="variable">nodes</span> <span class="operator">=</span> document.selectNodes(<span class="string">&quot;//bean&quot;</span>);</span><br><span class="line">        nodes.forEach(node -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;-------------------------------------------------------------------&quot;</span>);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="type">Element</span> <span class="variable">element</span> <span class="operator">=</span> (Element) node;</span><br><span class="line">                <span class="type">String</span> <span class="variable">id</span> <span class="operator">=</span> element.attributeValue(<span class="string">&quot;id&quot;</span>);</span><br><span class="line">                <span class="type">String</span> <span class="variable">aClass</span> <span class="operator">=</span> element.attributeValue(<span class="string">&quot;class&quot;</span>);</span><br><span class="line">                logger.info(<span class="string">&quot;beanName = &quot;</span> + id);</span><br><span class="line">                logger.info(<span class="string">&quot;beanClass = &quot;</span> + aClass);</span><br><span class="line">                Class&lt;?&gt; aClass1 = Class.forName(aClass);</span><br><span class="line">                Constructor&lt;?&gt; declaredConstructor = aClass1.getDeclaredConstructor();</span><br><span class="line">                <span class="type">Object</span> <span class="variable">bean</span> <span class="operator">=</span> declaredConstructor.newInstance();</span><br><span class="line">                singletonObjects.put(id, bean);</span><br><span class="line"></span><br><span class="line">                logger.info(singletonObjects.toString());</span><br><span class="line"></span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        nodes.forEach(node -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;--------------------------------------------------------------------------------------------------------------------&quot;</span>);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="type">Element</span> <span class="variable">element</span> <span class="operator">=</span> (Element) node;</span><br><span class="line">                <span class="type">String</span> <span class="variable">id</span> <span class="operator">=</span> element.attributeValue(<span class="string">&quot;id&quot;</span>);</span><br><span class="line">                <span class="type">String</span> <span class="variable">className</span> <span class="operator">=</span> element.attributeValue(<span class="string">&quot;class&quot;</span>);</span><br><span class="line">                Class&lt;?&gt; aClass = Class.forName(className);</span><br><span class="line">                <span class="type">List</span> <span class="variable">propertynodes</span> <span class="operator">=</span> element.selectNodes(<span class="string">&quot;properties&quot;</span>);</span><br><span class="line">                propertynodes.forEach(property -&gt;&#123;</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        <span class="type">Element</span> <span class="variable">propertyElement</span> <span class="operator">=</span> (Element) property;</span><br><span class="line">                        <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> propertyElement.attributeValue(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">                        logger.info(<span class="string">&quot;属性名:&quot;</span> + name);</span><br><span class="line">                        <span class="type">String</span> <span class="variable">setMethodName</span> <span class="operator">=</span> <span class="string">&quot;set&quot;</span> + name.toUpperCase().charAt(<span class="number">0</span>) + name.substring(<span class="number">1</span>);</span><br><span class="line">                        <span class="type">Field</span> <span class="variable">declaredField</span> <span class="operator">=</span> aClass.getDeclaredField(name);</span><br><span class="line"></span><br><span class="line">                        logger.info(<span class="string">&quot;declaredFileld:&quot;</span> + declaredField);</span><br><span class="line">                        Class&lt;?&gt; declaredFieldType = declaredField.getType();</span><br><span class="line">                        logger.info(<span class="string">&quot;declaredFileldType:&quot;</span> + declaredFieldType);</span><br><span class="line"></span><br><span class="line">                        logger.info(<span class="string">&quot;set赋值方法:&quot;</span> + setMethodName);</span><br><span class="line">                        <span class="type">Method</span> <span class="variable">setMethod</span> <span class="operator">=</span> aClass.getDeclaredMethod(setMethodName,declaredFieldType );</span><br><span class="line">                        logger.info(<span class="string">&quot;set方法参数:&quot;</span> + declaredFieldType);</span><br><span class="line"></span><br><span class="line">                        <span class="type">String</span> <span class="variable">value</span> <span class="operator">=</span> propertyElement.attributeValue(<span class="string">&quot;value&quot;</span>);</span><br><span class="line">                        <span class="type">String</span> <span class="variable">ref</span> <span class="operator">=</span> propertyElement.attributeValue(<span class="string">&quot;ref&quot;</span>);</span><br><span class="line"></span><br><span class="line">                        <span class="type">Object</span> <span class="variable">actualValue</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">                        <span class="keyword">if</span> (value != <span class="literal">null</span>) &#123;</span><br><span class="line"></span><br><span class="line">                            <span class="type">String</span> <span class="variable">simpleName</span> <span class="operator">=</span> declaredField.getType().getSimpleName();</span><br><span class="line">                            <span class="keyword">switch</span>(simpleName) &#123;</span><br><span class="line">                                <span class="keyword">case</span> <span class="string">&quot;byte&quot;</span>:</span><br><span class="line">                                    actualValue = Byte.parseByte(value);</span><br><span class="line">                                    <span class="keyword">break</span>;</span><br><span class="line">                                <span class="keyword">case</span> <span class="string">&quot;short&quot;</span>:</span><br><span class="line">                                    actualValue = Short.parseShort(value);</span><br><span class="line">                                    <span class="keyword">break</span>;</span><br><span class="line">                                <span class="keyword">case</span> <span class="string">&quot;int&quot;</span>:</span><br><span class="line">                                    actualValue = Integer.parseInt(value);</span><br><span class="line">                                    <span class="keyword">break</span>;</span><br><span class="line">                                <span class="keyword">case</span> <span class="string">&quot;long&quot;</span>:</span><br><span class="line">                                    actualValue = Long.parseLong(value);</span><br><span class="line">                                    <span class="keyword">break</span>;</span><br><span class="line">                                <span class="keyword">case</span> <span class="string">&quot;float&quot;</span>:</span><br><span class="line">                                    actualValue = Float.parseFloat(value);</span><br><span class="line">                                    <span class="keyword">break</span>;</span><br><span class="line">                                <span class="keyword">case</span> <span class="string">&quot;double&quot;</span>:</span><br><span class="line">                                    actualValue = Double.parseDouble(value);</span><br><span class="line">                                    <span class="keyword">break</span>;</span><br><span class="line">                                <span class="keyword">case</span> <span class="string">&quot;boolean&quot;</span>:</span><br><span class="line">                                    actualValue = Boolean.parseBoolean(value);</span><br><span class="line">                                    <span class="keyword">break</span>;</span><br><span class="line">                                <span class="keyword">case</span> <span class="string">&quot;char&quot;</span>:</span><br><span class="line">                                    <span class="keyword">if</span> (value.length() == <span class="number">1</span>) &#123;</span><br><span class="line">                                        actualValue = value.charAt(<span class="number">0</span>);</span><br><span class="line">                                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                                        <span class="comment">// 处理字符长度不为1的情况，这里简化为取第一个字符</span></span><br><span class="line">                                        actualValue = value.charAt(<span class="number">0</span>);</span><br><span class="line">                                        <span class="comment">// 或者抛出异常，视情况而定</span></span><br><span class="line">                                        <span class="comment">// throw new IllegalArgumentException(&quot;Invalid character value: &quot; + value);</span></span><br><span class="line">                                    &#125;</span><br><span class="line">                                    <span class="keyword">break</span>;</span><br><span class="line">                                <span class="keyword">case</span> <span class="string">&quot;Byte&quot;</span>:</span><br><span class="line">                                    actualValue = Byte.valueOf(value);</span><br><span class="line">                                    <span class="keyword">break</span>;</span><br><span class="line">                                <span class="keyword">case</span> <span class="string">&quot;Short&quot;</span>:</span><br><span class="line">                                    actualValue = Short.valueOf(value);</span><br><span class="line">                                    <span class="keyword">break</span>;</span><br><span class="line">                                <span class="keyword">case</span> <span class="string">&quot;Integer&quot;</span>:</span><br><span class="line">                                    actualValue = Integer.valueOf(value);</span><br><span class="line">                                    <span class="keyword">break</span>;</span><br><span class="line">                                <span class="keyword">case</span> <span class="string">&quot;Long&quot;</span>:</span><br><span class="line">                                    actualValue = Long.valueOf(value);</span><br><span class="line">                                    <span class="keyword">break</span>;</span><br><span class="line">                                <span class="keyword">case</span> <span class="string">&quot;Float&quot;</span>:</span><br><span class="line">                                    actualValue = Float.valueOf(value);</span><br><span class="line">                                    <span class="keyword">break</span>;</span><br><span class="line">                                <span class="keyword">case</span> <span class="string">&quot;Double&quot;</span>:</span><br><span class="line">                                    actualValue = Double.valueOf(value);</span><br><span class="line">                                    <span class="keyword">break</span>;</span><br><span class="line">                                <span class="keyword">case</span> <span class="string">&quot;Boolean&quot;</span>:</span><br><span class="line">                                    actualValue = Boolean.valueOf(value);</span><br><span class="line">                                    <span class="keyword">break</span>;</span><br><span class="line">                                <span class="keyword">case</span> <span class="string">&quot;Character&quot;</span>:</span><br><span class="line">                                    <span class="keyword">if</span> (value.length() == <span class="number">1</span>) &#123;</span><br><span class="line">                                        actualValue = value.charAt(<span class="number">0</span>);</span><br><span class="line">                                    &#125;</span><br><span class="line">                                    <span class="keyword">break</span>;</span><br><span class="line">                                <span class="keyword">case</span> <span class="string">&quot;String&quot;</span>:</span><br><span class="line">                                    actualValue = value;</span><br><span class="line">                                    <span class="keyword">break</span>;</span><br><span class="line">                                <span class="keyword">default</span>:</span><br><span class="line">                                    <span class="comment">// 处理未知数据类型的情况，这里简单地抛出异常</span></span><br><span class="line">                                    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(<span class="string">&quot;Unsupported data type: &quot;</span> + simpleName);</span><br><span class="line">                            &#125;</span><br><span class="line"></span><br><span class="line">                            setMethod.invoke(singletonObjects.get(id),actualValue);</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">if</span> (ref != <span class="literal">null</span>) &#123;</span><br><span class="line">                            setMethod.invoke(singletonObjects.get(id),singletonObjects.get(ref));</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                &#125;);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">getBean</span><span class="params">(String beanName)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> singletonObjects.get(beanName);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/05/14/%E6%89%8B%E5%86%99Spring%E6%A1%86%E6%9E%B6/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Pom" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -323,975 +1050,9 @@
 
 
   
-    <article id="post-Log4j properties" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/05/10/Log4j%20properties/">Log4j properties</a>
-    </h1>
-  
-
-        
-        <a href="/2024/05/10/Log4j%20properties/" class="archive-article-date">
-  	<time datetime="2024-05-10T08:52:25.761Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-05-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-05-10 星期五 16:52:25<br>Author: Jackasher</p>
-<h1 id="Log4j-properties"><a href="#Log4j-properties" class="headerlink" title="Log4j properties"></a>Log4j properties</h1><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">log4j.rootLogger</span>=<span class="string">DEBUG, stdout</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"># SqlMap logging configuration...</span></span><br><span class="line"><span class="attr">log4j.logger.com.ibatis</span>=<span class="string">DEBUG</span></span><br><span class="line"><span class="attr">log4j.logger.com.ibatis.common.jdbc.SimpleDataSource</span>=<span class="string">DEBUG</span></span><br><span class="line"><span class="attr">log4j.logger.com.ibatis.sqlmap.engine.cache.CacheModel</span>=<span class="string">DEBUG</span></span><br><span class="line"><span class="attr">log4j.logger.com.ibatis.sqlmap.engine.impl.SqlMapClientImpl</span>=<span class="string">DEBUG</span></span><br><span class="line"><span class="attr">log4j.logger.com.ibatis.sqlmap.engine.builder.xml.SqlMapParser</span>=<span class="string">DEBUG</span></span><br><span class="line"><span class="attr">log4j.logger.com.ibatis.common.util.StopWatch</span>=<span class="string">DEBUG</span></span><br><span class="line"><span class="attr">log4j.logger.java.sql.Connection</span>=<span class="string">DEBUG</span></span><br><span class="line"><span class="attr">log4j.logger.java.sql.Statement</span>=<span class="string">DEBUG</span></span><br><span class="line"><span class="attr">log4j.logger.java.sql.PreparedStatement</span>=<span class="string">DEBUG</span></span><br><span class="line"><span class="attr">log4j.logger.java.sql.ResultSet</span>=<span class="string">DEBUG</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"># Console output...</span></span><br><span class="line"><span class="attr">log4j.appender.stdout</span>=<span class="string">org.apache.log4j.ConsoleAppender</span></span><br><span class="line"><span class="attr">log4j.appender.stdout.layout</span>=<span class="string">org.apache.log4j.PatternLayout</span></span><br><span class="line"><span class="attr">log4j.appender.stdout.layout.ConversionPattern</span>=<span class="string">%5p [%t] - %m%n</span></span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/05/10/Log4j%20properties/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-手写服务器主流程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/04/25/%E6%89%8B%E5%86%99%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%BB%E6%B5%81%E7%A8%8B/">手写服务器主流程</a>
-    </h1>
-  
-
-        
-        <a href="/2024/04/25/%E6%89%8B%E5%86%99%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%BB%E6%B5%81%E7%A8%8B/" class="archive-article-date">
-  	<time datetime="2024-04-25T11:09:01.541Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-04-25 星期四 19:09:01<br>Author: Jackasher</p>
-<h1 id="手写服务器主流程"><a href="#手写服务器主流程" class="headerlink" title="手写服务器主流程"></a>手写服务器主流程</h1><p>有个不错的思想 就是,把业务交给用户来做,一个Servlet接口,用户来写,然后固定方法名,这样服务器开发者就可可以反射创建这个类调用使用者的业务代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.example;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax2.Servlet;</span><br><span class="line"><span class="keyword">import</span> org.dom4j.DocumentException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">import</span> java.net.ServerSocket;</span><br><span class="line"><span class="keyword">import</span> java.net.Socket;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, DocumentException, ClassNotFoundException, InstantiationException, IllegalAccessException &#123;</span><br><span class="line">        <span class="type">ServerSocket</span> <span class="variable">serverSocket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ServerSocket</span>(<span class="number">8080</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;Server started on port 8080&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            <span class="type">Socket</span> <span class="variable">socket</span> <span class="operator">=</span> serverSocket.accept();</span><br><span class="line">            System.out.println(<span class="string">&quot;Connection established&quot;</span>);</span><br><span class="line"></span><br><span class="line">            <span class="type">BufferedReader</span> <span class="variable">reader</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedReader</span>(<span class="keyword">new</span> <span class="title class_">InputStreamReader</span>(socket.getInputStream()));</span><br><span class="line">            <span class="type">PrintWriter</span> <span class="variable">writer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PrintWriter</span>(socket.getOutputStream());</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 读取HTTP请求的第一行（请求行）</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">requestLine</span> <span class="operator">=</span> reader.readLine();</span><br><span class="line">            System.out.println(<span class="string">&quot;Received request: &quot;</span> + requestLine);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 解析请求URI</span></span><br><span class="line">            String[] parts = requestLine.split(<span class="string">&quot; &quot;</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//  oa/login/jack.html</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">requestURI</span> <span class="operator">=</span> parts[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 如果请求的是favicon.ico文件，则直接返回空响应</span></span><br><span class="line">            <span class="keyword">if</span> (requestURI.equals(<span class="string">&quot;/favicon.ico&quot;</span>)) &#123;</span><br><span class="line">                writer.write(<span class="string">&quot;HTTP/1.1 200 OK\r\n&quot;</span>);</span><br><span class="line">                writer.write(<span class="string">&quot;\r\n&quot;</span>);</span><br><span class="line">                writer.flush();</span><br><span class="line">                writer.close();</span><br><span class="line">                reader.close();</span><br><span class="line">                socket.close();</span><br><span class="line">                System.out.println(<span class="string">&quot;Connection closed&quot;</span>);</span><br><span class="line">                <span class="keyword">continue</span>; <span class="comment">// 继续监听下一个连接</span></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (requestURI.endsWith(<span class="string">&quot;.html&quot;</span>)) &#123;</span><br><span class="line">                <span class="comment">// 加载资源文件</span></span><br><span class="line">                <span class="type">InputStream</span> <span class="variable">inputStream</span> <span class="operator">=</span> Main.class.getResourceAsStream(requestURI);</span><br><span class="line">                <span class="type">BufferedReader</span> <span class="variable">fileReader</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedReader</span>(<span class="keyword">new</span> <span class="title class_">InputStreamReader</span>(inputStream));</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 构建HTTP响应</span></span><br><span class="line">                writer.write(<span class="string">&quot;HTTP/1.1 200 OK\r\n&quot;</span>);</span><br><span class="line">                writer.write(<span class="string">&quot;Content-Type: text/html\r\n&quot;</span>);</span><br><span class="line">                writer.write(<span class="string">&quot;\r\n&quot;</span>); <span class="comment">// 空行，标志头部结束</span></span><br><span class="line"></span><br><span class="line">                <span class="comment">// 将HTML内容写入响应</span></span><br><span class="line">                String line;</span><br><span class="line">                <span class="keyword">while</span> ((line = fileReader.readLine()) != <span class="literal">null</span>) &#123;</span><br><span class="line">                    writer.write(line + <span class="string">&quot;\r\n&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 刷新缓冲区，确保数据被发送</span></span><br><span class="line">                writer.flush();</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 关闭连接</span></span><br><span class="line">                writer.close();</span><br><span class="line">                reader.close();</span><br><span class="line">                socket.close();</span><br><span class="line">                System.out.println(<span class="string">&quot;Connection closed&quot;</span>);</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="type">String</span> <span class="variable">webName</span> <span class="operator">=</span> <span class="string">&quot;/&quot;</span> +  requestURI.split(<span class="string">&quot;[/]&quot;</span>)[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">                Map&lt;String, String&gt; servletMap = WebParser.parser(webName);</span><br><span class="line">                <span class="type">String</span> <span class="variable">urlPattern</span> <span class="operator">=</span> <span class="string">&quot;/&quot;</span> + requestURI.substring(<span class="number">1</span> + webName.length());</span><br><span class="line">                <span class="type">String</span> <span class="variable">servletClass</span>  <span class="operator">=</span> servletMap.get(urlPattern);</span><br><span class="line">                Class&lt;?&gt; aClass = Class.forName(servletClass);</span><br><span class="line">                <span class="type">Object</span> <span class="variable">o</span> <span class="operator">=</span> aClass.newInstance();</span><br><span class="line">                <span class="type">Servlet</span> <span class="variable">servlet</span> <span class="operator">=</span> (Servlet) o;</span><br><span class="line">                servlet.service();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/04/25/%E6%89%8B%E5%86%99%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%BB%E6%B5%81%E7%A8%8B/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-手写服务器(2)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/04/25/%E6%89%8B%E5%86%99%E6%9C%8D%E5%8A%A1%E5%99%A8(2)/">手写服务器(2)</a>
-    </h1>
-  
-
-        
-        <a href="/2024/04/25/%E6%89%8B%E5%86%99%E6%9C%8D%E5%8A%A1%E5%99%A8(2)/" class="archive-article-date">
-  	<time datetime="2024-04-25T11:09:01.533Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-04-25 星期四 19:09:01<br>Author: Jackasher</p>
-<h1 id="手写服务器"><a href="#手写服务器" class="headerlink" title="手写服务器"></a>手写服务器</h1><p>这是一个处理静态文件的服务器,服务器可以解析浏览器的地址,并展现相应的页面</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.example;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">import</span> java.net.ServerSocket;</span><br><span class="line"><span class="keyword">import</span> java.net.Socket;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="type">ServerSocket</span> <span class="variable">serverSocket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ServerSocket</span>(<span class="number">8080</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;Server started on port 8080&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            <span class="type">Socket</span> <span class="variable">socket</span> <span class="operator">=</span> serverSocket.accept();</span><br><span class="line">            System.out.println(<span class="string">&quot;Connection established&quot;</span>);</span><br><span class="line"></span><br><span class="line">            <span class="type">BufferedReader</span> <span class="variable">reader</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedReader</span>(<span class="keyword">new</span> <span class="title class_">InputStreamReader</span>(socket.getInputStream()));</span><br><span class="line">            <span class="type">PrintWriter</span> <span class="variable">writer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PrintWriter</span>(socket.getOutputStream());</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 读取HTTP请求的第一行（请求行）</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">requestLine</span> <span class="operator">=</span> reader.readLine();</span><br><span class="line">            System.out.println(<span class="string">&quot;Received request: &quot;</span> + requestLine);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 解析请求URI</span></span><br><span class="line">            String[] parts = requestLine.split(<span class="string">&quot; &quot;</span>);</span><br><span class="line">            <span class="type">String</span> <span class="variable">requestURI</span> <span class="operator">=</span> parts[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 如果请求的是favicon.ico文件，则直接返回空响应</span></span><br><span class="line">            <span class="keyword">if</span> (requestURI.equals(<span class="string">&quot;/favicon.ico&quot;</span>)) &#123;</span><br><span class="line">                writer.write(<span class="string">&quot;HTTP/1.1 200 OK\r\n&quot;</span>);</span><br><span class="line">                writer.write(<span class="string">&quot;\r\n&quot;</span>);</span><br><span class="line">                writer.flush();</span><br><span class="line">                writer.close();</span><br><span class="line">                reader.close();</span><br><span class="line">                socket.close();</span><br><span class="line">                System.out.println(<span class="string">&quot;Connection closed&quot;</span>);</span><br><span class="line">                <span class="keyword">continue</span>; <span class="comment">// 继续监听下一个连接</span></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 加载资源文件</span></span><br><span class="line">            <span class="type">InputStream</span> <span class="variable">inputStream</span> <span class="operator">=</span> Main.class.getResourceAsStream(requestURI);</span><br><span class="line">            <span class="type">BufferedReader</span> <span class="variable">fileReader</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedReader</span>(<span class="keyword">new</span> <span class="title class_">InputStreamReader</span>(inputStream));</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 构建HTTP响应</span></span><br><span class="line">            writer.write(<span class="string">&quot;HTTP/1.1 200 OK\r\n&quot;</span>);</span><br><span class="line">            writer.write(<span class="string">&quot;Content-Type: text/html\r\n&quot;</span>);</span><br><span class="line">            writer.write(<span class="string">&quot;\r\n&quot;</span>); <span class="comment">// 空行，标志头部结束</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">// 将HTML内容写入响应</span></span><br><span class="line">            String line;</span><br><span class="line">            <span class="keyword">while</span> ((line = fileReader.readLine()) != <span class="literal">null</span>) &#123;</span><br><span class="line">                writer.write(line + <span class="string">&quot;\r\n&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 刷新缓冲区，确保数据被发送</span></span><br><span class="line">            writer.flush();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 关闭连接</span></span><br><span class="line">            writer.close();</span><br><span class="line">            reader.close();</span><br><span class="line">            socket.close();</span><br><span class="line">            System.out.println(<span class="string">&quot;Connection closed&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2024/04/25/%E6%89%8B%E5%86%99%E6%9C%8D%E5%8A%A1%E5%99%A8(2)/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/04/25/%E6%89%8B%E5%86%99%E6%9C%8D%E5%8A%A1%E5%99%A8(2)/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-自助购物系统" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/04/24/%E8%87%AA%E5%8A%A9%E8%B4%AD%E7%89%A9%E7%B3%BB%E7%BB%9F/">自助购物系统</a>
-    </h1>
-  
-
-        
-        <a href="/2024/04/24/%E8%87%AA%E5%8A%A9%E8%B4%AD%E7%89%A9%E7%B3%BB%E7%BB%9F/" class="archive-article-date">
-  	<time datetime="2024-04-24T07:43:17.947Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-04-24 星期三 15:43:17<br>Author: Jackasher</p>
-<h1 id="自助购物系统"><a href="#自助购物系统" class="headerlink" title="自助购物系统"></a>自助购物系统</h1><h2 id="1-需求陈述："><a href="#1-需求陈述：" class="headerlink" title="1.需求陈述："></a>1.需求陈述：</h2><p>自助购物机是一种创新的购物和结账解决方案，旨在提供方便、高效和个性化的购物体验。该系统允许顾客自主选择商品、进行扫描和结算，同时记录交易信息以便后续分析和管理。通过引入自助购物机，我们的目标是减少顾客与店员之间的交互，并提供更快捷、精确的购物过程。</p>
-<h3 id="系统具备以下主要功能和特性："><a href="#系统具备以下主要功能和特性：" class="headerlink" title="系统具备以下主要功能和特性："></a>系统具备以下主要功能和特性：</h3><ul>
-<li><strong>商品浏览</strong>：顾客可以浏览系统中的商品目录，查看商品的详细信息、价格和库存状况，以便做出选择。</li>
-<li><strong>商品选择：</strong>顾客可以在自助购物机上选择所需商品，并将其添加到购物车中。</li>
-<li><strong>扫描商品条形码：</strong>顾客可使用自助购物机上的扫描仪，通过扫描商品条形码快速添加商品到购物车。</li>
-<li><strong>购物车管理：</strong>顾客可以修改购物车中商品的数量、删除不需要的商品，以及查看购物车中的商品清单和总价。</li>
-<li><strong>多种付款方式：</strong>系统支持多种付款方式，如现金支付、银行卡刷卡、移动支付等，以满足顾客的不同需求。</li>
-<li><strong>支付处理：</strong>系统能够验证付款信息的准确性，并进行安全的支付处理。</li>
-<li><strong>交易记录：</strong>系统会记录每笔交易的详细信息，包括购买的商品、付款方式和总金额等，以便后续统计和管理。</li>
-<li><strong>报告生成：</strong>系统提供生成报告的功能，店员&#x2F;管理人员可以查看销售情况、库存管理和交易统计等报告。</li>
-</ul>
-<h2 id="2-参与者的识别："><a href="#2-参与者的识别：" class="headerlink" title="2.参与者的识别："></a>2.参与者的识别：</h2><p>根据更新后的需求陈述，我们可以识别以下参与者：</p>
-<ol>
-<li>顾客（Customer）：使用自助购物机进行购物和支付的个人或消费者群体。他们希望通过自助购物机获得便捷、高效的购物体验。</li>
-<li>店员&#x2F;管理人员（Clerk&#x2F;Manager）：负责维护和管理自助购物机系统的人员。他们可能需要通过系统生成报告来监控销售情况、进行库存管理和交易统计等工作。</li>
-<li>商品供应商（Product Supplier）：提供商品给商店的供应商。他们可能需要与自助购物机系统集成，以便及时更新商品信息和库存。</li>
-</ol>
-<h2 id="3-用例的识别："><a href="#3-用例的识别：" class="headerlink" title="3.用例的识别："></a>3.用例的识别：</h2><p>基于需求陈述和参与者的识别，我们可以识别以下用例：</p>
-<ol>
-<li>浏览商品：顾客通过自助购物机浏览商品目录。</li>
-<li>选择商品：顾客在自助购物机上选择所需商品。</li>
-<li>扫描商品条形码：顾客使用自助购物机上的扫描仪扫描商品条形码。</li>
-<li>修改购物车：顾客可以修改购物车中商品的数量或删除不需要的商品。</li>
-<li>选择付款方式 ：顾客在自助购物机上选择适合自己的付款方式。</li>
-<li>完成支付 ：顾客进行支付操作，系统验证付款信息并进行支付处理。</li>
-<li>生成报告 ：店员&#x2F;管理人员使用系统生成销售情况、库存管理和交易统计等报告。</li>
-<li>管理库存: 管理人员检查库存,方便进货采购</li>
-<li>处理退款:管理人员负责处理错误造成的退款</li>
-<li>提供货物:商品供应商按时可以提供货物以及按管理员要求提供货物</li>
-</ol>
-<h2 id="4-确定系统边界："><a href="#4-确定系统边界：" class="headerlink" title="4.确定系统边界："></a>4.确定系统边界：</h2><p>系统边界定义了系统与外部参与者之间的界限。在本场景中，自助购物机是我们的系统，与顾客和店员&#x2F;管理人员进行交互。</p>
-<p><img src="/Users/leojackasher/Markdown/image-20240418165401708.png"></p>
-<h2 id="5-编写用例描述："><a href="#5-编写用例描述：" class="headerlink" title="5.编写用例描述："></a>5.编写用例描述：</h2><h3 id="用例：浏览商品（Browse-Products）"><a href="#用例：浏览商品（Browse-Products）" class="headerlink" title="用例：浏览商品（Browse Products）"></a>用例：浏览商品（Browse Products）</h3><p><strong>参与者：</strong> 顾客（Customer）</p>
-<p><strong>描述：</strong> 顾客通过自助购物机浏览商品目录。</p>
-<p><strong>主要流程：</strong></p>
-<ol>
-<li>顾客启动自助购物机。</li>
-<li>系统显示商品目录界面。</li>
-<li>顾客浏览商品目录，可以通过触摸屏或键盘进行选择，也可以使用搜索功能查找特定商品。</li>
-<li>顾客选择所需商品。</li>
-</ol>
-<p><strong>备选流程：</strong></p>
-<ul>
-<li>如果顾客无法找到所需商品，可以寻求店员&#x2F;管理人员的帮助。</li>
-</ul>
-<hr>
-<h3 id="用例：选择商品（Select-Product）"><a href="#用例：选择商品（Select-Product）" class="headerlink" title="用例：选择商品（Select Product）"></a>用例：选择商品（Select Product）</h3><p><strong>参与者：</strong> 顾客（Customer）</p>
-<p><strong>描述：</strong> 顾客在自助购物机上选择所需商品。</p>
-<p><strong>主要流程：</strong></p>
-<ol>
-<li>顾客浏览商品目录。</li>
-<li>顾客选择所需商品。</li>
-</ol>
-<p><strong>备选流程：</strong></p>
-<ul>
-<li>如果商品库存不足，系统显示相应提示信息，顾客可以选择其他商品或寻求店员&#x2F;管理人员帮助。</li>
-</ul>
-<hr>
-<h3 id="用例：修改购物车（Modify-Shopping-Cart）"><a href="#用例：修改购物车（Modify-Shopping-Cart）" class="headerlink" title="用例：修改购物车（Modify Shopping Cart）"></a>用例：修改购物车（Modify Shopping Cart）</h3><p><strong>参与者：</strong> 顾客（Customer）</p>
-<p><strong>描述：</strong> 顾客可以修改购物车中商品的数量或删除不需要的商品。</p>
-<p><strong>主要流程：</strong></p>
-<ol>
-<li>顾客查看购物车中的商品清单和总价。</li>
-<li>顾客可以修改商品的数量或删除不需要的商品。</li>
-</ol>
-<p><strong>备选流程：</strong></p>
-<ul>
-<li>如果购物车中没有商品，无法进行修改操作。</li>
-</ul>
-<hr>
-<h3 id="用例：选择付款方式（Select-Payment-Method）"><a href="#用例：选择付款方式（Select-Payment-Method）" class="headerlink" title="用例：选择付款方式（Select Payment Method）"></a>用例：选择付款方式（Select Payment Method）</h3><p><strong>参与者：</strong> 顾客（Customer）</p>
-<p><strong>描述：</strong> 顾客在自助购物机上选择适合自己的付款方式。</p>
-<p><strong>主要流程：</strong></p>
-<ol>
-<li>顾客查看购物车中的商品清单和总价。</li>
-<li>顾客选择适合自己的付款方式。</li>
-</ol>
-<p><strong>备选流程：</strong></p>
-<ul>
-<li>如果购物车中没有商品，无法进行付款操作。</li>
-</ul>
-<hr>
-<h3 id="用例：完成支付（Complete-Payment）"><a href="#用例：完成支付（Complete-Payment）" class="headerlink" title="用例：完成支付（Complete Payment）"></a>用例：完成支付（Complete Payment）</h3><p><strong>参与者：</strong> 顾客（Customer）</p>
-<p><strong>描述：</strong> 顾客进行支付操作，系统验证付款信息并进行支付处理。</p>
-<p><strong>主要流程：</strong></p>
-<ol>
-<li>顾客选择付款方式。</li>
-<li>顾客按照系统指引提供所需的付款信息。</li>
-<li>系统验证付款信息。</li>
-<li>系统进行支付处理。</li>
-<li>系统显示支付成功的确认信息。</li>
-</ol>
-<p><strong>备选流程：</strong></p>
-<ul>
-<li><p>如果付款信息无效或支付处理失败，系统显示相应提示信息，顾客可以重新输入付款信息或选择其他付款方</p>
-<p>式。</p>
-<hr>
-</li>
-</ul>
-<h3 id="用例：生成报告（Generate-Report）"><a href="#用例：生成报告（Generate-Report）" class="headerlink" title="用例：生成报告（Generate Report）"></a>用例：生成报告（Generate Report）</h3><p><strong>参与者：</strong> 店员&#x2F;管理人员（Clerk&#x2F;Manager）</p>
-<p><strong>描述：</strong> 店员&#x2F;管理人员使用系统生成销售情况、库存管理和交易统计等报告。</p>
-<p><strong>主要流程：</strong></p>
-<ol>
-<li>店员&#x2F;管理人员登录系统。</li>
-<li>店员&#x2F;管理人员选择生成报告功能。</li>
-<li>系统生成报告并显示相关信息。</li>
-</ol>
-<p><strong>备选流程：</strong></p>
-<ul>
-<li>如果系统无法生成报告或报告生成失败，系统显示相应提示信息，店员&#x2F;管理人员可以尝试重新生成报告或联系技术支持。</li>
-</ul>
-<p>以上是对使用自助购物机系统时的各个用例进行的简要描述。根据实际需求和系统细节，可以进一步完善每个用例的步骤和异常流程。</p>
-<hr>
-<h3 id="用例：管理库存（Manage-Inventory）"><a href="#用例：管理库存（Manage-Inventory）" class="headerlink" title="用例：管理库存（Manage Inventory）"></a>用例：管理库存（Manage Inventory）</h3><p><strong>参与者：</strong> 管理人员（Store Clerk&#x2F;Manager）</p>
-<p><strong>描述：</strong> 管理人员负责检查库存情况，以便进行进货和采购。</p>
-<p><strong>主要流程：</strong></p>
-<ol>
-<li>管理人员登录到库存管理系统。</li>
-<li>管理人员查看当前库存情况，包括商品数量、库存警戒值等。</li>
-<li>根据库存情况，管理人员决定是否需要进行进货和采购。</li>
-<li>如果需要进货和采购，管理人员生成进货订单或联系供应商进行采购。</li>
-<li>管理人员更新库存系统，记录进货和采购的商品信息。</li>
-</ol>
-<hr>
-<h3 id="用例：处理退款（Process-Refunds）"><a href="#用例：处理退款（Process-Refunds）" class="headerlink" title="用例：处理退款（Process Refunds）"></a>用例：处理退款（Process Refunds）</h3><p><strong>参与者：</strong> 管理人员（Store Clerk&#x2F;Manager）</p>
-<p><strong>描述：</strong> 管理人员负责处理由于错误导致的退款请求。</p>
-<p><strong>主要流程：</strong></p>
-<ol>
-<li>管理人员接收顾客的退款请求，可以是书面申请、电话或面对面沟通等。</li>
-<li>管理人员核实退款请求的合法性，包括验证购买记录和退款原因。</li>
-<li>如果退款请求合法，管理人员进行退款处理，包括撤销支付、退回款项等。</li>
-<li>管理人员记录退款事务，以便进行记录和追踪。</li>
-</ol>
-<hr>
-<h3 id="用例：提供货物（Supply-Goods）"><a href="#用例：提供货物（Supply-Goods）" class="headerlink" title="用例：提供货物（Supply Goods）"></a>用例：提供货物（Supply Goods）</h3><p><strong>参与者：</strong> 商品供应商（Product Supplier）</p>
-<p><strong>描述：</strong> 商品供应商按时提供货物，并根据管理员的要求进行货物供应。</p>
-<p><strong>主要流程：</strong></p>
-<ol>
-<li>商品供应商接收管理员的货物供应请求。</li>
-<li>商品供应商查看货物供应需求，包括商品种类、数量和交货时间等。</li>
-<li>商品供应商准备货物并按时交付给管理人员。</li>
-<li>如果有特殊要求，商品供应商根据管理员的要求进行货物包装和标记。</li>
-<li>商品供应商与管理人员进行货物交接，并记录供应事务。</li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/04/24/%E8%87%AA%E5%8A%A9%E8%B4%AD%E7%89%A9%E7%B3%BB%E7%BB%9F/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-动态代理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/04/24/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/">动态代理</a>
-    </h1>
-  
-
-        
-        <a href="/2024/04/24/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/" class="archive-article-date">
-  	<time datetime="2024-04-24T07:43:17.937Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-04-24 星期三 15:43:17<br>Author: Jackasher</p>
-<h1 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h1><p>JDK代理的生成类,由Proxy生成</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.servi.cloud.consumer.util.proxy.jdk.IHandlerInterface;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Proxy;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.UndeclaredThrowableException;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">$Proxy0</span> <span class="keyword">extends</span> <span class="title class_">Proxy</span> <span class="keyword">implements</span> <span class="title class_">IHandlerInterface</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Method m1;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Method m3;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Method m2;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Method m0;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> $Proxy0(InvocationHandler var1) <span class="keyword">throws</span>  &#123;</span><br><span class="line">        <span class="built_in">super</span>(var1);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="type">boolean</span> <span class="title function_">equals</span><span class="params">(Object var1)</span> <span class="keyword">throws</span>  &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> (Boolean)<span class="built_in">super</span>.h.invoke(<span class="built_in">this</span>, m1, <span class="keyword">new</span> <span class="title class_">Object</span>[]&#123;var1&#125;);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RuntimeException | Error var3) &#123;</span><br><span class="line">            <span class="keyword">throw</span> var3;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable var4) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UndeclaredThrowableException</span>(var4);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">test</span><span class="params">()</span> <span class="keyword">throws</span>  &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="built_in">super</span>.h.invoke(<span class="built_in">this</span>, m3, (Object[])<span class="literal">null</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RuntimeException | Error var2) &#123;</span><br><span class="line">            <span class="keyword">throw</span> var2;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable var3) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UndeclaredThrowableException</span>(var3);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> String <span class="title function_">toString</span><span class="params">()</span> <span class="keyword">throws</span>  &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> (String)<span class="built_in">super</span>.h.invoke(<span class="built_in">this</span>, m2, (Object[])<span class="literal">null</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RuntimeException | Error var2) &#123;</span><br><span class="line">            <span class="keyword">throw</span> var2;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable var3) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UndeclaredThrowableException</span>(var3);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">hashCode</span><span class="params">()</span> <span class="keyword">throws</span>  &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> (Integer)<span class="built_in">super</span>.h.invoke(<span class="built_in">this</span>, m0, (Object[])<span class="literal">null</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RuntimeException | Error var2) &#123;</span><br><span class="line">            <span class="keyword">throw</span> var2;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable var3) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UndeclaredThrowableException</span>(var3);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            m1 = Class.forName(<span class="string">&quot;java.lang.Object&quot;</span>).getMethod(<span class="string">&quot;equals&quot;</span>, Class.forName(<span class="string">&quot;java.lang.Object&quot;</span>));</span><br><span class="line">            m3 = Class.forName(<span class="string">&quot;com.servi.cloud.consumer.util.proxy.jdk.IHandlerInterface&quot;</span>).getMethod(<span class="string">&quot;test&quot;</span>);</span><br><span class="line">            m2 = Class.forName(<span class="string">&quot;java.lang.Object&quot;</span>).getMethod(<span class="string">&quot;toString&quot;</span>);</span><br><span class="line">            m0 = Class.forName(<span class="string">&quot;java.lang.Object&quot;</span>).getMethod(<span class="string">&quot;hashCode&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (NoSuchMethodException var2) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NoSuchMethodError</span>(var2.getMessage());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ClassNotFoundException var3) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NoClassDefFoundError</span>(var3.getMessage());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/04/24/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-静态建模" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/04/18/%E9%9D%99%E6%80%81%E5%BB%BA%E6%A8%A1/">静态建模</a>
-    </h1>
-  
-
-        
-        <a href="/2024/04/18/%E9%9D%99%E6%80%81%E5%BB%BA%E6%A8%A1/" class="archive-article-date">
-  	<time datetime="2024-04-18T07:56:35.885Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-04-18 星期四 15:56:35<br>Author: Jackasher</p>
-<h1 id="静态建模"><a href="#静态建模" class="headerlink" title="静态建模"></a>静态建模</h1><h2 id="1-需求陈述："><a href="#1-需求陈述：" class="headerlink" title="1.需求陈述："></a>1.需求陈述：</h2><p>自助购物机是一个用于顾客自主购物和结账的设备。顾客可以通过自助购物机选择商品、扫描商品条形码、计算总价并完成支付。系统应该能够记录交易信息，并在需要时生成报告。该系统旨在提供方便快捷的购物体验，减少顾客与店员之间的交互。</p>
-<h3 id="功能描述："><a href="#功能描述：" class="headerlink" title="功能描述："></a>功能描述：</h3><ol>
-<li>商品浏览和选择：<ul>
-<li>系统应提供一个直观的界面，展示商品的图片、名称和价格。</li>
-<li>顾客可以通过触摸屏或键盘浏览商品目录并选择所需商品。</li>
-<li>顾客可以使用搜索功能查找特定商品。</li>
-<li>系统应支持商品分类和分区，以便顾客更轻松地浏览商品。</li>
-</ul>
-</li>
-<li>商品扫描与添加到购物车：<ul>
-<li>顾客可以使用自助购物机上的扫描仪扫描商品条形码。</li>
-<li>系统应能够迅速识别并显示商品的详细信息，如名称、价格和库存量。</li>
-<li>顾客可以将扫描的商品添加到购物车中。</li>
-</ul>
-</li>
-<li>购物车管理：<ul>
-<li>系统应显示购物车中的商品清单，包括每个商品的名称、数量和小计金额。</li>
-<li>顾客可以修改购物车中商品的数量或删除不需要的商品。</li>
-<li>系统应实时计算购物车中商品的总价。</li>
-</ul>
-</li>
-<li>付款方式选择与支付：<ul>
-<li>系统应提供多种付款方式的选择，如现金、银行卡或移动支付。</li>
-<li>顾客可以选择适合自己的付款方式，并提供所需的付款信息。</li>
-<li>系统应支持付款方式的验证和安全处理。</li>
-<li>在支付完成后，系统应提供支付成功的确认信息。</li>
-</ul>
-</li>
-<li>交易记录与报告：<ul>
-<li>系统应记录每笔交易的详细信息，包括交易时间、购买的商品、付款方式和交易金额。</li>
-<li>店员或管理人员可以通过系统生成的报告查看销售情况、库存管理和交易统计等信息。</li>
-</ul>
-</li>
-</ol>
-<h3 id="用户购物时的交互分析："><a href="#用户购物时的交互分析：" class="headerlink" title="用户购物时的交互分析："></a>用户购物时的交互分析：</h3><ol>
-<li>顾客进入店内，并找到自助购物机。</li>
-<li>顾客浏览商品目录，可以通过触摸屏或键盘进行选择，也可以使用搜索功能查找特定商品。</li>
-<li>顾客选择所需商品后，使用自助购物机上的扫描仪扫描商品条形码，系统显示商品的详细信息。</li>
-<li>顾客确认商品信息无误后，将商品添加到购物车中。</li>
-<li>顾客可以在购物车中查看商品清单和总价，并可以修改商品数量或删除不需要的商品。</li>
-<li>顾客选择付款方式（如现金、银行卡或移动支付），按照系统指引进行付款操作。</li>
-<li>系统验证付款信息并进行支付处理，显示支付成功的确认信息。</li>
-<li>系统记录交易信息，包括交易时间、购买的商品、付款方式和交易金额。</li>
-<li>顾客完成购物后，可以选择退出系统或继续购物。</li>
-<li>店员或管理人员可以通过系统生成的报告查看销售情况、库存管理和交易统计等信息。</li>
-</ol>
-<h2 id="2-对象识别"><a href="#2-对象识别" class="headerlink" title="2.对象识别:"></a>2.对象识别:</h2><p>根据以上顾客购买流程我们可以找到一些对象,和他们的属性与方法,首先是顾客浏览商品,那么我们就有顾客和商品两个对象,顾客选择好商品后,将商品放入购物车,确认后选择付款方式结算,那么相应就有购物车和付款方式的对象,其中具体的交易行为我们可以放在交易的对象,所以识别出了以下的对象,顾客和商品是pojo类纯粹的对象属性,然后购物车会装载商品并计算总额,交易用于记录交易信息,也是pojo类,最后付款方式会有付款的功能可以接入交易系统</p>
-<ul>
-<li>顾客（Customer）</li>
-<li>商品（Product）</li>
-<li>购物车（ShoppingCart）</li>
-<li>交易（Transaction）</li>
-<li>付款方式（PaymentMethod）</li>
-</ul>
-<h2 id="3-识别属性"><a href="#3-识别属性" class="headerlink" title="3.识别属性:"></a>3.识别属性:</h2><p><strong>顾客要有身份验证的属性,商品要有名字价格等属性 购物车可以装大量商品可以有商品的集合属性,交易可以记录时间,付款方式记录类型和交易卡</strong></p>
-<ul>
-<li>顾客（Customer）：<ul>
-<li>name: string</li>
-<li>memberID: string</li>
-<li>balance: float</li>
-</ul>
-</li>
-<li>商品（Product）：<ul>
-<li>barcode: string</li>
-<li>name: string</li>
-<li>price: float</li>
-</ul>
-</li>
-<li>购物车（ShoppingCart）：<ul>
-<li>items: List<Product></li>
-<li>total: float</li>
-<li>addItem(Product product): void</li>
-<li>removeItem(Product product): void</li>
-<li>calculateTotal() :float</li>
-</ul>
-</li>
-<li>交易（Transaction）：<ul>
-<li>dateTime: datetime</li>
-<li>customer: Custermer</li>
-<li>shoppingCart: ShoppingCard</li>
-</ul>
-</li>
-<li>付款方式（PaymentMethod）：<ul>
-<li>type: string</li>
-<li>cardNumber: string</li>
-<li>processPayment(float amount): void</li>
-<li>validateCardNumber(): boolean</li>
-</ul>
-</li>
-</ul>
-<h2 id="4-识别关系"><a href="#4-识别关系" class="headerlink" title="4.识别关系:"></a>4.识别关系:</h2><ol>
-<li><p><strong>顾客与购物车之间的关系 ：</strong></p>
-<ul>
-<li>一个顾客可以拥有一个购物车，而一个购物车属于一个顾客。</li>
-<li>这是一种强关系，购物车的生命周期与顾客密切相关。当顾客离开或完成交易时，购物车也会被清空或销毁。</li>
-</ul>
-</li>
-<li><p><strong>购物车与商品之间的关系 ：</strong></p>
-<ul>
-<li>一个购物车可以包含多个商品，而一个商品可以属于一个购物车。</li>
-<li>这是一种简单的关联关系，表示购物车中包含了多个商品。</li>
-</ul>
-</li>
-<li><p><strong>顾客与交易之间的关系 ：</strong></p>
-<ul>
-<li>一个顾客可以进行多次交易，而一个交易属于一个顾客。</li>
-<li>这是一种强关系，交易的生命周期与顾客密切相关。交易记录可以用来跟踪顾客的购买历史和消费行为。</li>
-</ul>
-</li>
-<li><p><strong>交易与购物车之间的关系 ：</strong></p>
-<ul>
-<li>一个交易包含一个购物车，而一个购物车属于一个交易。</li>
-<li>这是一种整体与部分之间的关系，表示交易中包含了一个购物车。</li>
-</ul>
-<h3 id="最后是实现的类图"><a href="#最后是实现的类图" class="headerlink" title="最后是实现的类图"></a>最后是实现的类图</h3><p><img src="/Users/leojackasher/Markdown/image-20240418154051140.png" alt="image-20240418154051140"></p>
-</li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/04/18/%E9%9D%99%E6%80%81%E5%BB%BA%E6%A8%A1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-建模实现代码" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/04/18/%E5%BB%BA%E6%A8%A1%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81/">建模实现代码</a>
-    </h1>
-  
-
-        
-        <a href="/2024/04/18/%E5%BB%BA%E6%A8%A1%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81/" class="archive-article-date">
-  	<time datetime="2024-04-18T07:56:35.866Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-04-18 星期四 15:56:35<br>Author: Jackasher</p>
-<h1 id="建模实现代码"><a href="#建模实现代码" class="headerlink" title="建模实现代码"></a>建模实现代码</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Customer</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String memberID;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">float</span> balance;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Customer</span><span class="params">(String name, String memberID, <span class="type">float</span> balance)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">        <span class="built_in">this</span>.memberID = memberID;</span><br><span class="line">        <span class="built_in">this</span>.balance = balance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Getters and setters...</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addTransaction</span><span class="params">(Transaction transaction)</span> &#123;</span><br><span class="line">        <span class="comment">// Add transaction to customer&#x27;s transaction history</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Product</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String barcode;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">float</span> price;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Product</span><span class="params">(String barcode, String name, <span class="type">float</span> price)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.barcode = barcode;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">        <span class="built_in">this</span>.price = price;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Getters and setters...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ShoppingCart</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> List&lt;Product&gt; items;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">float</span> total;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">ShoppingCart</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.items = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        <span class="built_in">this</span>.total = <span class="number">0.0f</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addItem</span><span class="params">(Product product)</span> &#123;</span><br><span class="line">        items.add(product);</span><br><span class="line">        total += product.getPrice();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">removeItem</span><span class="params">(Product product)</span> &#123;</span><br><span class="line">        items.remove(product);</span><br><span class="line">        total -= product.getPrice();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">float</span> <span class="title function_">calculateTotal</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> total;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Transaction</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String dateTime;</span><br><span class="line">    <span class="keyword">private</span> Customer customer;</span><br><span class="line">    <span class="keyword">private</span> ShoppingCart cart;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Transaction</span><span class="params">(String dateTime, Customer customer, ShoppingCart cart)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.dateTime = dateTime;</span><br><span class="line">        <span class="built_in">this</span>.customer = customer;</span><br><span class="line">        <span class="built_in">this</span>.cart = cart;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Getters and setters...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">PaymentMethod</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String type;</span><br><span class="line">    <span class="keyword">private</span> String cardNumber;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">PaymentMethod</span><span class="params">(String type, String cardNumber)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.type = type;</span><br><span class="line">        <span class="built_in">this</span>.cardNumber = cardNumber;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Getters and setters...</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">processPayment</span><span class="params">(<span class="type">float</span> amount)</span> &#123;</span><br><span class="line">        <span class="comment">// Process payment for the given amount</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">validateCardNumber</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// Validate the card number</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>; <span class="comment">// Placeholder logic</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AutoShopping</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// Create a customer</span></span><br><span class="line">        <span class="type">Customer</span> <span class="variable">customer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Customer</span>(<span class="string">&quot;John Doe&quot;</span>, <span class="string">&quot;123456&quot;</span>, <span class="number">100.0f</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Create some products</span></span><br><span class="line">        <span class="type">Product</span> <span class="variable">product1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Product</span>(<span class="string">&quot;123&quot;</span>, <span class="string">&quot;Product 1&quot;</span>, <span class="number">10.0f</span>);</span><br><span class="line">        <span class="type">Product</span> <span class="variable">product2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Product</span>(<span class="string">&quot;456&quot;</span>, <span class="string">&quot;Product 2&quot;</span>, <span class="number">20.0f</span>);</span><br><span class="line">        <span class="type">Product</span> <span class="variable">product3</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Product</span>(<span class="string">&quot;789&quot;</span>, <span class="string">&quot;Product 3&quot;</span>, <span class="number">15.0f</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Create a shopping cart</span></span><br><span class="line">        <span class="type">ShoppingCart</span> <span class="variable">cart</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ShoppingCart</span>();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Add products to the shopping cart</span></span><br><span class="line">        cart.addItem(product1);</span><br><span class="line">        cart.addItem(product2);</span><br><span class="line">        cart.addItem(product3);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Create a transaction</span></span><br><span class="line">        <span class="type">Transaction</span> <span class="variable">transaction</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Transaction</span>(<span class="string">&quot;2022-01-01 10:00:00&quot;</span>, customer, cart);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Create a payment method</span></span><br><span class="line">        <span class="type">PaymentMethod</span> <span class="variable">paymentMethod</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PaymentMethod</span>(<span class="string">&quot;Credit Card&quot;</span>, <span class="string">&quot;1234567890&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Process payment</span></span><br><span class="line">        paymentMethod.processPayment(cart.calculateTotal());</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Validate card number</span></span><br><span class="line">        <span class="type">boolean</span> <span class="variable">isValidCard</span> <span class="operator">=</span> paymentMethod.validateCardNumber();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (isValidCard) &#123;</span><br><span class="line">            <span class="comment">// Add transaction to customer&#x27;s history</span></span><br><span class="line">            customer.addTransaction(transaction);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Print transaction details</span></span><br><span class="line">            System.out.println(<span class="string">&quot;Transaction Date: &quot;</span> + transaction.getDateTime());</span><br><span class="line">            System.out.println(<span class="string">&quot;Customer: &quot;</span> + transaction.getCustomer().getName());</span><br><span class="line">            System.out.println(<span class="string">&quot;Total Amount: $&quot;</span> + cart.calculateTotal());</span><br><span class="line">            System.out.println(<span class="string">&quot;Payment Method: &quot;</span> + paymentMethod.getType());</span><br><span class="line">            System.out.println(<span class="string">&quot;Payment Processed Successfully.&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;Invalid card number. Payment failed.&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/04/18/%E5%BB%BA%E6%A8%A1%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-SSL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/04/18/SSL/">SSL</a>
-    </h1>
-  
-
-        
-        <a href="/2024/04/18/SSL/" class="archive-article-date">
-  	<time datetime="2024-04-18T07:56:35.848Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-04-18 星期四 15:56:35<br>Author: Jackasher</p>
-<h1 id="SSL"><a href="#SSL" class="headerlink" title="SSL"></a>SSL</h1><p>通过openssl生成私钥</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl genrsa -out server.key 1024</span><br></pre></td></tr></table></figure>
-
-<p>根据私钥生成证书申请文件csr</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl req -new -key server.key -out server.csr</span><br></pre></td></tr></table></figure>
-
-<p>使用私钥对证书申请进行签名从而生成证书</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -req -in server.csr -out server.crt -signkey server.key -days 3650</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Settings <span class="keyword">for</span> a TLS enabled server.</span></span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen       443 ssl http2;</span><br><span class="line">        listen       [::]:443 ssl http2;</span><br><span class="line">        server_name  _;</span><br><span class="line">        root         /usr/share/nginx/html;</span><br><span class="line"></span><br><span class="line">        ssl_certificate &quot;/etc/nginx/conf.d/ssl/server.crt&quot;;</span><br><span class="line">        ssl_certificate_key &quot;/etc/nginx/conf.d/ssl/server.key&quot;;</span><br><span class="line">        ssl_session_cache shared:SSL:1m;</span><br><span class="line">        ssl_session_timeout  10m;</span><br><span class="line">        ssl_ciphers HIGH:!aNULL:!MD5;</span><br><span class="line">        ssl_prefer_server_ciphers on;</span><br><span class="line"></span><br><span class="line">        # Load configuration files for the default server block.</span><br><span class="line">        include /etc/nginx/default.d/*.conf;</span><br><span class="line"></span><br><span class="line">        error_page 404 /404.html;</span><br><span class="line">            location = /40x.html &#123;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        error_page 500 502 503 504 /50x.html;</span><br><span class="line">            location = /50x.html &#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/04/18/SSL/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/10/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/12/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/10/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/12/">Next &raquo;</a>
     </nav>
   
 
