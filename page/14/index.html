@@ -146,97 +146,6 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-AJAX3" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/04/10/AJAX3/">AJAX3</a>
-    </h1>
-  
-
-        
-        <a href="/2024/04/10/AJAX3/" class="archive-article-date">
-  	<time datetime="2024-04-10T08:32:26.924Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Time: 2024-04-10 16:32:26<br>Author: Jackasher</p>
-<h1 id="AJAX3"><a href="#AJAX3" class="headerlink" title="AJAX3"></a>AJAX3</h1><p>所以有了AJAX后,前端可以直接拿着数据,动态展示HTML,所以JSP这种东西显得很没有必要,AJAX是可以接受和处理数据的,把JAVA程序这块给到了前端,前面我们看到的是AJAX处理返回的JSON数据,使用ajax.responseText得到JSON的字符串,而接下来我们看到处理XML</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//处理response内容为xml</span></span><br><span class="line"><span class="keyword">set</span> <span class="title function_">responseContent</span>(<span class="params"><span class="string">&quot;text/xml&quot;</span></span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> ajax = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>()</span><br><span class="line"></span><br><span class="line">ajax.<span class="property">onreadystagechange</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="keyword">if</span>(readyState == <span class="number">200</span>) &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//默认返回xml的树结构对象了</span></span><br><span class="line">    <span class="keyword">var</span> xmlDoc = <span class="variable language_">this</span>.<span class="property">responseXml</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> list = xmlDoc.<span class="title function_">getElemnetByTagname</span>(<span class="string">&quot;&quot;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//xml对象的一些方法,和属性</span></span><br><span class="line">xml.<span class="property">nodename</span></span><br><span class="line">node.<span class="property">textContent</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//html += 可Ø以拼字符串</span></span><br><span class="line"><span class="comment">//如何获取表格body后,在innerHTML加入html</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>最后补一下JQuery的知识,老杜讲了一下JQuery是怎么来的,豁然开朗! ,JQuery的思想来自于css的引用,利用函数和变量封装下面是实例代码</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//正常我们调用一个类是这样</span></span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;jack&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//现在我们写一个函数封装一下</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">JQuery</span> (selector) &#123;</span><br><span class="line">  <span class="keyword">if</span>(selector.<span class="title function_">charAt</span>(<span class="number">0</span>) == <span class="string">&quot;#&quot;</span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> domObj = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(selector.<span class="title function_">substring</span>(<span class="number">1</span>))</span><br><span class="line">  &#125;</span><br><span class="line">      <span class="keyword">return</span> domObj</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//简化变量名为$</span></span><br><span class="line">$ = <span class="title class_">JQuery</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//从此调用变的简单</span></span><br><span class="line">$(<span class="string">&quot;jack&quot;</span>).<span class="property">innerText</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/04/10/AJAX3/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-Ajax-2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -873,6 +782,84 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2024/04/07/JDBC%E7%AE%80%E4%BE%BF%E4%BD%BF%E7%94%A8/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-JS爬哔哩哔哩全部评论" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/04/07/JS%E7%88%AC%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E5%85%A8%E9%83%A8%E8%AF%84%E8%AE%BA/">JS爬哔哩哔哩全部评论</a>
+    </h1>
+  
+
+        
+        <a href="/2024/04/07/JS%E7%88%AC%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E5%85%A8%E9%83%A8%E8%AF%84%E8%AE%BA/" class="archive-article-date">
+  	<time datetime="2024-04-06T17:53:01.804Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="JS爬哔哩哔哩全部评论"><a href="#JS爬哔哩哔哩全部评论" class="headerlink" title="JS爬哔哩哔哩全部评论"></a>JS爬哔哩哔哩全部评论</h1><p>首先模拟浏览器滑动,不断划到最底</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义滚动到底部的函数</span></span><br><span class="line">function <span class="title function_">scrollToBottom</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 获取文档的高度</span></span><br><span class="line">    <span class="type">var</span> <span class="variable">documentHeight</span> <span class="operator">=</span> document.documentElement.scrollHeight;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取当前视口的高度</span></span><br><span class="line">    <span class="type">var</span> <span class="variable">viewportHeight</span> <span class="operator">=</span> window.innerHeight;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 计算需要滚动的距离</span></span><br><span class="line">    <span class="type">var</span> <span class="variable">scrollDistance</span> <span class="operator">=</span> documentHeight - viewportHeight;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 模拟滚动到页面底部</span></span><br><span class="line">    window.scrollTo(<span class="number">0</span>, scrollDistance);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 在滚动到底部后检查是否加载了新的评论</span></span><br><span class="line">    setTimeout(checkNewComments, <span class="number">1000</span>); <span class="comment">// 在滚动到底部后延迟1秒检查新评论</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 检查页面中是否加载了新的评论</span></span><br><span class="line">function <span class="title function_">checkNewComments</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 获取最后一个评论元素（假设最后一个评论元素的选择器为 .comment）</span></span><br><span class="line">    <span class="type">var</span> <span class="variable">lastComment</span> <span class="operator">=</span> document.querySelector(<span class="string">&#x27;.comment:last-child&#x27;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果最后一个评论元素存在，说明加载了新的评论，继续执行滚动操作</span></span><br><span class="line">    <span class="keyword">if</span> (lastComment) &#123;</span><br><span class="line">        scrollToBottom(); <span class="comment">// 继续执行滚动操作</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        clearInterval(scrollInterval); <span class="comment">// 如果最后一个评论元素不存在，停止执行滚动操作</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置定时器，每隔一段时间执行一次滚动操作</span></span><br><span class="line"><span class="type">var</span> <span class="variable">scrollInterval</span> <span class="operator">=</span> setInterval(scrollToBottom, <span class="number">2000</span>); <span class="comment">// 每隔2秒执行一次滚动操作</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>然后将所有的子评论展开</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">var</span> <span class="variable">btn</span> <span class="operator">=</span> document.getElementsByClassName(<span class="string">&quot;view-more-btn&quot;</span>)</span><br><span class="line"><span class="keyword">for</span>(<span class="type">var</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; btn.length;i++)&#123;</span><br><span class="line">    btn[i].click()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接着获取所有的评论</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">var</span> <span class="variable">comments</span> <span class="operator">=</span> document.getElementsByClassName(<span class="string">&quot;reply-content&quot;</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="type">var</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; comments.length; i++) &#123;</span><br><span class="line">    console.log(i + <span class="string">&quot;: &quot;</span> + comments[i].innerText);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>以上三步便可获得b站所有评论</p>
+<p>结合起来</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义滚动到底部的函数</span></span><br><span class="line">function <span class="title function_">scrollToBottom</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 获取文档的高度</span></span><br><span class="line">    <span class="type">var</span> <span class="variable">documentHeight</span> <span class="operator">=</span> document.documentElement.scrollHeight;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取当前视口的高度</span></span><br><span class="line">    <span class="type">var</span> <span class="variable">viewportHeight</span> <span class="operator">=</span> window.innerHeight;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 计算需要滚动的距离</span></span><br><span class="line">    <span class="type">var</span> <span class="variable">scrollDistance</span> <span class="operator">=</span> documentHeight - viewportHeight;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 模拟滚动到页面底部</span></span><br><span class="line">    window.scrollTo(<span class="number">0</span>, scrollDistance);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 在滚动到底部后检查是否加载了新的评论</span></span><br><span class="line">    setTimeout(checkNewComments, <span class="number">1000</span>); <span class="comment">// 在滚动到底部后延迟1秒检查新评论</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 检查页面中是否加载了新的评论</span></span><br><span class="line">function <span class="title function_">checkNewComments</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 获取最后一个评论元素（假设最后一个评论元素的选择器为 .comment）</span></span><br><span class="line">    <span class="type">var</span> <span class="variable">lastComment</span> <span class="operator">=</span> document.querySelector(<span class="string">&#x27;.comment:last-child&#x27;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果最后一个评论元素存在，说明加载了新的评论，继续执行滚动操作</span></span><br><span class="line">    <span class="keyword">if</span> (lastComment) &#123;</span><br><span class="line">        scrollToBottom(); <span class="comment">// 继续执行滚动操作</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="type">var</span> <span class="variable">btn</span> <span class="operator">=</span> document.getElementsByClassName(<span class="string">&quot;view-more-btn&quot;</span>)</span><br><span class="line"><span class="keyword">for</span>(<span class="type">var</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; btn.length;i++)&#123;</span><br><span class="line">    btn[i].click()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">var</span> <span class="variable">comments</span> <span class="operator">=</span> document.getElementsByClassName(<span class="string">&quot;reply-content&quot;</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="type">var</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; comments.length; i++) &#123;</span><br><span class="line">    console.log(i + <span class="string">&quot;: &quot;</span> + comments[i].innerText);</span><br><span class="line">&#125;</span><br><span class="line">        clearInterval(scrollInterval); <span class="comment">// 如果最后一个评论元素不存在，停止执行滚动操作</span></span><br><span class="line">      </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置定时器，每隔一段时间执行一次滚动操作</span></span><br><span class="line"><span class="type">var</span> <span class="variable">scrollInterval</span> <span class="operator">=</span> setInterval(scrollToBottom, <span class="number">2000</span>); <span class="comment">// 每隔2秒执行一次滚动操作</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>我们将其改进,滑动完毕再查看内容</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义滚动到底部的函数</span></span><br><span class="line">function <span class="title function_">scrollToBottom</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 获取文档的高度</span></span><br><span class="line">    <span class="type">var</span> <span class="variable">documentHeight</span> <span class="operator">=</span> document.documentElement.scrollHeight;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取当前视口的高度</span></span><br><span class="line">    <span class="type">var</span> <span class="variable">viewportHeight</span> <span class="operator">=</span> window.innerHeight;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 计算需要滚动的距离</span></span><br><span class="line">    <span class="type">var</span> <span class="variable">scrollDistance</span> <span class="operator">=</span> documentHeight - viewportHeight;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 模拟滚动到页面底部</span></span><br><span class="line">    window.scrollTo(<span class="number">0</span>, scrollDistance);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 在滚动到底部后检查是否加载了新的评论</span></span><br><span class="line">    setTimeout(checkNewComments, <span class="number">1000</span>); <span class="comment">// 在滚动到底部后延迟1秒检查新评论</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 检查页面中是否加载了新的评论</span></span><br><span class="line">function <span class="title function_">checkNewComments</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 获取最后一个评论元素（假设最后一个评论元素的选择器为 .comment）</span></span><br><span class="line">    <span class="type">var</span> <span class="variable">lastComment</span> <span class="operator">=</span> document.querySelector(<span class="string">&#x27;.comment:last-child&#x27;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果最后一个评论元素存在，说明加载了新的评论，继续执行滚动操作</span></span><br><span class="line">    <span class="keyword">if</span> (lastComment) &#123;</span><br><span class="line">        <span class="type">var</span> <span class="variable">btn</span> <span class="operator">=</span> document.getElementsByClassName(<span class="string">&quot;view-more-btn&quot;</span>)</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">var</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; btn.length; i++) &#123;</span><br><span class="line">            btn[i].click();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 等待一段时间再显示评论内容</span></span><br><span class="line">        setTimeout(showComments, <span class="number">2000</span>); <span class="comment">// 延迟2秒显示评论内容</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        clearInterval(scrollInterval); <span class="comment">// 如果最后一个评论元素不存在，停止执行滚动操作</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 显示评论内容的函数</span></span><br><span class="line">function <span class="title function_">showComments</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">var</span> <span class="variable">comments</span> <span class="operator">=</span> document.getElementsByClassName(<span class="string">&quot;reply-content&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">var</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; comments.length; i++) &#123;</span><br><span class="line">        console.log(i + <span class="string">&quot;: &quot;</span> + comments[i].innerText);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置定时器，每隔一段时间执行一次滚动操作</span></span><br><span class="line"><span class="type">var</span> <span class="variable">scrollInterval</span> <span class="operator">=</span> setInterval(scrollToBottom, <span class="number">2000</span>); <span class="comment">// 每隔2秒执行一次滚动操作</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2024/04/07/JS%E7%88%AC%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E5%85%A8%E9%83%A8%E8%AF%84%E8%AE%BA/">展开全文 >></a>
         </p>
       
 

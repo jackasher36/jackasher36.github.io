@@ -6,17 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Jackasher</title>
+  <title>如何实现 nginx 代理和 http | Jackasher</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="如何实现 nginx 代理和 httpnginx 下载不用多说,首先在&#x2F;etc&#x2F;nginx&#x2F;conf.d&#x2F;ai.jackasher.com.conf新建你的配置文件 123456789101112131415161718192021222324252627282930313233343536373839404142434445server &#123;    listen 80;    serve">
+  <meta name="description" content="Time: 2025-03-18 星期二 16:33:57 如何实现 nginx 代理和 httpnginx 下载不用多说,首先在&#x2F;etc&#x2F;nginx&#x2F;conf.d&#x2F;ai.jackasher.com.conf新建你的配置文件 123456789101112131415161718192021222324252627282930313233343536373839404142434445server">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Jackasher">
+<meta property="og:title" content="如何实现 nginx 代理和 http">
 <meta property="og:url" content="http://example.com/2025/03/18/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%20nginx%20%E4%BB%A3%E7%90%86%E5%92%8C%20http/index.html">
 <meta property="og:site_name" content="Jackasher">
-<meta property="og:description" content="如何实现 nginx 代理和 httpnginx 下载不用多说,首先在&#x2F;etc&#x2F;nginx&#x2F;conf.d&#x2F;ai.jackasher.com.conf新建你的配置文件 123456789101112131415161718192021222324252627282930313233343536373839404142434445server &#123;    listen 80;    serve">
+<meta property="og:description" content="Time: 2025-03-18 星期二 16:33:57 如何实现 nginx 代理和 httpnginx 下载不用多说,首先在&#x2F;etc&#x2F;nginx&#x2F;conf.d&#x2F;ai.jackasher.com.conf新建你的配置文件 123456789101112131415161718192021222324252627282930313233343536373839404142434445server">
 <meta property="og:locale">
-<meta property="article:published_time" content="2025-03-18T07:54:33.058Z">
-<meta property="article:modified_time" content="2025-03-18T08:15:24.692Z">
+<meta property="article:published_time" content="2025-03-18T08:33:58.206Z">
+<meta property="article:modified_time" content="2025-03-18T08:33:58.211Z">
 <meta property="article:author" content="Jack Asher">
 <meta property="article:tag" content="Blog">
 <meta name="twitter:card" content="summary">
@@ -150,9 +150,25 @@
             <article id="post-如何实现 nginx 代理和 http" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      如何实现 nginx 代理和 http
+    </h1>
+  
+
+        
+        <a href="/2025/03/18/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%20nginx%20%E4%BB%A3%E7%90%86%E5%92%8C%20http/" class="archive-article-date">
+  	<time datetime="2025-03-18T08:33:58.206Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-03-18</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="如何实现-nginx-代理和-http"><a href="#如何实现-nginx-代理和-http" class="headerlink" title="如何实现 nginx 代理和 http"></a>如何实现 nginx 代理和 http</h1><p>nginx 下载不用多说,首先在<code>/etc/nginx/conf.d/ai.jackasher.com.conf</code>新建你的配置文件</p>
+        <p>Time: 2025-03-18 星期二 16:33:57</p>
+<h1 id="如何实现-nginx-代理和-http"><a href="#如何实现-nginx-代理和-http" class="headerlink" title="如何实现 nginx 代理和 http"></a>如何实现 nginx 代理和 http</h1><p>nginx 下载不用多说,首先在<code>/etc/nginx/conf.d/ai.jackasher.com.conf</code>新建你的配置文件</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name ai.jackasher.com;</span><br><span class="line">        </span><br><span class="line">    </span><br><span class="line">    location ^~ /.well-known/acme-challenge/ &#123;</span><br><span class="line">            default_type <span class="string">&quot;text/plain&quot;</span>;</span><br><span class="line">            root     /usr/share/nginx/html/; <span class="comment">#这里需要与后文 --webroot -w 后面配置的路径一致</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass http://127.0.0.1:3000;  <span class="comment"># 将请求转发到3000端口</span></span><br><span class="line">        proxy_set_header Host <span class="variable">$host</span>;</span><br><span class="line">        proxy_set_header X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">        proxy_set_header X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">        proxy_set_header X-Forwarded-Proto <span class="variable">$scheme</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen 443 ssl;</span><br><span class="line">    server_name ai.jackasher.com;</span><br><span class="line"></span><br><span class="line">    ssl_certificate /etc/letsencrypt/live/ai.jackasher.com/fullchain.pem;</span><br><span class="line">    ssl_certificate_key /etc/letsencrypt/live/ai.jackasher.com/privkey.pem;</span><br><span class="line">    ssl_trusted_certificate /etc/letsencrypt/live/ai.jackasher.com/chain.pem;</span><br><span class="line">    ssl_protocols TLSv1.2 TLSv1.3;</span><br><span class="line">    ssl_ciphers <span class="string">&#x27;TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384&#x27;</span>;</span><br><span class="line">    ssl_prefer_server_ciphers on;</span><br><span class="line"></span><br><span class="line">    location ^~ /.well-known/acme-challenge/ &#123;</span><br><span class="line">        default_type <span class="string">&quot;text/plain&quot;</span>;</span><br><span class="line">        root /usr/share/nginx/html/;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass http://127.0.0.1:3000;</span><br><span class="line">        proxy_set_header Host <span class="variable">$host</span>;</span><br><span class="line">        proxy_set_header X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">        proxy_set_header X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">        proxy_set_header X-Forwarded-Proto <span class="variable">$scheme</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>准备好证书生成工具</p>
@@ -175,7 +191,6 @@
 
 <p>nginx 设置</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name ai.jackasher.com;</span><br><span class="line">        </span><br><span class="line">    </span><br><span class="line">    location ^~ /.well-known/acme-challenge/ &#123;</span><br><span class="line">            default_type <span class="string">&quot;text/plain&quot;</span>;</span><br><span class="line">            root     /usr/share/nginx/html/; <span class="comment">#这里需要与后文 --webroot -w 后面配置的路径一致</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_buffering off;</span><br><span class="line">        proxy_cache off;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        proxy_pass http://127.0.0.1:3000;  <span class="comment"># 将请求转发到3000端口</span></span><br><span class="line">        proxy_set_header Host <span class="variable">$host</span>;</span><br><span class="line">        proxy_set_header X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">        proxy_set_header X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">        proxy_set_header X-Forwarded-Proto <span class="variable">$scheme</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen 443 ssl;</span><br><span class="line">    server_name ai.jackasher.com;</span><br><span class="line"></span><br><span class="line">    ssl_certificate /etc/letsencrypt/live/ai.jackasher.com/fullchain.pem;</span><br><span class="line">    ssl_certificate_key /etc/letsencrypt/live/ai.jackasher.com/privkey.pem;</span><br><span class="line">    ssl_trusted_certificate /etc/letsencrypt/live/ai.jackasher.com/chain.pem;</span><br><span class="line">    ssl_protocols TLSv1.2 TLSv1.3;</span><br><span class="line">    ssl_ciphers <span class="string">&#x27;TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384&#x27;</span>;</span><br><span class="line">    ssl_prefer_server_ciphers on;</span><br><span class="line"></span><br><span class="line">    location ^~ /.well-known/acme-challenge/ &#123;</span><br><span class="line">        default_type <span class="string">&quot;text/plain&quot;</span>;</span><br><span class="line">        root /usr/share/nginx/html/;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line"></span><br><span class="line">        proxy_pass http://127.0.0.1:3000;</span><br><span class="line">        proxy_set_header Host <span class="variable">$host</span>;</span><br><span class="line">        proxy_set_header X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">        proxy_set_header X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">        proxy_set_header X-Forwarded-Proto <span class="variable">$scheme</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
 
       
 
@@ -217,6 +232,17 @@
 	</div>
 
       
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jack//" class="article-tag-list-link color5">Jack</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
 
       
 
@@ -284,14 +310,14 @@
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          (no title)
+          面试准备-面试问题
         
       </div>
     </a>
   
   
-    <a href="/2025/03/18/Mysql%20%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title"></div>
+    <a href="/2025/03/18/%E6%B5%8B%E8%AF%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">测试</div>
       <i class="icon-circle-right"></i>
     </a>
   
