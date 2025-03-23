@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>Mysql 安装教程 | Jackasher</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Time: 2025-03-18 Thursday 23:56:01 Mysql 安装教程首先在官网下载 rpm包 1sudo rpm -Uvh https:&#x2F;&#x2F;dev.mysql.com&#x2F;get&#x2F;mysql80-community-release-el7-11.noarch.rpm  然后 yum 下载 1sudo yum install mysql-community-server -y  临">
+  <meta name="description" content="Time: 2025-03-18 Thursday 23:56:01 服务器各环境安装教程MySQL首先在官网下载 rpm包 1sudo rpm -Uvh https:&#x2F;&#x2F;dev.mysql.com&#x2F;get&#x2F;mysql80-community-release-el7-11.noarch.rpm  然后 yum 下载 1sudo yum install mysql-community-server">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mysql 安装教程">
-<meta property="og:url" content="http://example.com/2025/03/18/Mysql%20%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/index.html">
+<meta property="og:url" content="http://example.com/2025/03/18/Linux%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/index.html">
 <meta property="og:site_name" content="Jackasher">
-<meta property="og:description" content="Time: 2025-03-18 Thursday 23:56:01 Mysql 安装教程首先在官网下载 rpm包 1sudo rpm -Uvh https:&#x2F;&#x2F;dev.mysql.com&#x2F;get&#x2F;mysql80-community-release-el7-11.noarch.rpm  然后 yum 下载 1sudo yum install mysql-community-server -y  临">
+<meta property="og:description" content="Time: 2025-03-18 Thursday 23:56:01 服务器各环境安装教程MySQL首先在官网下载 rpm包 1sudo rpm -Uvh https:&#x2F;&#x2F;dev.mysql.com&#x2F;get&#x2F;mysql80-community-release-el7-11.noarch.rpm  然后 yum 下载 1sudo yum install mysql-community-server">
 <meta property="og:locale">
 <meta property="article:published_time" content="2025-03-18T07:54:32.664Z">
-<meta property="article:modified_time" content="2025-03-18T08:24:37.712Z">
+<meta property="article:modified_time" content="2025-03-23T08:18:28.528Z">
 <meta property="article:author" content="Jack Asher">
 <meta property="article:tag" content="Blog">
 <meta name="twitter:card" content="summary">
@@ -147,7 +147,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Mysql 安装教程" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Linux环境安装教程" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -166,7 +166,7 @@
 	</span>
 
 
-<a href="/2025/03/18/Mysql%20%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/" class="archive-article-date">
+<a href="/2025/03/18/Linux%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/" class="archive-article-date">
   	<time datetime="2025-03-18T07:54:32.664Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-03-18</time>
 </a>
         
@@ -175,7 +175,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>Time: 2025-03-18 Thursday 23:56:01</p>
-<h1 id="Mysql-安装教程"><a href="#Mysql-安装教程" class="headerlink" title="Mysql 安装教程"></a>Mysql 安装教程</h1><p>首先在官网下载 rpm包</p>
+<h1 id="服务器各环境安装教程"><a href="#服务器各环境安装教程" class="headerlink" title="服务器各环境安装教程"></a>服务器各环境安装教程</h1><h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><p>首先在官网下载 rpm包</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo rpm -Uvh https://dev.mysql.com/get/mysql80-community-release-el7-11.noarch.rpm</span><br></pre></td></tr></table></figure>
 
 <p>然后 yum 下载</p>
@@ -197,6 +197,18 @@
 
 
 <h1 id="安装-JDK"><a href="#安装-JDK" class="headerlink" title="安装 JDK"></a>安装 JDK</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget https://download.oracle.com/java/17/archive/jdk-17.0.12_linux-x64_bin.rpm</span><br><span class="line"></span><br><span class="line">sudo rpm -ivh jdk-17.0.12_linux-x64_bin.rpm</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="SSH免密码"><a href="#SSH免密码" class="headerlink" title="SSH免密码"></a>SSH免密码</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 4096</span><br><span class="line">ssh-copy-id your_username@your_server_ip</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">sudo dnf remove docker \</span><br><span class="line">                  docker-client \</span><br><span class="line">                  docker-client-latest \</span><br><span class="line">                  docker-common \</span><br><span class="line">                  docker-latest \</span><br><span class="line">                  docker-latest-logrotate \</span><br><span class="line">                  docker-logrotate \</span><br><span class="line">                  docker-engine</span><br><span class="line">                  </span><br><span class="line">sudo dnf -y install dnf-plugins-core</span><br><span class="line">sudo dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line">sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="yum源"><a href="#yum源" class="headerlink" title="yum源"></a>yum源</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">1.备份现有的yum源配置 </span><br><span class="line"></span><br><span class="line">sudo <span class="built_in">cp</span> /etc/yum.repos.d /etc/yum.repos.d.backup -r</span><br><span class="line"></span><br><span class="line">2.下载阿里云的yum源配置文件</span><br><span class="line"></span><br><span class="line">sudo curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-vault-9.repo</span><br><span class="line"></span><br><span class="line">3.清理yum源缓存，生成新的</span><br><span class="line"></span><br><span class="line">sudo yum clean all</span><br><span class="line"></span><br><span class="line">sudo yum makecache</span><br><span class="line"></span><br><span class="line">4.验证配置是否正确</span><br><span class="line"></span><br><span class="line">sudo yum repolist</span><br><span class="line"></span><br><span class="line">验证正确，</span><br></pre></td></tr></table></figure>
+
+<h3 id="docker镜像解决方案"><a href="#docker镜像解决方案" class="headerlink" title="docker镜像解决方案"></a>docker镜像解决方案</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">mkdir</span> -p /etc/docker</span><br><span class="line">sudo <span class="built_in">tee</span> /etc/docker/daemon.json &lt;&lt;-<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;registry-mirrors&quot;</span>: [</span><br><span class="line">        <span class="string">&quot;https://do.nark.eu.org&quot;</span>,</span><br><span class="line">        <span class="string">&quot;https://dc.j8.work&quot;</span>,</span><br><span class="line">        <span class="string">&quot;https://docker.m.daocloud.io&quot;</span>,</span><br><span class="line">        <span class="string">&quot;https://dockerproxy.com&quot;</span>,</span><br><span class="line">        <span class="string">&quot;https://docker.mirrors.ustc.edu.cn&quot;</span>,</span><br><span class="line">        <span class="string">&quot;https://docker.nju.edu.cn&quot;</span></span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl restart docker</span><br><span class="line">————————————————</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+
+<h3 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo firewall-cmd --permanent --add-port=80/tcp</span><br><span class="line">sudo firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+
+<h3 id="redis下载"><a href="#redis下载" class="headerlink" title="redis下载"></a>redis下载</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install redis</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> redis</span><br><span class="line">sudo systemctl start redis</span><br></pre></td></tr></table></figure>
 
 
       
@@ -299,7 +311,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2025/03/18/Mysql%20%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2025/03/18/Linux%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -351,7 +363,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Mysql-%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">Mysql 安装教程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Node"><span class="toc-number">2.</span> <span class="toc-text">安装 Node</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-JDK"><span class="toc-number">3.</span> <span class="toc-text">安装 JDK</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%90%84%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">服务器各环境安装教程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL"><span class="toc-number">1.1.</span> <span class="toc-text">MySQL</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Node"><span class="toc-number">2.</span> <span class="toc-text">安装 Node</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-JDK"><span class="toc-number">3.</span> <span class="toc-text">安装 JDK</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SSH%E5%85%8D%E5%AF%86%E7%A0%81"><span class="toc-number">3.1.</span> <span class="toc-text">SSH免密码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85docker"><span class="toc-number">3.1.1.</span> <span class="toc-text">安装docker</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#yum%E6%BA%90"><span class="toc-number">3.1.2.</span> <span class="toc-text">yum源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#docker%E9%95%9C%E5%83%8F%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-number">3.1.3.</span> <span class="toc-text">docker镜像解决方案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%B2%E7%81%AB%E5%A2%99"><span class="toc-number">3.1.4.</span> <span class="toc-text">防火墙</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#redis%E4%B8%8B%E8%BD%BD"><span class="toc-number">3.1.5.</span> <span class="toc-text">redis下载</span></a></li></ol></li></ol></li></ol>
                     </div>
                 </span>
             </div>
